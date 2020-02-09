@@ -31,3 +31,7 @@ Nuestra aplicación le dará una sensación de seguridad a los dos usuarios con 
 
 ## Caso de uso
 ![](resources/Casos_de_uso.png)
+
+## Estado del proyecto
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e193b7b32c3342ccadb0c7f681896b06)](https://www.codacy.com/gh/ARSW-2020-1-UNIWheels/UNIWheels?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ARSW-2020-1-UNIWheels/UNIWheels&amp;utm_campaign=Badge_Grade)
+[![CircleCI](https://circleci.com/gh/ARSW-2020-1-UNIWheels/UNIWheels.svg?style=svg)](https://circleci.com/gh/ARSW-2020-1-UNIWheels/UNIWheels)
