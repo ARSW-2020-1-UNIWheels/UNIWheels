@@ -31,6 +31,11 @@ Nuestra aplicación le dará una sensación de seguridad a los dos usuarios con 
 
 ![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Diagrama%20de%20Clases.PNG)
 
+## Mockups
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/ARSW1.PNG)
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/ARSW2.PNG)
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/ARSW3.PNG)
+
 ## Historias de usuario
 + COMO Conductor QUIERO poder prestar un servicio de transporte a mi universidad PARA PODER generar unas ganancias extras y así pagar el parqueadero.
 + COMO pasajero QUIERO utilizar una aplicación de movilidad PARA PODER llegar a mi universidad de manera segura.
