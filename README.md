@@ -23,6 +23,13 @@ Cuando el PASAJERO se sube al carro, el CONDUCTOR debe registrarlo en la aplicac
 
 Nuestra aplicación le dará una sensación de seguridad a los dos usuarios con respecto a los demás transportes ya que solo esta tratando con individuos pertenecientes a la comunidad universitaria también una forma fácil y cómoda de transportarse a la universidad y de poder obtener dinero extra.	
  
+## Modelo Entidad - Relación
+
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Diagrama%20Entidad-relacion.PNG)
+
+## Diagrama de Clases
+
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Diagrama%20de%20Clases.PNG)
 
 ## Historias de usuario
 + COMO Conductor QUIERO poder prestar un servicio de transporte a mi universidad PARA PODER generar unas ganancias extras y así pagar el parqueadero.
