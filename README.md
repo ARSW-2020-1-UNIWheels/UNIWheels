@@ -1,5 +1,7 @@
 # UNI-WHEELS
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/214cd0d8fedd48b4b1b24ed43b65218e)](https://app.codacy.com/gh/ARSW-2020-1-UNIWheels/UNIWheels?utm_source=github.com&utm_medium=referral&utm_content=ARSW-2020-1-UNIWheels/UNIWheels&utm_campaign=Badge_Grade_Dashboard)
+
 
 ## Estudiantes:
 + Carlos Manuel Murillo Ibañez
