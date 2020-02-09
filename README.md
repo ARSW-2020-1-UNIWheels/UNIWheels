@@ -32,7 +32,7 @@ Nuestra aplicación le dará una sensación de seguridad a los dos usuarios con 
 ![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Diagrama%20de%20Clases.PNG)
 
 ## Mockups
-![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/ARSW0.jpg)
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/ARSW0.PNG)
 ![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/ARSW1.jpg)
 ![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/ARSW2.jpg)
 ![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/ARSW3.jpg)
