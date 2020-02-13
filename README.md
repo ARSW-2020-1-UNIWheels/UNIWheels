@@ -31,7 +31,7 @@ Nuestra aplicación le dará una sensación de seguridad a los dos usuarios con 
 ![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Diagrama%20de%20Clases.PNG)
 
 ## Mockups
-![Aplicación en NinjaMock](https://ninjamock.com/s/49239Fx)
+[Aplicación en NinjaMock](https://ninjamock.com/s/49239Fx)
 
 
 ## Historias de usuario
