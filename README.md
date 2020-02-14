@@ -28,7 +28,26 @@ Nuestra aplicación le dará una sensación de seguridad a los dos usuarios con 
 
 ## Diagrama de Clases
 
-![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Diagrama%20de%20Clases.PNG)
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Diagrama%20de%20clases.PNG)
+
+
+## Caso de uso
+
+### Usuario
+
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Casos%20de%20Uso-usuario.PNG)
+
+### Administrador
+
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Casos%20de%20Uso-administrador.PNG)
+
+### Conductor
+
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Casos%20de%20Uso-conductor.PNG)
+
+### Pasajero
+
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Casos%20de%20Uso-pasajero.PNG)
 
 ## Mockups
 [Aplicación en NinjaMock](https://ninjamock.com/s/49239Fx)
@@ -39,8 +58,6 @@ Nuestra aplicación le dará una sensación de seguridad a los dos usuarios con 
 + COMO pasajero QUIERO utilizar una aplicación de movilidad PARA PODER llegar a mi universidad de manera segura.
 + COMO usuario QUIERO poder contactar con otro estudiante de mi institución PARA PODER conocer personas nuevas así recibiendo un servicio de transporte.
 
-## Caso de uso
-![](resources/Casos_de_uso.png)
 
 ## Estado del proyecto
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e193b7b32c3342ccadb0c7f681896b06)](https://www.codacy.com/gh/ARSW-2020-1-UNIWheels/UNIWheels?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ARSW-2020-1-UNIWheels/UNIWheels&amp;utm_campaign=Badge_Grade)
