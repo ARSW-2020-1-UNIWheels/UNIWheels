@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blueprints</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+
+    <script src="/webjars/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script src="js/apimock.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/apiclient.js"></script>
+
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/4.1.2/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Blueprints</h1>
+        </div>
+        <div class="row">
+            <form id="GetBlueprints">
+                <label for="nombre">
+                    Author
+                </label>
+                <input type="text" id="nombre">
+                <button type="button" class="btn btn-success" onclick="hallarAutor.realizarBusqueda(nombre.value)">
+                    Get Blueprints
+                </button>
+            </form>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <h2 id="textoNombre">Author´s Blueprints:</h2><br>
+                <table class="table table-bordered">
+                    <thread>
+                        <tr>
+                            <th scope="col">Blueprint Name</th>
+                            <th scope="col">Number of Points</th>
+                            <th scope="col">Open</th>
+                        </tr>
+                    </thread>
+                    <tbody id ="filasBlueprints"></tbody>
+                </table>
+                <h2 id="sumaTotal">Total user points: 0</h2>
+            </div>
+            <div class="col">
+                <h3 id="textoCanvas">Current Blueprint: None</h3>
+                <canvas id="myCanvas" width="500" height="500" style="border:2px solid #000000;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!--Fragmento de código tomado de https://www.jose-aguilar.com/blog/deshabilitar-tecla-enter-de-los-formularios/-->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("form").keypress(function(e) {
+                if (e.which == 13) {
+                    return false;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
