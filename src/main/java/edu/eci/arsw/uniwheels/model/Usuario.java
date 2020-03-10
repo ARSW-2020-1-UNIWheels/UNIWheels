@@ -1,10 +1,19 @@
 package edu.eci.arsw.uniwheels.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Usuario {
+    @Id
     public int userId;
     public String username,password,email;
 
+    public Usuario(){
+
+    }
     public Usuario(String username,String password,String email){
+
         this.username = username;
         this.password = password;
         this.email = email;
