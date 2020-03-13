@@ -1,13 +1,22 @@
 package edu.eci.arsw.uniwheels.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "usuario")
 public class Usuario {
     @Id
+    @Column(name = "user_id")
     public int userId;
-    public String username,password,email;
+    @Column(name="username")
+    public String username;
+    @Column(name="password")
+    public String password;
+    @Column(name="email")
+    public String email;
 
     public Usuario(){
 

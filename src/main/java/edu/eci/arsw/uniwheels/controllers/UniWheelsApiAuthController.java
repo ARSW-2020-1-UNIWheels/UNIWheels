@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class UniWheelsApiAuthController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepository = null;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder = null;
 
