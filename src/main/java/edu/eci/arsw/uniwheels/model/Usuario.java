@@ -1,9 +1,13 @@
 package edu.eci.arsw.uniwheels.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Collection;
 
 @Entity
 @Table(name = "usuario")
@@ -21,8 +25,8 @@ public class Usuario {
     public Usuario(){
 
     }
-    public Usuario(String username,String password,String email){
-
+    public Usuario(String username,String password,String email, int userId){
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -32,9 +36,6 @@ public class Usuario {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;

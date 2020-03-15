@@ -18,9 +18,6 @@ public class UniWheelsServices {
         uwp.saveUser(usr);
     }
 
-    public Usuario getUser(String name) throws UniWheelsPersistenceException{
-        return uwp.getUser(name);
-    }
 
     public List<Usuario> getAllUsers() throws UniWheelsPersistenceException{
         return uwp.getAllUsers();
