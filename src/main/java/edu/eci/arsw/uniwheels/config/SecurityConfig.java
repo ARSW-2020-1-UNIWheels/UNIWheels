@@ -37,12 +37,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider()).userDetailsService(userDetailsService()).passwordEncoder(encodePassword());
+
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable();
         http.authorizeRequests().antMatchers("/uniwheels/**").authenticated().anyRequest()
                 .permitAll().and().formLogin().usernameParameter("username").passwordParameter("password").permitAll();
+        //http.formLogin();
+        //http.loginPage("/login").permitedAll();
+
 
     }
 
