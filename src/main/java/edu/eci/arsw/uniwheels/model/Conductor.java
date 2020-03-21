@@ -74,4 +74,5 @@ public class Conductor {
     public void setCalificacion(Calificacion calificacion) {
         this.calificacion = calificacion;
     }
+
 }

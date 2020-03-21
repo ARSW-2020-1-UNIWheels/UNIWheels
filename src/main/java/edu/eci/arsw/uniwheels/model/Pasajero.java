@@ -40,4 +40,20 @@ public class Pasajero {
     public void setTiempoRecorrido(Time tiempoRecorrido) {
         this.tiempoRecorrido = tiempoRecorrido;
     }
+
+    public Calificacion getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(Calificacion calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public Ruta getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(Ruta ruta) {
+        this.ruta = ruta;
+    }
 }
