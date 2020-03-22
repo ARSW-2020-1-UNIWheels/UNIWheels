@@ -7,7 +7,7 @@ import java.util.List;
 @Table(name = "usuario")
 public class Usuario {
     @Id
-    @Column(name = "user_id")
+    @Column(name="id")
     public int userId;
     @Column(name="username")
     public String username;
@@ -15,8 +15,11 @@ public class Usuario {
     public String password;
     @Column(name="email")
     public String email;
+    @Column(name="rol")
     public String rol;
+    @Column(name="universidad")
     public String universidad;
+    @Column(name ="direccionResidencia")
     public String direccionResidencia;
     @OneToMany
     public List<Carro> carros;
