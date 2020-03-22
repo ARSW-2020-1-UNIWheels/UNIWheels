@@ -43,7 +43,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable();
         http.authorizeRequests().antMatchers("/uniwheels/**").authenticated().anyRequest().permitAll()
-                .and().formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").permitAll();
+                .and().formLogin().failureUrl("/inicio.html?error").loginProcessingUrl("/login").loginPage("/inicio.html").usernameParameter("username").passwordParameter("password").permitAll()
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .and()
+                .csrf()
+                .disable()
+                .sessionManagement()
+                .maximumSessions(1000)
+                .expiredUrl("/logout?expired");
         //http.formLogin();
         //http.loginPage("/login").permitedAll();
 

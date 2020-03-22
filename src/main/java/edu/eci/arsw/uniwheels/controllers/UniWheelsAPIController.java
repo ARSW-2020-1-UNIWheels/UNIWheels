@@ -19,7 +19,7 @@ public class UniWheelsAPIController extends BaseController {
     UniWheelsServices uws = null;
 
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping()
     public ResponseEntity<?> prueba(){
         return new ResponseEntity<>(HttpStatus.OK);
     }
