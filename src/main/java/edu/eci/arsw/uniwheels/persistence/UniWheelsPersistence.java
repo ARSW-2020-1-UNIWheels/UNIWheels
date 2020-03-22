@@ -16,4 +16,5 @@ public interface UniWheelsPersistence {
     public void savePasajeros(Conductor conductor, Pasajero pasajero) throws UniWheelsPersistenceException;
     public List<Conductor> getConductoresDisponibles() throws UniWheelsPersistenceException;
     public void saveConductorDisponible(Conductor conductor) throws UniWheelsPersistenceException;
+    public void updateDatabase();
 }

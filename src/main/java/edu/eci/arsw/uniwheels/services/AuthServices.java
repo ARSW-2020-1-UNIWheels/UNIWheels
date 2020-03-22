@@ -21,7 +21,7 @@ public class AuthServices implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
+    public DetallesUsuario loadUserByUsername(String username) {
         Usuario usuario = null;
         try {
             usuario = uwp.getUser(username);

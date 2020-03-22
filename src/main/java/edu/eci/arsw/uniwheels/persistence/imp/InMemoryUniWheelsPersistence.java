@@ -35,6 +35,11 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     }
 
     @Override
+    public void updateDatabase(){
+        userRepository.flush();
+    }
+
+    @Override
     public Usuario getUser(String name) throws UsernameNotFoundException {
         List<Usuario> usuarios = userRepository.findAll();
         Usuario usuario = null;

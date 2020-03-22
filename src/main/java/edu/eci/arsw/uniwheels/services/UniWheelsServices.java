@@ -35,6 +35,7 @@ public class UniWheelsServices {
 
     public void saveConductorDisponible(Conductor conductor) throws UniWheelsPersistenceException{
         uwp.saveConductorDisponible(conductor);
+        uwp.updateDatabase();
     }
 
 }

@@ -5,6 +5,7 @@ import edu.eci.arsw.uniwheels.model.Conductor;
 import edu.eci.arsw.uniwheels.model.Pasajero;
 import edu.eci.arsw.uniwheels.model.Usuario;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
+import edu.eci.arsw.uniwheels.services.AuthServices;
 import edu.eci.arsw.uniwheels.services.UniWheelsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,9 @@ import java.util.logging.Logger;
 public class UniWheelsAPIController extends BaseController {
     @Autowired
     UniWheelsServices uws = null;
+
+    @Autowired
+    AuthServices authServices;
 
     @RequestMapping(value="/addPasajero/{conductor}/{pasajero}" ,method =  RequestMethod.POST)
     public ResponseEntity<?> addPasajero(@PathVariable ("conductor") Conductor conductor, @PathVariable ("pasajero") Pasajero pasajero){
@@ -41,9 +45,10 @@ public class UniWheelsAPIController extends BaseController {
         }
     }
 
-    @RequestMapping(value="/addConducDispo", method =  RequestMethod.POST)
-    public ResponseEntity<?> addConductorDisponible(@RequestBody Conductor conductor){
+    @RequestMapping(value="/addConducDispo/{username}", method =  RequestMethod.POST)
+    public ResponseEntity<?> addConductorDisponible(@RequestBody Conductor conductor,@PathVariable String username){
         try {
+            authServices.loadUserByUsername(username).getUsuario().viajesRealizados.add(conductor);
             uws.saveConductorDisponible(conductor);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (UniWheelsPersistenceException ex) {

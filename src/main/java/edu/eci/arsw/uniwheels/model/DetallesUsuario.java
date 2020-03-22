@@ -15,6 +15,9 @@ public class DetallesUsuario implements UserDetails {
         return null;
     }
 
+    public Usuario getUsuario(){
+        return usuario;
+    }
     @Override
     public String getPassword() {
         return usuario.password;
