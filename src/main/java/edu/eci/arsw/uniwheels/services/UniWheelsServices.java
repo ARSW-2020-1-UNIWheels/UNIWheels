@@ -1,5 +1,7 @@
 package edu.eci.arsw.uniwheels.services;
 
+import edu.eci.arsw.uniwheels.model.Conductor;
+import edu.eci.arsw.uniwheels.model.Pasajero;
 import edu.eci.arsw.uniwheels.model.Usuario;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistence;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
@@ -22,4 +24,17 @@ public class UniWheelsServices {
     public List<Usuario> getAllUsers() throws UniWheelsPersistenceException{
         return uwp.getAllUsers();
     }
+
+    public void addPasajero(Conductor conductor, Pasajero pasajero) throws UniWheelsPersistenceException{
+        uwp.savePasajeros(conductor,pasajero);
+    }
+
+    public List<Conductor> getConductoresDisponibles() throws UniWheelsPersistenceException {
+        return uwp.getConductoresDisponibles();
+    }
+
+    public void saveConductorDisponible(Conductor conductor) throws UniWheelsPersistenceException{
+        uwp.saveConductorDisponible(conductor);
+    }
+
 }

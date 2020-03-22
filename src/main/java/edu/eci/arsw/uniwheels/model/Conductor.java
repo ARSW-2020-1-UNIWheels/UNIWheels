@@ -9,7 +9,7 @@ import java.util.List;
 public class Conductor {
     @Id
     public int id;
-    public Time tiempoRecorrido;
+    public int tiempoRecorrido;
     @OneToOne
     public Carro carro;
     @OneToMany
@@ -18,11 +18,12 @@ public class Conductor {
     public Ruta ruta;
     @OneToOne
     public Calificacion calificacion;
+    public String nombreEstado;
 
     public Conductor(){
 
     }
-    public Conductor(int id,Time tiempoRecorrido){
+    public Conductor(int id,int tiempoRecorrido){
         this.id = id;
         this.tiempoRecorrido = tiempoRecorrido;
     }
@@ -35,11 +36,11 @@ public class Conductor {
         this.id = id;
     }
 
-    public Time getTiempoRecorrido() {
+    public int getTiempoRecorrido() {
         return tiempoRecorrido;
     }
 
-    public void setTiempoRecorrido(Time tiempoRecorrido) {
+    public void setTiempoRecorrido(int tiempoRecorrido) {
         this.tiempoRecorrido = tiempoRecorrido;
     }
 
@@ -73,6 +74,18 @@ public class Conductor {
 
     public void setCalificacion(Calificacion calificacion) {
         this.calificacion = calificacion;
+    }
+
+    public String getNombreEstado() {
+        return nombreEstado;
+    }
+
+    public void setNombreEstado(String nombreEstado) {
+        this.nombreEstado = nombreEstado;
+    }
+
+    public void addPasajero(Pasajero pasajero){
+        this.pasajeros.add(pasajero);
     }
 
 }
