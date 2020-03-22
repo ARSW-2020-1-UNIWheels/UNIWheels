@@ -13,16 +13,18 @@ public class Ruta {
     public String direccionOrigen;
     public String direccionDestino;
     public Time tiempoEstimado;
+    public int precio;
 
     public Ruta(){
 
     }
 
-    public Ruta(int id,String direccionDestino, String direccionOrigen,Time tiempoEstimado){
+    public Ruta(int id,String direccionDestino, String direccionOrigen,Time tiempoEstimado, int precio){
         this.id = id;
         this.direccionDestino = direccionDestino;
         this.direccionOrigen = direccionOrigen;
         this.tiempoEstimado = tiempoEstimado;
+        this.precio = precio;
     }
 
     public String getDireccionOrigen() {
@@ -55,5 +57,13 @@ public class Ruta {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
     }
 }
