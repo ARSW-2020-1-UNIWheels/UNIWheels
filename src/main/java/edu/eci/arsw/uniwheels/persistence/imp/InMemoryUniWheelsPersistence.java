@@ -6,8 +6,10 @@ import edu.eci.arsw.uniwheels.model.Usuario;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistence;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
 import edu.eci.arsw.uniwheels.repository.ConductorRepository;
+import edu.eci.arsw.uniwheels.repository.PasajeroRepository;
 import edu.eci.arsw.uniwheels.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     @Autowired
     private ConductorRepository conductorRepository;
 
+    @Autowired
+    private PasajeroRepository pasajeroRepository;
+
     @Override
     public void saveUser(Usuario usuario) throws UniWheelsPersistenceException {
         String pwd = usuario.getPassword();
@@ -37,6 +42,15 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     @Override
     public void updateDatabase(){
         userRepository.flush();
+        pasajeroRepository.flush();
+        conductorRepository.flush();
+    }
+
+    @Override
+    public void agregarPasajeroALaRuta(Pasajero pasajero, Conductor conductor) {
+        pasajero.conductor=conductor;
+        pasajeroRepository.save(pasajero);
+        conductor.posiblesPasajeros.add(pasajero);
     }
 
     @Override
@@ -60,8 +74,9 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     }
 
     @Override
-    public void savePasajeros(Conductor conductor, Pasajero pasajero) throws UniWheelsPersistenceException{
-        conductor.addPasajero(pasajero);
+    public void savePasajeros(Pasajero pasajero) throws UniWheelsPersistenceException{
+        pasajeroRepository.save(pasajero);
+
     }
 
     @Override
@@ -80,4 +95,5 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     public void saveConductorDisponible(Conductor conductor) throws UniWheelsPersistenceException{
         conductorRepository.save(conductor);
     }
+
 }

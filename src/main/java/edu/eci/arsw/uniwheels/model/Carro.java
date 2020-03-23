@@ -1,13 +1,12 @@
 package edu.eci.arsw.uniwheels.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="carro")
 public class Carro {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String placa;
     private String marca;
@@ -17,8 +16,7 @@ public class Carro {
     public Carro(){
 
     }
-    public Carro(int id, String placa, String marca, String modelo){
-        this.id = id;
+    public Carro( String placa, String marca, String modelo){
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;

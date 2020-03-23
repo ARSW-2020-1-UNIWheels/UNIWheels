@@ -7,6 +7,7 @@ import java.util.List;
 @Table(name = "usuario")
 public class Usuario {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
     public int userId;
     @Column(name="username")
@@ -35,8 +36,7 @@ public class Usuario {
     public Usuario(){
 
     }
-    public Usuario(String username,String password,String email, int userId, String rol, String universidad, String direccionResidencia){
-        this.userId = userId;
+    public Usuario(String username,String password,String email, String rol, String universidad, String direccionResidencia){
         this.username = username;
         this.password = password;
         this.email = email;

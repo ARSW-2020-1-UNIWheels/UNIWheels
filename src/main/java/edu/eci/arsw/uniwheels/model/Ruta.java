@@ -1,14 +1,13 @@
 package edu.eci.arsw.uniwheels.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Time;
 
 @Entity
 @Table(name="ruta")
 public class Ruta {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
     public String direccionOrigen;
     public String direccionDestino;
@@ -19,8 +18,7 @@ public class Ruta {
 
     }
 
-    public Ruta(int id,String direccionDestino, String direccionOrigen,Time tiempoEstimado, int precio){
-        this.id = id;
+    public Ruta(String direccionDestino, String direccionOrigen,Time tiempoEstimado, int precio){
         this.direccionDestino = direccionDestino;
         this.direccionOrigen = direccionOrigen;
         this.tiempoEstimado = tiempoEstimado;

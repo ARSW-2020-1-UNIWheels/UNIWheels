@@ -24,16 +24,6 @@ public class UniWheelsAPIController extends BaseController {
     @Autowired
     AuthServices authServices;
 
-    @RequestMapping(value="/addPasajero/{conductor}/{pasajero}" ,method =  RequestMethod.POST)
-    public ResponseEntity<?> addPasajero(@PathVariable ("conductor") Conductor conductor, @PathVariable ("pasajero") Pasajero pasajero){
-        try {
-            uws.addPasajero(conductor,pasajero);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (UniWheelsPersistenceException e) {
-            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.FORBIDDEN);
-        }
-    }
 
     @RequestMapping(value="/getConducDispo", method =  RequestMethod.GET)
     public ResponseEntity<?> getConductoresDisponibles(){
@@ -57,9 +47,18 @@ public class UniWheelsAPIController extends BaseController {
         }
     }
 
-    @GetMapping()
-    public ResponseEntity<?> prueba(){
-        return new ResponseEntity<>(HttpStatus.OK);
+    @RequestMapping(value="/addPassanger/{conductor}/{pasajero}", method=RequestMethod.POST)
+    public ResponseEntity<?> añadirPasajeroALaRuta(@PathVariable String conductor,@PathVariable String pasajero){
+        try {
+            Usuario pasajeroUser = authServices.loadUserByUsername(pasajero).getUsuario();
+            Usuario conductorUser = authServices.loadUserByUsername(conductor).getUsuario();
+            uws.agregarPosiblePasajero(pasajeroUser, conductorUser);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (UniWheelsPersistenceException ex){
+            System.out.println(ex.getMessage());
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);
+        }
     }
 
 

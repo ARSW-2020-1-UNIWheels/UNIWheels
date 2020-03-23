@@ -8,6 +8,7 @@ import java.util.List;
 @Table(name="conductor")
 public class Conductor {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
     public int tiempoRecorrido;
     @OneToOne
@@ -19,12 +20,13 @@ public class Conductor {
     @OneToOne
     public Calificacion calificacion;
     public String nombreEstado;
+    @OneToMany
+    public List<Pasajero> posiblesPasajeros;
 
     public Conductor(){
 
     }
-    public Conductor(int id,int tiempoRecorrido){
-        this.id = id;
+    public Conductor(int tiempoRecorrido){
         this.tiempoRecorrido = tiempoRecorrido;
     }
 
@@ -88,4 +90,11 @@ public class Conductor {
         this.pasajeros.add(pasajero);
     }
 
+    public List<Pasajero> getPosiblesPasajeros() {
+        return posiblesPasajeros;
+    }
+
+    public void setPosiblesPasajeros(List<Pasajero> posiblesPasajeros) {
+        this.posiblesPasajeros = posiblesPasajeros;
+    }
 }
