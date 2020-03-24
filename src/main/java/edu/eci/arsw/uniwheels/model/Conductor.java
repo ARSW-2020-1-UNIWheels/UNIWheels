@@ -22,7 +22,8 @@ public class Conductor {
     public String nombreEstado;
     @OneToMany
     public List<Pasajero> posiblesPasajeros;
-
+    @OneToOne
+    public Usuario usuario;
     public Conductor(){
 
     }

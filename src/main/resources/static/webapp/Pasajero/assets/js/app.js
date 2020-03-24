@@ -8,38 +8,23 @@ var app = (function(){
 	};
 	
 	var addConductores = function(conductores){
-		
-		//$("#cond").empty();
+		$("#tableConductoresDisponibles > tbody").empty();
 		conductores.map(function(element){
-			//var seccion = "<tr> <td>"+ element.code +"</td> <td>"+element.name+"</td> <td>"+ element.city +"</td> <td>"+ element.countryCode +"</td> </tr>";
-            /*var seccion = "<div class="inner">"+
-							"<article>"+
-								"<div class="content">"+
-									"<div class="image fit">"+
-										"<img src="/webapp/Principal/images/logo.jpg" alt="" />"+
-									"</div>"+
-								"</div>"+
-							"</article>"+
-							"<article class="alt">"+
-								"<div class="content">"+	
-									"<header>"+
-										"<h3>"+Conductor+"</h3>"+
-									"</header>"+
-									"<div class="image fit">"+
-									"</div>"+
-									"<p>Somos una aplicación que te da la oportunidad de llegar a tu casa o a tu universidad fácil y comodamente. Interactuando con miembros de la
-										comunidad universitaria de Bogotá, donde tu decides si quieres ser conductor o ser pasajero.
-									</p>"+
-								"</div>"+
-							"</article>"+
-						"</div>";
-						*/
-			var seccion  = "<h1>"+prueba+"</h1>";
-			$("#cond").append(seccion);
-		}
+			$("#tableConductoresDisponibles > tbody").append(
+				"<tr> <td>" +
+				element.nombreEstado +
+				"</td>" +
+				"<td>" +
+				element.tiempoRecorrido +
+				"</td> " +
+				"<td><form><button type='button' onclick='/addPassanger/"+element.usuario.username+"' >Agregar</button></form></td>" +
+				"</tr>"
+			);
+		});
 	};
 	return{	
-	    getConductores: getConductores;
+	    getConductores: getConductores,
+		addConductores: addConductores
 	};
 	
 })();

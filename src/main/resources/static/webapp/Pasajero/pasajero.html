@@ -10,6 +10,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	</head>
@@ -66,7 +67,7 @@
 						</div>
 
 						<div class="container-login100-form-btn">
-							<button class="login100-form-btn" type="submit" formaction="app.getConductores" >
+							<button class="login100-form-btn" type="submit" onclick="app.getConductores()" >
 								Iniciar
 							</button>							
 						<br></br>
@@ -84,16 +85,25 @@
 
 		<!-- Pasajeros -->
 
-		<section id="two">
+		<section id="two1">
 			<div class="content" style="text-align: center;">
 				<header>
 					<h2>Conductores Disponibles</h2>
 				</header>
 				<br></br>
-				
-				<div id="cond">
-					
-				</div>
+
+				<table id="tableConductoresDisponibles"  class="table table-bordered">
+					<thead>
+					<tr>
+						<th scope="col">Nombre Conductor</th>
+						<th scope="col">Tiempo del recorrido</th>
+						<th scope="col">Solicitar</th>
+					</tr>
+					</thead>
+					<tbody id = "conductoresDisponibles">
+					<!-- Se generan datos con los js -->
+					</tbody>
+				</table>
 				
 				</div>
 				
@@ -158,6 +168,10 @@
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/apliclient.js"></script>
+			<script src="assets/js/app.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
 	</body>
 </html>

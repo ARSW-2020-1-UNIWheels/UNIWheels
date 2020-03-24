@@ -38,6 +38,7 @@ public class UniWheelsAPIController extends BaseController {
     @RequestMapping(value="/addConducDispo", method =  RequestMethod.POST)
     public ResponseEntity<?> addConductorDisponible(@RequestBody Conductor conductor){
         try {
+            conductor.usuario = getLoggedUser().getUsuario();
             getLoggedUser().getUsuario().viajesRealizados.add(conductor);
             uws.saveConductorDisponible(conductor);
             return new ResponseEntity<>(HttpStatus.CREATED);

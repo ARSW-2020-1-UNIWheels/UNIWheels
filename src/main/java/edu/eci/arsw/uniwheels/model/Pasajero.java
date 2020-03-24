@@ -17,7 +17,8 @@ public class Pasajero {
     @OneToOne
     public Conductor conductor;
     public String nombreEstado;
-
+    @OneToOne
+    public Usuario usuario;
     public Pasajero(){
 
     }

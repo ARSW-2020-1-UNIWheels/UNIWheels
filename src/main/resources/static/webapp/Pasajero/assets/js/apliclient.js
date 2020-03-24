@@ -12,6 +12,6 @@ var apiclient = ( function () {
     });
 
     return{
-        getConductoresDisponibles:getConductoresDisponibles,
+        getConductoresDisponibles: getConductoresDisponibles,
     }
 })();
