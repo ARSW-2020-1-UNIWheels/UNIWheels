@@ -1,5 +1,8 @@
 package edu.eci.arsw.uniwheels.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -27,7 +30,10 @@ public class Conductor {
     public String nombreEstado;
     @OneToMany
     public List<Pasajero> posiblesPasajeros;
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    @JoinColumn(name="usuario")
+    @org.springframework.data.annotation.Transient
     public Usuario usuario;
     public Conductor(){
 

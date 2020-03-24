@@ -1,5 +1,7 @@
 package edu.eci.arsw.uniwheels.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -29,12 +31,14 @@ public class Usuario {
     public String direccionResidencia;
     @OneToMany
     public List<Carro> carros;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "usuario")
     public List<Conductor> viajesRealizados;
     @OneToMany
     public List<Pasajero> viajesRecibidos;
     @OneToMany
     public List<Ruta> rutas;
+
 
 
 

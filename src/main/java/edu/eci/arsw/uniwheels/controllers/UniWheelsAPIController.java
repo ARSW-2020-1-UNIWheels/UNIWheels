@@ -1,8 +1,9 @@
 package edu.eci.arsw.uniwheels.controllers;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.eci.arsw.uniwheels.model.Conductor;
-import edu.eci.arsw.uniwheels.model.Pasajero;
 import edu.eci.arsw.uniwheels.model.Usuario;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
 import edu.eci.arsw.uniwheels.services.AuthServices;
@@ -28,8 +29,17 @@ public class UniWheelsAPIController extends BaseController {
     @RequestMapping(value="/getConducDispo", method =  RequestMethod.GET)
     public ResponseEntity<?> getConductoresDisponibles(){
         try {
-            return new ResponseEntity<>(uws.getConductoresDisponibles(),HttpStatus.ACCEPTED);
-        } catch (UniWheelsPersistenceException ex) {
+
+            ObjectMapper mapper = new ObjectMapper();
+            for(Conductor c:uws.getConductoresDisponibles()){
+                System.out.println(mapper.writeValueAsString(c));
+                System.out.println(mapper.writeValueAsString(c.usuario));
+            }
+
+            String json = mapper.writeValueAsString(uws.getConductoresDisponibles());
+            System.out.println(json);
+            return new ResponseEntity<>(json,HttpStatus.ACCEPTED);
+        } catch (UniWheelsPersistenceException | JsonProcessingException ex) {
             Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
         }
@@ -39,7 +49,7 @@ public class UniWheelsAPIController extends BaseController {
     public ResponseEntity<?> addConductorDisponible(){
         try {
             Conductor conductor = new Conductor();
-            conductor.usuario = getLoggedUser().getUsuario();
+            conductor.setUsuario(getLoggedUser().getUsuario());
             conductor.tiempoRecorrido = 50000;
             conductor.nombreEstado = "Disponible";
             getLoggedUser().getUsuario().viajesRealizados.add(conductor);
