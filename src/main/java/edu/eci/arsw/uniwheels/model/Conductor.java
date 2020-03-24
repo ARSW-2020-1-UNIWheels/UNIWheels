@@ -33,7 +33,6 @@ public class Conductor {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     @JoinColumn(name="usuario")
-    @org.springframework.data.annotation.Transient
     public Usuario usuario;
     public Conductor(){
 
