@@ -41,7 +41,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable();
+        http
+                .logout()
+                .logoutSuccessUrl("/webapp/Principal/index.html")
+                .and()
+                .csrf().disable()
+                .cors().disable()
+                .formLogin().loginPage("/webapp/Inicio/inicio.html").loginProcessingUrl("/login")
+                .defaultSuccessUrl("/webapp/Menu/menu.html")
+                .permitAll();
+
+        http
+                .authorizeRequests()
+                .antMatchers("/uniwheels/**").authenticated().anyRequest().permitAll();
         /**http.authorizeRequests().antMatchers("/uniwheels/**").authenticated().anyRequest().permitAll()
                 .and().formLogin().usernameParameter("username").passwordParameter("password").permitAll();**/
                 /**failureUrl("/inicio.html?error").loginProcessingUrl("/perform_login").loginPage("/webapp/Inicio/inicio.html").usernameParameter("username").passwordParameter("password").permitAll()

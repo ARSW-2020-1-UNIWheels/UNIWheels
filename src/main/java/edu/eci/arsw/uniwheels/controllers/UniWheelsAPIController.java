@@ -35,10 +35,10 @@ public class UniWheelsAPIController extends BaseController {
         }
     }
 
-    @RequestMapping(value="/addConducDispo/{username}", method =  RequestMethod.POST)
-    public ResponseEntity<?> addConductorDisponible(@RequestBody Conductor conductor,@PathVariable String username){
+    @RequestMapping(value="/addConducDispo", method =  RequestMethod.POST)
+    public ResponseEntity<?> addConductorDisponible(@RequestBody Conductor conductor){
         try {
-            authServices.loadUserByUsername(username).getUsuario().viajesRealizados.add(conductor);
+            getLoggedUser().getUsuario().viajesRealizados.add(conductor);
             uws.saveConductorDisponible(conductor);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (UniWheelsPersistenceException ex) {
@@ -47,10 +47,10 @@ public class UniWheelsAPIController extends BaseController {
         }
     }
 
-    @RequestMapping(value="/addPassanger/{conductor}/{pasajero}", method=RequestMethod.POST)
-    public ResponseEntity<?> añadirPasajeroALaRuta(@PathVariable String conductor,@PathVariable String pasajero){
+    @RequestMapping(value="/addPassanger/{conductor}", method=RequestMethod.POST)
+    public ResponseEntity<?> añadirPasajeroALaRuta(@PathVariable String conductor){
         try {
-            Usuario pasajeroUser = authServices.loadUserByUsername(pasajero).getUsuario();
+            Usuario pasajeroUser = getLoggedUser().getUsuario();
             Usuario conductorUser = authServices.loadUserByUsername(conductor).getUsuario();
             uws.agregarPosiblePasajero(pasajeroUser, conductorUser);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -59,6 +59,11 @@ public class UniWheelsAPIController extends BaseController {
             Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);
         }
+    }
+
+    @RequestMapping(value="/prueba",method=RequestMethod.GET)
+    public String probando(){
+        return "Deberias ver este mensaje solo si estas logeado";
     }
 
 
