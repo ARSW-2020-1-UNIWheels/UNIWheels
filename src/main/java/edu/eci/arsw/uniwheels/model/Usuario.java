@@ -34,7 +34,8 @@ public class Usuario {
     @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "usuario")
     public List<Conductor> viajesRealizados;
-    @OneToMany
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "usuario")
     public List<Pasajero> viajesRecibidos;
     @OneToMany
     public List<Ruta> rutas;
