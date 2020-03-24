@@ -9,7 +9,7 @@ public class Pasajero {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
-    public Time tiempoRecorrido;
+    public int tiempoRecorrido;
     @OneToOne
     public Calificacion calificacion;
     @OneToOne
@@ -22,7 +22,7 @@ public class Pasajero {
     public Pasajero(){
 
     }
-    public Pasajero(Time tiempoRecorrido, Conductor conductor, Ruta ruta, Calificacion calificacion, String nombreEstado){
+    public Pasajero(int tiempoRecorrido, Conductor conductor, Ruta ruta, Calificacion calificacion, String nombreEstado){
         this.tiempoRecorrido = tiempoRecorrido;
         this.conductor = conductor;
         this.ruta = ruta;
@@ -38,11 +38,11 @@ public class Pasajero {
         this.id = id;
     }
 
-    public Time getTiempoRecorrido() {
+    public int getTiempoRecorrido() {
         return tiempoRecorrido;
     }
 
-    public void setTiempoRecorrido(Time tiempoRecorrido) {
+    public void setTiempoRecorrido(int tiempoRecorrido) {
         this.tiempoRecorrido = tiempoRecorrido;
     }
 
@@ -76,5 +76,13 @@ public class Pasajero {
 
     public void setNombreEstado(String nombreEstado) {
         this.nombreEstado = nombreEstado;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

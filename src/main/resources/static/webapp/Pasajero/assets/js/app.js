@@ -2,7 +2,6 @@ var app = (function(){
 
 
 	var getConductores = function(){
-		console.log("vamos a consultar");
 		var lista = apiclient.getConductoresDisponibles(addConductores);
 		
 	};
@@ -12,12 +11,12 @@ var app = (function(){
 		conductores.map(function(element){
 			$("#tableConductoresDisponibles > tbody").append(
 				"<tr> <td>" +
-				element.nombreEstado +
+				element.usuario.username +
 				"</td>" +
 				"<td>" +
 				element.tiempoRecorrido +
 				"</td> " +
-				"<td><form><button type='button' onclick='/addPassanger/"+element.usuario.username+"' >Agregar</button></form></td>" +
+				"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.usuario.username+"&quot)' >Agregar</button></form></td>" +
 				"</tr>"
 			);
 		});

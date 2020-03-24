@@ -1,11 +1,16 @@
 package edu.eci.arsw.uniwheels.model;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.List;
 
 @Entity
 @Table(name="conductor")
+@DynamicUpdate
+@DynamicInsert
 public class Conductor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -97,5 +102,13 @@ public class Conductor {
 
     public void setPosiblesPasajeros(List<Pasajero> posiblesPasajeros) {
         this.posiblesPasajeros = posiblesPasajeros;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

@@ -36,10 +36,14 @@ public class UniWheelsAPIController extends BaseController {
     }
 
     @RequestMapping(value="/addConducDispo", method =  RequestMethod.POST)
-    public ResponseEntity<?> addConductorDisponible(@RequestBody Conductor conductor){
+    public ResponseEntity<?> addConductorDisponible(){
         try {
+            Conductor conductor = new Conductor();
             conductor.usuario = getLoggedUser().getUsuario();
+            conductor.tiempoRecorrido = 50000;
+            conductor.nombreEstado = "Disponible";
             getLoggedUser().getUsuario().viajesRealizados.add(conductor);
+            System.out.println(getLoggedUser().getUsuario().viajesRealizados.size());
             uws.saveConductorDisponible(conductor);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (UniWheelsPersistenceException ex) {
@@ -52,6 +56,8 @@ public class UniWheelsAPIController extends BaseController {
     public ResponseEntity<?> añadirPasajeroALaRuta(@PathVariable String conductor){
         try {
             Usuario pasajeroUser = getLoggedUser().getUsuario();
+            System.out.println(pasajeroUser.username+" SuperPasajero");
+            System.out.println(conductor+" SuperConductor");
             Usuario conductorUser = authServices.loadUserByUsername(conductor).getUsuario();
             uws.agregarPosiblePasajero(pasajeroUser, conductorUser);
             return new ResponseEntity<>(HttpStatus.OK);

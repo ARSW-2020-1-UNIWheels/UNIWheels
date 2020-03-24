@@ -11,7 +11,18 @@ var apiclient = ( function () {
             .catch(error => console.log(error));
     });
 
+    var agregarPosibleConductor = (function (username) {
+
+        axios({
+            method: 'POST',
+            url: '/uniwheels/addPassanger/'+username,
+
+        })
+            .catch(error => console.log(error));
+    });
+
     return{
         getConductoresDisponibles: getConductoresDisponibles,
+        agregarPosibleConductor:agregarPosibleConductor
     }
 })();

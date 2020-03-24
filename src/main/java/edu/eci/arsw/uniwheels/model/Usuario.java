@@ -1,10 +1,15 @@
 package edu.eci.arsw.uniwheels.model;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "usuario")
+@DynamicUpdate
+@DynamicInsert
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,7 +29,7 @@ public class Usuario {
     public String direccionResidencia;
     @OneToMany
     public List<Carro> carros;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public List<Conductor> viajesRealizados;
     @OneToMany
     public List<Pasajero> viajesRecibidos;

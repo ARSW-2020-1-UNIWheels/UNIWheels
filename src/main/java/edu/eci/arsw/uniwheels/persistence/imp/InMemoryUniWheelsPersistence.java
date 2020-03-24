@@ -94,6 +94,7 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     @Override
     public void saveConductorDisponible(Conductor conductor) throws UniWheelsPersistenceException{
         conductorRepository.save(conductor);
+        updateDatabase();
     }
 
 }
