@@ -1,5 +1,7 @@
 package edu.eci.arsw.uniwheels.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Time;
 
@@ -14,11 +16,17 @@ public class Pasajero {
     public Calificacion calificacion;
     @OneToOne
     public Ruta ruta;
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    @JoinColumn(name="conductor")
     public Conductor conductor;
     public String nombreEstado;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    @JoinColumn(name="usuario")
     public Usuario usuario;
+
+    public String pasajeroName;
     public Pasajero(){
 
     }
@@ -84,5 +92,13 @@ public class Pasajero {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public String getPasajeroName() {
+        return pasajeroName;
+    }
+
+    public void setPasajeroName(String pasajeroName) {
+        this.pasajeroName = pasajeroName;
     }
 }

@@ -52,6 +52,7 @@ public class UniWheelsAPIController extends BaseController {
             conductor.setUsuario(getLoggedUser().getUsuario());
             conductor.tiempoRecorrido = 50000;
             conductor.nombreEstado = "Disponible";
+            conductor.conductorName = getLoggedUser().getUsuario().username;
             getLoggedUser().getUsuario().viajesRealizados.add(conductor);
             System.out.println(getLoggedUser().getUsuario().viajesRealizados.size());
             uws.saveConductorDisponible(conductor);

@@ -11,12 +11,12 @@ var app = (function(){
 		conductores.map(function(element){
 			$("#tableConductoresDisponibles > tbody").append(
 				"<tr> <td>" +
-				element.usuario.username +
+				element.conductorName +
 				"</td>" +
 				"<td>" +
 				element.tiempoRecorrido +
 				"</td> " +
-				"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.usuario.username+"&quot)' >Agregar</button></form></td>" +
+				"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
 				"</tr>"
 			);
 		});
