@@ -91,57 +91,21 @@
 				</header>
 
 				<br></br>
-				<div class="grid-container" style="display: grid; grid-template-columns: auto auto auto;">
-					<article>
-						<div class="grid-item">
-							<header>
-								<h4 class="funct">Pasajero 1</h4>
-
-								<br></br>
-
-								<p> Nombre: Orlando Gelves</p>
-								<p> Rol: Estudiante</p>
-								<p> Universidad: ECI</p>
-								<p> Puntuación: 4</p>
-								<p> </p>
-
-							</header>
-					</article>
-
-					<article>
-						<div class="grid-item">
-							<header>
-								<h4 class="funct">Pasajero 2</h4>
-
-								<br></br>
-
-								<p> Nombre: Orlando Gelves</p>
-								<p> Rol: Estudiante</p>
-								<p> Universidad: ECI</p>
-								<p> Puntuación: 4</p>
-								<p> </p>
-							</header>
-					</article>
-
-					<article>
-						<div class="grid-item">
-							<header>
-								<h4 class="funct">Pasajero 3</h4>
-							</header>
-							
-							<br></br>
-
-							<p> Nombre: Orlando Gelves</p>
-							<p> Rol: Estudiante</p>
-							<p> Universidad: ECI</p>
-							<p> Puntuación: 4</p>
-							<p> </p>
-
-					</article>
-
-					</div>  
-				  </div>
-
+				
+				<table id="tablePasajeros"  class="table table-bordered">
+					<thead class="thead-dark">
+					<tr>
+						<th scope="col">Nombre Pasajero</th>
+						<th scope="col">Universidad</th>
+						<th scope="col">Puntuación</th>
+						<th scope="col">Ubicación</th>
+					</tr>
+					</thead>
+					<tbody id = "pasajerosAceptados">
+					<!-- Se generan datos con los js -->
+					</tbody>
+				</table>
+				
 			</div>
 		</section>
 
@@ -155,35 +119,21 @@
 				</header>
 
 				<br></br>
-				<div class="grid-container" style="display: grid; grid-template-columns: auto auto;">
-					<article>
-						<div class="grid-item">
-							<header>
-								<h4 class="funct">Solicitud 1</h4>
-							</header>
-							
-							<br></br>
-
-							<p> Nombre: Carlos Murillo</p>
-							<p> Rol: Estudiante</p>
-							<p> Universidad: ECI</p>
-							<p> Puntuación: 3</p>
-							<p> </p>	
-					</article>
-
-					<article>	
-						<div class="grid-item">
-							<header>
-								<h4 class="funct">Solicitud 1</h4>
-							</header>
-							<br></br>
-							<p> Nombre: Carlos Murillo</p>
-							<p> Rol: Estudiante</p>
-							<p> Universidad: ECI</p>
-							<p> Puntuación: 3</p>
-							<p> </p>	
-					</article>
-				</div>
+				
+				<table id="tableSolicitudes"  class="table table-bordered">
+					<thead class="thead-dark">
+					<tr>
+						<th scope="col">Nombre Usuario</th>
+						<th scope="col">Universidad</th>
+						<th scope="col">Puntuación</th>
+						<th scope="col">Aceptar</th>
+					</tr>
+					</thead>
+					<tbody id = "solicitudesPasajeros">
+					<!-- Se generan datos con los js -->
+					</tbody>
+				</table>
+				
 			</div>
 
 			<br></br>
