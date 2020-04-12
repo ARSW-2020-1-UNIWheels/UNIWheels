@@ -1,6 +1,5 @@
 var app = (function(){
 
-	
 	var getPasajeros = function(){
 		//var lista = apiclient.getConductoresDisponibles(addConductores);
 		

@@ -81,5 +81,12 @@ public class UniWheelsAPIController extends BaseController {
         return "Deberias ver este mensaje solo si estas logeado";
     }
 
+    // Añadiendo usuario
+    @RequestMapping(value="/addUsuario", method = RequestMethod.POST)
+    public String addUser(@RequestBody Usuario usuario){
+        System.out.println(usuario);
+        return "prueba de añadir usuario";
+    }
+
 
 }
