@@ -24,14 +24,7 @@ public class UniWheelsServices {
     @Autowired
     PasajeroRepository pasajeroRepository;
 
-    public void addNewUser(Usuario usr) throws UniWheelsPersistenceException{
-        uwp.saveUser(usr);
-    }
 
-
-    public List<Usuario> getAllUsers() throws UniWheelsPersistenceException{
-        return uwp.getAllUsers();
-    }
 
 
 
