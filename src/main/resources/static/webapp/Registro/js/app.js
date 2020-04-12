@@ -22,7 +22,7 @@ var app = (function(){
 						"universidad": datos.get("uuniversidad"),
 						"direccion": datos.get("direccion"),
 						"pass": datos.get("pass"),
-						"rol": datos.get("rol")};
+						"rol": "usuario"};
 			
 			agregarUsuario(info);
 		}

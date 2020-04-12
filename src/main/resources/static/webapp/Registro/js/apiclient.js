@@ -9,8 +9,8 @@ var apiclient = (function(){
 	
         })			
 			.then(response => {
-				location.href = "../Menu/menu.html";};
-				console.log("AXIOS FUNCIONANDO...");)
+				location.href = "../Menu/menu.html";
+			console.log("AXIOS FUNCIONANDO...");}
             .catch(error => console.log(error));
     });
 	
