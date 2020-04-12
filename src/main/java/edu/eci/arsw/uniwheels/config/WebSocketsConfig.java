@@ -15,13 +15,12 @@ public class WebSocketsConfig extends AbstractWebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/uniwheels");
-
         config.setApplicationDestinationPrefixes("/app");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/stompendpoint").withSockJS();
+        registry.addEndpoint("/stompendpoint").setAllowedOrigins("*").withSockJS();
 
     }
 
