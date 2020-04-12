@@ -34,6 +34,7 @@ public class UniWheelsApiAuthController extends BaseController{
     @RequestMapping (path = "/addUser",method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody Usuario usuario){
         try{
+			System.out.println("vamos a agregar");
             authServices.addUser(usuario);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (UniWheelsPersistenceException uwp){

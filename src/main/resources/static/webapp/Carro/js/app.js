@@ -1,7 +1,7 @@
 var app = (function(){
 	
-	var agregarUsuario = function(datos){
-		apiclient.agregarUsuario(datos);
+	var agregarCarro = function(datos){
+		apiclient.agregarCarro(datos);
 	};	
 	
 	var verificarInformacion = function(e){
@@ -17,16 +17,12 @@ var app = (function(){
 			location.reload();
 		}
 		else{
-			var info = {
-				"userId":9,
-				"username":datos.get("usuario"),
-				"password":datos.get("pass"),
-				"email": datos.get("correo"),
-				"rol": "user",
-				"universidad":datos.get("universidad"),
-				"direccionResidencia": datos.get("direccion")}
-		
-			agregarUsuario(info);
+			var info = {"marca": datos.get("marca") ,
+						"placa": datos.get("placa"),
+						"modelo": datos.get("modelo"),
+						"color": datos.get("color")};
+			
+			agregarCarro(info);
 		}
 	};
 	
@@ -36,23 +32,8 @@ var app = (function(){
 	};
 	
 	return{
-		agregarUsuario: agregarUsuario,
+		agregarCarro: agregarCarro,
 		verificarInformacion: verificarInformacion,
 		init: init
 	};
 })();
-
-/*
-{
-    "userId":9,
-    "username":"pruebasexta",
-    "password":"123",
-    "email":"pruebss@hotmail.com",
-    "rol":"admin",
-    "universidad":"ECI",
-    "direccionResidencia":"calle 186#150-basdas"
-
-}
-
-*/
-		

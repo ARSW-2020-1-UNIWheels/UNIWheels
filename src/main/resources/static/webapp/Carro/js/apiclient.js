@@ -1,21 +1,21 @@
 var apiclient = (function(){
 
-	 var agregarUsuario = (function (info) {
+	 var agregarCarro = (function (info) {
 		console.log("estamos en el client");
         axios({
             method: 'POST',
-            url: '/auth/addUser/',
+            url: '/uniwheels/addCarro/',
 			data: JSON.stringify(info)
 	
         })			
 			.then(response => {
-				location.href = "../Menu/menu.html";
+				location.href = "../Conductor/conductor.html";
 				console.log("AXIOS FUNCIONANDO...");})
             .catch(error => console.log(error));
     });
 	
 	return{
-		agregarUsuario: agregarUsuario
+		agregarCarro: agregarCarro
 	}
 
 })();
