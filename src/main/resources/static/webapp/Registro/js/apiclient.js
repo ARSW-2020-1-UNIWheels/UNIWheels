@@ -4,8 +4,11 @@ var apiclient = (function(){
 		console.log("estamos en el client");
         axios({
             method: 'POST',
-            url: '/auth/addUser/',
-			data: JSON.stringify(info)
+            url: '/auth/addUser',
+			data: info,
+			headers: {
+				'content-type': 'application/json'
+			}
 	
         })			
 			.then(response => {

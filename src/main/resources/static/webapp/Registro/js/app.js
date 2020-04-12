@@ -1,7 +1,11 @@
 var app = (function(){
 	
 	var agregarUsuario = function(datos){
-		apiclient.agregarUsuario(datos);
+		var datosDos = JSON.stringify(datos);
+
+
+
+		apiclient.agregarUsuario(datosDos);
 	};	
 	
 	var verificarInformacion = function(e){

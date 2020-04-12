@@ -53,20 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/uniwheels/**").authenticated().anyRequest().permitAll();
-        /**http.authorizeRequests().antMatchers("/uniwheels/**").authenticated().anyRequest().permitAll()
-                .and().formLogin().usernameParameter("username").passwordParameter("password").permitAll();**/
-                /**failureUrl("/inicio.html?error").loginProcessingUrl("/perform_login").loginPage("/webapp/Inicio/inicio.html").usernameParameter("username").passwordParameter("password").permitAll()
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .and()
-                .csrf()
-                .disable()
-                .sessionManagement()
-                .maximumSessions(1000)
-                .expiredUrl("/logout?expired");
-                 **/
+                .antMatchers("/uniwheels/**","/webapp/Carro/**","/webapp/Conductor/**",
+                        "/webapp/Pasajero/**","/webapp/Menu/**","/webapp/Admin/**").authenticated().anyRequest().permitAll();
+
         //http.formLogin();
         //http.loginPage("/login").permitedAll();
 
