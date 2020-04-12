@@ -9,6 +9,7 @@ import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,7 +47,8 @@ public class UniWheelsServices {
     public void agregarPosiblePasajero(Usuario pasajero, Usuario conductor) throws UniWheelsPersistenceException{
         System.out.println(conductor.viajesRealizados.size());
         System.out.println("Eyyyy estoy entrando acá");
-        Conductor con = conductor.viajesRealizados.get(conductor.viajesRealizados.size()-1);
+        List<Conductor> listaConductor = new ArrayList<>(conductor.viajesRealizados);
+        Conductor con = listaConductor.get(conductor.viajesRealizados.size()-1);
         Pasajero pas = null;
         boolean acabadoDeCrear = true;
         if (pasajero.viajesRecibidos.size() ==0){
@@ -55,7 +57,8 @@ public class UniWheelsServices {
             acabadoDeCrear = false;
             uwp.savePasajeros(pas);
         } else {
-            pas = pasajero.viajesRecibidos.get(pasajero.viajesRecibidos.size()-1);
+            List<Pasajero> listaPasajero = new ArrayList<>(pasajero.viajesRecibidos);
+            pas = listaPasajero.get(pasajero.viajesRecibidos.size()-1);
         }
         if (pas.nombreEstado.equals("Finalizado")) {
             pas = new Pasajero(0, con, null, null, "Disponible");

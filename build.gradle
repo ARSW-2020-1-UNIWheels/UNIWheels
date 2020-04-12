@@ -39,6 +39,9 @@ dependencies {
 	compile group: 'org.hibernate',name:'hibernate-core', version:'5.4.12.Final'
 	compile group: 'org.hibernate', name:'hibernate-entitymanager',version:'5.2.3.Final'
 	testCompile group: 'junit', name: 'junit', version: '4.12'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.2.6.RELEASE'
+	compile group: 'org.webjars', name: 'sockjs-client', version: '1.1.2'
+	compile group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3'
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.postgresql:postgresql')

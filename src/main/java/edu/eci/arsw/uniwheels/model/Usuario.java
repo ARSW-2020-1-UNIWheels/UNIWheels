@@ -1,5 +1,6 @@
 package edu.eci.arsw.uniwheels.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.annotations.DynamicInsert;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
@@ -30,15 +32,15 @@ public class Usuario {
     @Column(name ="direccionResidencia")
     public String direccionResidencia;
     @OneToMany
-    public List<Carro> carros;
-    @JsonManagedReference
+    public Set<Carro> carros;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "usuario")
-    public List<Conductor> viajesRealizados;
-    @JsonManagedReference
+    @JsonIgnore
+    public Set<Conductor> viajesRealizados;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "usuario")
-    public List<Pasajero> viajesRecibidos;
+    @JsonIgnore
+    public Set<Pasajero> viajesRecibidos;
     @OneToMany
-    public List<Ruta> rutas;
+    public Set<Ruta> rutas;
 
 
 
@@ -112,35 +114,35 @@ public class Usuario {
         this.direccionResidencia = direccionResidencia;
     }
 
-    public List<Carro> getCarros() {
+    public Set<Carro> getCarros() {
         return carros;
     }
 
-    public void setCarros(List<Carro> carros) {
+    public void setCarros(Set<Carro> carros) {
         this.carros = carros;
     }
 
-    public List<Conductor> getViajesRealizados() {
+    public Set<Conductor> getViajesRealizados() {
         return viajesRealizados;
     }
 
-    public void setViajesRealizados(List<Conductor> viajesRealizados) {
+    public void setViajesRealizados(Set<Conductor> viajesRealizados) {
         this.viajesRealizados = viajesRealizados;
     }
 
-    public List<Pasajero> getViajesRecibidos() {
+    public Set<Pasajero> getViajesRecibidos() {
         return viajesRecibidos;
     }
 
-    public void setViajesRecibidos(List<Pasajero> viajesRecibidos) {
+    public void setViajesRecibidos(Set<Pasajero> viajesRecibidos) {
         this.viajesRecibidos = viajesRecibidos;
     }
 
-    public List<Ruta> getRutas() {
+    public Set<Ruta> getRutas() {
         return rutas;
     }
 
-    public void setRutas(List<Ruta> rutas) {
+    public void setRutas(Set<Ruta> rutas) {
         this.rutas = rutas;
     }
 

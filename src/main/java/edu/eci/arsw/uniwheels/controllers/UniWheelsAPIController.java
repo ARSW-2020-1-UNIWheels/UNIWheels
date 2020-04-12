@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,16 +31,12 @@ public class UniWheelsAPIController extends BaseController {
     public ResponseEntity<?> getConductoresDisponibles(){
         try {
 
-            ObjectMapper mapper = new ObjectMapper();
-            for(Conductor c:uws.getConductoresDisponibles()){
-                System.out.println(mapper.writeValueAsString(c));
-                System.out.println(mapper.writeValueAsString(c.usuario));
-            }
 
-            String json = mapper.writeValueAsString(uws.getConductoresDisponibles());
-            System.out.println(json);
-            return new ResponseEntity<>(json,HttpStatus.ACCEPTED);
-        } catch (UniWheelsPersistenceException | JsonProcessingException ex) {
+
+
+            List<Conductor> lista = uws.getConductoresDisponibles();
+            return new ResponseEntity<>(lista,HttpStatus.ACCEPTED);
+        } catch (UniWheelsPersistenceException ex) {
             Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
         }

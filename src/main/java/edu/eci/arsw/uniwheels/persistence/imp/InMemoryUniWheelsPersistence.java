@@ -82,6 +82,7 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     @Override
     public List<Conductor> getConductoresDisponibles() throws UniWheelsPersistenceException{
         List<Conductor> conductors = conductorRepository.findAll();
+        System.out.println(conductors.size());
         List<Conductor> conductoresDisponibles = new ArrayList<>();
         for(Conductor conduc:conductors){
             if(conduc.getNombreEstado().equals("Disponible")){

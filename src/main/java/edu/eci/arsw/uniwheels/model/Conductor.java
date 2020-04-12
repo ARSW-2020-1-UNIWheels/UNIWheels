@@ -1,9 +1,6 @@
 package edu.eci.arsw.uniwheels.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -11,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="conductor")
@@ -24,17 +22,18 @@ public class Conductor {
     @OneToOne
     public Carro carro;
     @OneToMany
+    @JsonIgnore
     public List<Pasajero> pasajeros;
     @OneToOne
     public Ruta ruta;
     @OneToOne
     public Calificacion calificacion;
     public String nombreEstado;
-    @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "conductor")
-    public List<Pasajero> posiblesPasajeros;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
+    @JsonIgnore
+    public Set<Pasajero> posiblesPasajeros;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name="usuario")
     public Usuario usuario;
 
@@ -106,11 +105,11 @@ public class Conductor {
         this.pasajeros.add(pasajero);
     }
 
-    public List<Pasajero> getPosiblesPasajeros() {
+    public Set<Pasajero> getPosiblesPasajeros() {
         return posiblesPasajeros;
     }
 
-    public void setPosiblesPasajeros(List<Pasajero> posiblesPasajeros) {
+    public void setPosiblesPasajeros(Set<Pasajero> posiblesPasajeros) {
         this.posiblesPasajeros = posiblesPasajeros;
     }
 

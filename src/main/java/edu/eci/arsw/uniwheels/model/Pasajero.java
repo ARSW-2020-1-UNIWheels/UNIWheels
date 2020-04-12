@@ -1,6 +1,8 @@
 package edu.eci.arsw.uniwheels.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -16,14 +18,13 @@ public class Pasajero {
     public Calificacion calificacion;
     @OneToOne
     public Ruta ruta;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="conductor")
     public Conductor conductor;
     public String nombreEstado;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="usuario")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Usuario usuario;
 
     public String pasajeroName;
