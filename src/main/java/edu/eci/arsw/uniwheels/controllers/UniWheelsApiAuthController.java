@@ -20,10 +20,13 @@ public class UniWheelsApiAuthController extends BaseController{
     private AuthServices authServices = null;
 
 
-    @RequestMapping (value = "/getUser", method = RequestMethod.POST)
-    public ResponseEntity<?> getUser(@RequestBody Usuario usuario){
+    @RequestMapping (value = "/getUser", method = RequestMethod.GET)
+    public ResponseEntity<?> getUser(){
 
-        UserDetails user = authServices.loadUserByUsername(usuario.username);
+        Usuario user = getLoggedUser().usuario;
+        if (user == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(user,HttpStatus.OK);
 
 
