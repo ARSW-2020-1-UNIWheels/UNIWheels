@@ -31,6 +31,7 @@ var app = (function(){
 	var getUser = function(){
 		console.log("vamos a poner nombre");
 		var usuario = apiclient.getUser();
+		//console.log(type(usuario));
 		//var usuario = "orlando";
 		console.log("vamos a poner el usuario");
 		console.log(usuario);

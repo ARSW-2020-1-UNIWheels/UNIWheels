@@ -43,6 +43,7 @@ public class Usuario {
     @JsonIgnore
     public Set<Pasajero> viajesRecibidos;
     @OneToMany
+    @JsonIgnore
     public Set<Ruta> rutas;
 
 
