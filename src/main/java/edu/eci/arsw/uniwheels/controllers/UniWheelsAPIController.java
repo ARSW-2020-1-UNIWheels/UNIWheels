@@ -46,6 +46,7 @@ public class UniWheelsAPIController extends BaseController {
             List<Carro> carros = uws.getCarrosDelUsuario(usuario);
             return new ResponseEntity<>(carros,HttpStatus.OK);
         } catch (Exception e){
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -57,6 +58,7 @@ public class UniWheelsAPIController extends BaseController {
             uws.addCarroAlUsuario(usuario,carro);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e){
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
