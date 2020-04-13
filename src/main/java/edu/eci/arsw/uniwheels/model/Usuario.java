@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Table(name = "usuario")
 @DynamicUpdate
 @DynamicInsert
+@Transactional
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

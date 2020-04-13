@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.*;
 import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+
 import java.sql.Time;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +16,7 @@ import java.util.Set;
 @Table(name="conductor")
 @DynamicUpdate
 @DynamicInsert
+@Transactional
 public class Conductor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,6 +38,7 @@ public class Conductor {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name="usuario")
+    @JsonIgnore
     public Usuario usuario;
 
     public String conductorName;
@@ -116,7 +120,6 @@ public class Conductor {
     public Usuario getUsuario() {
         return usuario;
     }
-    @JsonProperty("usuario")
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
@@ -128,4 +131,5 @@ public class Conductor {
     public void setConductorName(String conductorName) {
         this.conductorName = conductorName;
     }
+
 }

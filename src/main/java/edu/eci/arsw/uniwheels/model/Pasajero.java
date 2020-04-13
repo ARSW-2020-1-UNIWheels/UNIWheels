@@ -3,12 +3,14 @@ package edu.eci.arsw.uniwheels.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.sql.Time;
 
 @Entity
 @Table(name = "pasajero")
+@Transactional
 public class Pasajero {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

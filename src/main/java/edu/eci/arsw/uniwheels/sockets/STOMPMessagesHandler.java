@@ -2,13 +2,17 @@ package edu.eci.arsw.uniwheels.sockets;
 
 
 import edu.eci.arsw.uniwheels.model.Conductor;
+import edu.eci.arsw.uniwheels.model.DetallesUsuario;
 import edu.eci.arsw.uniwheels.services.UniWheelsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -22,14 +26,15 @@ public class STOMPMessagesHandler extends BaseHandler{
     UniWheelsServices uniWheelsServices;
 
     @MessageMapping("/nuevoConductor")
-    public void handlePointEvent(Conductor conductor) throws Exception {
+    public void handlePointEvent(Conductor conductor, Principal principal) throws Exception {
         Conductor conductorPrueba = new Conductor();
-        conductor.setUsuario(getLoggedUser().getUsuario());
+        DetallesUsuario usuario = (DetallesUsuario) ((Authentication) principal).getPrincipal();
+        conductorPrueba.setUsuario(usuario.getUsuario());
         conductorPrueba.tiempoRecorrido = 50000;
         conductorPrueba.nombreEstado = "Disponible";
-        conductorPrueba.conductorName = getLoggedUser().getUsuario().username;
-        getLoggedUser().getUsuario().viajesRealizados.add(conductorPrueba);
-        System.out.println(getLoggedUser().getUsuario().viajesRealizados.size());
+        conductorPrueba.conductorName = usuario.getUsuario().username;
+        usuario.getUsuario().viajesRealizados.add(conductorPrueba);
+        System.out.println(usuario.getUsuario().viajesRealizados.size());
         uniWheelsServices.saveConductorDisponible(conductorPrueba);
 
         List<Conductor> todosLosConductores = uniWheelsServices.getConductoresDisponibles();
