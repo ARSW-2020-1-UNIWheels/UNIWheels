@@ -7,9 +7,11 @@ var app = (function(){
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
-			stompClient.subscribe("/app/conductoresDisponibles", function (conductores) {
+			stompClient.subscribe("/uniwheels/conductoresDisponibles", function (conductores) {
+				var conductoresData = JSON.parse(conductores.body);
+				alert(conductoresData);
 				$("#tableConductoresDisponibles > tbody").empty();
-				conductores.map(function(element){
+				conductoresData.map(function(element){
 					$("#tableConductoresDisponibles > tbody").append(
 						"<tr> <td>" +
 						element.conductorName +
@@ -22,6 +24,7 @@ var app = (function(){
 					);
 				});
 			});
+			stompClient.send("/app/conductoresDisponibles");
 		});
 	};
 
