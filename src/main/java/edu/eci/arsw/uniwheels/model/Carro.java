@@ -1,5 +1,8 @@
 package edu.eci.arsw.uniwheels.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +14,11 @@ public class Carro {
     private String placa;
     private String marca;
     private String modelo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JoinColumn(name="usuario")
+    @JsonIgnore
+    private Usuario usuario;
 
 
     public Carro(){
@@ -54,4 +62,11 @@ public class Carro {
         this.modelo = modelo;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }

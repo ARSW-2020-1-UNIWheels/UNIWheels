@@ -3,6 +3,7 @@ package edu.eci.arsw.uniwheels.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.eci.arsw.uniwheels.model.Carro;
 import edu.eci.arsw.uniwheels.model.Conductor;
 import edu.eci.arsw.uniwheels.model.Usuario;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
@@ -30,10 +31,6 @@ public class UniWheelsAPIController extends BaseController {
     @RequestMapping(value="/getConducDispo", method =  RequestMethod.GET)
     public ResponseEntity<?> getConductoresDisponibles(){
         try {
-
-
-
-
             List<Conductor> lista = uws.getConductoresDisponibles();
             return new ResponseEntity<>(lista,HttpStatus.ACCEPTED);
         } catch (UniWheelsPersistenceException ex) {
@@ -42,23 +39,30 @@ public class UniWheelsAPIController extends BaseController {
         }
     }
 
-    @RequestMapping(value="/addConducDispo", method =  RequestMethod.POST)
-    public ResponseEntity<?> addConductorDisponible(){
-        try {
-            Conductor conductor = new Conductor();
-            conductor.setUsuario(getLoggedUser().getUsuario());
-            conductor.tiempoRecorrido = 50000;
-            conductor.nombreEstado = "Disponible";
-            conductor.conductorName = getLoggedUser().getUsuario().username;
-            getLoggedUser().getUsuario().viajesRealizados.add(conductor);
-            System.out.println(getLoggedUser().getUsuario().viajesRealizados.size());
-            uws.saveConductorDisponible(conductor);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (UniWheelsPersistenceException ex) {
-            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);
+    @RequestMapping(value="/getCarros", method=RequestMethod.GET)
+    public ResponseEntity<?> getCarrosAlUsuario(){
+        try{
+            Usuario usuario = getLoggedUser().getUsuario();
+            List<Carro> carros = uws.getCarrosDelUsuario(usuario);
+            return new ResponseEntity<>(carros,HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping(value="/addCarro", method=RequestMethod.POST)
+    public ResponseEntity<?> addCarrosAlUsuario(@RequestBody Carro carro){
+        try{
+            Usuario usuario = getLoggedUser().getUsuario();
+            uws.addCarroAlUsuario(usuario,carro);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
+
+
 
     @RequestMapping(value="/addPassanger/{conductor}", method=RequestMethod.POST)
     public ResponseEntity<?> añadirPasajeroALaRuta(@PathVariable String conductor){

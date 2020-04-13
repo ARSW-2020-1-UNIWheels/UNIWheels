@@ -1,10 +1,12 @@
 package edu.eci.arsw.uniwheels.persistence.imp;
 
+import edu.eci.arsw.uniwheels.model.Carro;
 import edu.eci.arsw.uniwheels.model.Conductor;
 import edu.eci.arsw.uniwheels.model.Pasajero;
 import edu.eci.arsw.uniwheels.model.Usuario;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistence;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
+import edu.eci.arsw.uniwheels.repository.CarroRepository;
 import edu.eci.arsw.uniwheels.repository.ConductorRepository;
 import edu.eci.arsw.uniwheels.repository.PasajeroRepository;
 import edu.eci.arsw.uniwheels.repository.UserRepository;
@@ -31,12 +33,33 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     @Autowired
     private PasajeroRepository pasajeroRepository;
 
+    @Autowired
+    private CarroRepository carroRepository;
+
     @Override
     public void saveUser(Usuario usuario) throws UniWheelsPersistenceException {
         String pwd = usuario.getPassword();
         String encrypt = bCryptPasswordEncoder.encode(pwd);
         usuario.setPassword(encrypt);
         userRepository.save(usuario);
+    }
+
+    @Override
+    public void addCarToUser(Carro carro){
+        carroRepository.save(carro);
+        updateDatabase();
+    }
+
+    @Override
+    public List<Carro> getCarrosPorUsuario(Usuario usuario){
+        List<Carro> listaCompletaCarros = carroRepository.findAll();
+        List<Carro> carrosDelUsuario = new ArrayList<>();
+        for (Carro c:listaCompletaCarros){
+            if(c.getUsuario().getUserId() == usuario.getUserId()){
+                carrosDelUsuario.add(c);
+            }
+        }
+        return carrosDelUsuario;
     }
 
     @Override

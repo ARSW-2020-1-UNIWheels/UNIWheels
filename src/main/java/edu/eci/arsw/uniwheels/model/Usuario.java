@@ -33,7 +33,8 @@ public class Usuario {
     public String universidad;
     @Column(name ="direccionResidencia")
     public String direccionResidencia;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "usuario")
+    @JsonIgnore
     public Set<Carro> carros;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "usuario")
     @JsonIgnore
