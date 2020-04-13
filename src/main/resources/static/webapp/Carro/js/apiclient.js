@@ -5,7 +5,10 @@ var apiclient = (function(){
         axios({
             method: 'POST',
             url: '/uniwheels/addCarro/',
-			data: JSON.stringify(info)
+			data: JSON.stringify(info),
+			headers: {
+				'content-type': 'application/json'
+			}
 	
         })			
 			.then(response => {

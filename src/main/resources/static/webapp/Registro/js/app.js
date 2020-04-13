@@ -2,9 +2,6 @@ var app = (function(){
 	
 	var agregarUsuario = function(datos){
 		var datosDos = JSON.stringify(datos);
-
-
-
 		apiclient.agregarUsuario(datosDos);
 	};	
 	

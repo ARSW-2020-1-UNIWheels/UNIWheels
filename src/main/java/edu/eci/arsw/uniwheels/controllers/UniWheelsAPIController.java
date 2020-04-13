@@ -81,22 +81,4 @@ public class UniWheelsAPIController extends BaseController {
         return "Deberias ver este mensaje solo si estas logeado";
     }
 
-
-    // Añadiendo usuario
-    @RequestMapping(value="/addUser", method = RequestMethod.POST)
-    public ResponseEntity<?> addUser(@RequestBody Usuario usuario){
-		try{
-			System.out.println("Vamos a agregar el usuario .............");
-			System.out.println(usuario);
-			authServices.addUser(usuario);
-			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (UniWheelsPersistenceException ex){
-			System.out.println("ERROR NO PODEMOS CREAR USUARIO");
-			return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);
-			
-		}
-        
-    }
-
-
 }

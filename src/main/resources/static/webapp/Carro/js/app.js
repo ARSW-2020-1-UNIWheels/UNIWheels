@@ -1,7 +1,8 @@
 var app = (function(){
 	
 	var agregarCarro = function(datos){
-		apiclient.agregarCarro(datos);
+		var datosDos = JSON.stringify(datos);
+		apiclient.agregarCarro(datosDos);
 	};	
 	
 	var verificarInformacion = function(e){
@@ -17,10 +18,11 @@ var app = (function(){
 			location.reload();
 		}
 		else{
-			var info = {"marca": datos.get("marca") ,
-						"placa": datos.get("placa"),
-						"modelo": datos.get("modelo"),
-						"color": datos.get("color")};
+			var info = {
+				"marca": datos.get("marca") ,
+				"placa": datos.get("placa"),
+				"modelo": datos.get("modelo"),
+				"color": datos.get("color")}
 			
 			agregarCarro(info);
 		}
