@@ -32,6 +32,15 @@ public class UniWheelsServices {
         return uwp.getConductoresDisponibles();
     }
 
+    public void addCarroAlUsuario(Usuario usuario, Carro carro){
+        carro.setUsuario(usuario);
+        uwp.addCarToUser(carro);
+    }
+
+    public List<Carro> getCarrosDelUsuario(Usuario usuario){
+        return uwp.getCarrosPorUsuario(usuario);
+    }
+
     public void saveConductorDisponible(Conductor conductor) throws UniWheelsPersistenceException{
         uwp.saveConductorDisponible(conductor);
         uwp.updateDatabase();
