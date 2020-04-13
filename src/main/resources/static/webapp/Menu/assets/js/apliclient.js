@@ -10,21 +10,21 @@ var apiclient = ( function () {
             .catch(error => console.log(error));
     });
 	
-	var getUser = (function () {
+	var getUser = (function (callback) {
 		console.log("estamos en el axios");
 		axios({
             method: 'GET',
             url: '/auth/getUser',
 
         })
-			.then(response => response.data)
+			.then(response => callback(response.data))
             .catch(error => console.log(error));
 
 	});		
 
     return{
         añadirConductorDisponible: añadirConductorDisponible,
-		getUser: getUser
+		getUser: getUser,
     }
 })();
 

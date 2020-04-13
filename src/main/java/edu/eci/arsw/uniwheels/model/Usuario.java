@@ -150,8 +150,4 @@ public class Usuario {
         this.rutas = rutas;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" + this.username +","+ this.password +","+ this.email+"}";
-    }
 }

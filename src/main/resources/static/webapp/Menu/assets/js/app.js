@@ -27,20 +27,18 @@ var app = (function(){
 
 	};
 	
-	
-	var getUser = function(){
-		console.log("vamos a poner nombre");
-		var usuario = apiclient.getUser();
-		//console.log(type(usuario));
-		//var usuario = "orlando";
-		console.log("vamos a poner el usuario");
-		console.log(usuario);
-		$("#nombreUsuario >h1").text("Bienvenido "+ usuario);
+	var _getUser = function(info){
+		$("#nombreUsuario >h1").text("Bienvenido "+ info.username);
 	};
+
+	function get(){
+		apiclient.getUser(_getUser)
+	}
 
 	return{	
 	    addConductor: addConductor,
-		getUser: getUser
+		_getUser: _getUser,
+		get:get
 	};
 	
 })();
