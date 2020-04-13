@@ -21,8 +21,7 @@ var app = (function(){
 			var info = {
 				"marca": datos.get("marca") ,
 				"placa": datos.get("placa"),
-				"modelo": datos.get("modelo"),
-				"color": datos.get("color")}
+				"modelo": datos.get("modelo")}
 			
 			agregarCarro(info);
 		}

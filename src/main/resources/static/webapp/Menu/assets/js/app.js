@@ -30,12 +30,11 @@ var app = (function(){
 	
 	var getUser = function(){
 		console.log("vamos a poner nombre");
-		//var usuario = apiclient.getUser();
-		var usuario = "orlando";
+		var usuario = apiclient.getUser();
+		//var usuario = "orlando";
 		console.log("vamos a poner el usuario");
 		console.log(usuario);
-	
-		$("#nombreUsuario >h1").text("Bienvenido"+ usuario);
+		$("#nombreUsuario >h1").text("Bienvenido "+ usuario);
 	};
 
 	return{	
