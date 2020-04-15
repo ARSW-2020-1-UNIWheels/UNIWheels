@@ -19,6 +19,7 @@ var app = (function(){
 		}
 		else{
 			var info = {
+			    "id": 1,
 				"marca": datos.get("marca") ,
 				"placa": datos.get("placa"),
 				"modelo": datos.get("modelo")}

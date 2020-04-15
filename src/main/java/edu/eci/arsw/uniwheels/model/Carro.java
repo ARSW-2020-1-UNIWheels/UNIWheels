@@ -10,9 +10,13 @@ import javax.persistence.*;
 public class Carro {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private int id;
+    @Column(name="placa")
     private String placa;
+    @Column(name="marca")
     private String marca;
+    @Column(name="modelo")
     private String modelo;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
