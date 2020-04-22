@@ -4,7 +4,16 @@ var app = (function(){
 		//var lista = apiclient.getConductoresDisponibles(addConductores);
 		
 	};
-	
+
+
+	var getCarros = function(){
+	    var carros = apiclient.getCarros(addCarros);
+	};
+
+	var addCarros = function(carros){
+	    console.log("ESTOS SON MIS CARROS");
+	    console.log(carros);
+	};
 	
 	var addPasajeros = function(pasajeros){
 		$("#tablePasajeros > tbody").empty();
