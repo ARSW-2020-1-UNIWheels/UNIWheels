@@ -25,6 +25,17 @@ var apiclient = ( function () {
             .catch(error => console.log(error));
     });
 
+    var getCarros = (function (callback) {
+
+        axios({
+            method: 'GET',
+            url: '/uniwheels/getCarros',
+
+        })
+            .then(response => callback(response.data))
+            .catch(error => console.log(error));
+    });
+
 	/*
     var agregarPasajero = (function (username) {
 
@@ -39,7 +50,8 @@ var apiclient = ( function () {
 
     return{
         getPasajeros: getPasajeros,
-        getSolicitudesPasajeros: getSolicitudesPasajeros
+        getSolicitudesPasajeros: getSolicitudesPasajeros,
+        getCarros: getCarros
 		/* agregarPasajero: agregarPasajero*/
 		
     }
