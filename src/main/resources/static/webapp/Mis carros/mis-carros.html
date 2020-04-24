@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Carro</title>
+	<title> Mis Carro</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -32,22 +32,54 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100">
-				<form id="formulario"class="login100-form validate-form">
+				<br id="formulario"class="login100-form validate-form">
 					<!---->
 					<span class="login100-form-logo">
-						<i class="zmdi zmdi zmdi-account"></i>
+						<i class="zmdi zmdi zmdi-directions-car"></i>
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						Mis Carro
+						Mis Carros
 					</span>
 
+					<table id="tableMisCarros"  class="table table-dark">
+						<thead class="thead-light">
+						<tr>
+                            <th scope="col"></th>
+							<th scope="col">Marca</th>
+							<th scope="col">Modelo</th>
+							<th scope="col">Placa</th>
+							<th scope="col">Imagen</th>
+						</tr>
+						</thead>
+						<tbody id = "misCarros">
+						<!-- Se generan datos con los js -->
+						</tbody>
+					</table>
 
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type="submit" onclick="app.init()">
-							Registrar
-						</button>
-					</div>
+                    <br></br>
+
+					<img src="alaska.jpg"/>
+
+                    <div class="form-row container-login100-form-btn">
+                        <div class="col-auto">
+                            <div class="container-login100-form-btn">
+                                <button class="login100-form-btn" type="submit" onclick="app.volver()">
+                                    Volver
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="col-auto">
+                            <div class="container-login100-form-btn">
+                                <button class="login100-form-btn" type="submit" onclick="app.añadir()">
+                                    Añadir Carro
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
 				</form>
 			</div>
 		</div>

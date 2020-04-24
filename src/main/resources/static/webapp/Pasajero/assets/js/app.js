@@ -8,6 +8,7 @@ var app = (function(){
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
 			stompClient.subscribe("/uniwheels/conductoresDisponibles", function (conductores) {
+			    console.log(conductores);
 				var conductoresData = JSON.parse(conductores.body);
 				alert(conductoresData);
 				$("#tableConductoresDisponibles > tbody").empty();
