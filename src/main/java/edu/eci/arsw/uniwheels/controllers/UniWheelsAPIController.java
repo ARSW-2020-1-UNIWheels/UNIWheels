@@ -39,6 +39,15 @@ public class UniWheelsAPIController extends BaseController {
         }
     }
 
+    @RequestMapping(value="/deleteCarro/{id}",method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteCarroAlUsuario(@PathVariable String id){
+        try{
+            uws.deleteCarro(Integer.parseInt(id));
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
     @RequestMapping(value="/getCarros", method=RequestMethod.GET)
     public ResponseEntity<?> getCarrosAlUsuario(){
         try{

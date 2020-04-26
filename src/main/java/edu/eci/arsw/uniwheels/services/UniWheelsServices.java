@@ -46,6 +46,10 @@ public class UniWheelsServices {
         uwp.updateDatabase();
     }
 
+    public void deleteCarro(Integer carro){
+        uwp.deleteCarToUser(carro);
+    }
+
     public void agregarPosiblePasajero(Usuario pasajero, Usuario conductor) throws UniWheelsPersistenceException{
         System.out.println(conductor.viajesRealizados.size());
         System.out.println("Eyyyy estoy entrando acá");
