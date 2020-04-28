@@ -51,6 +51,12 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     }
 
     @Override
+    public void deleteCarToUser(Integer carro){
+        carroRepository.deleteById(carro);
+        updateDatabase();
+    }
+
+    @Override
     public List<Carro> getCarrosPorUsuario(Usuario usuario){
         List<Carro> listaCompletaCarros = carroRepository.findAll();
         List<Carro> carrosDelUsuario = new ArrayList<>();

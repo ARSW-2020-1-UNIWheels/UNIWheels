@@ -20,6 +20,9 @@ public interface UniWheelsPersistence {
 
     void addCarToUser(Carro carro);
 
+
+    void deleteCarToUser(Integer carro);
+
     List<Carro> getCarrosPorUsuario(Usuario usuario);
 
     public void updateDatabase();
