@@ -58,19 +58,33 @@
 					<br></br>
 					<div class="content" style="text-align: center; background-color:#333333; border-radius: 25px;">
 						<br></br>
-						<div class="mine" style="margin: 10%;">
-							<input class="input100" type="text" name="inicio" placeholder="Donde estás?" style="background-color: azure;">
-						</div>
-	
-						<div class="mine" style="margin: 10%;">
-							<input class="input100" type="text" name="fin" placeholder="Para donde vás?" style="background-color: azure;">
-						</div>
 
-						<div class="container-login100-form-btn">
-							<button class="login100-form-btn" type="submit" onclick="app.getConductores()" >
-								Iniciar
-							</button>							
-						<br></br>
+						<div class="mine" style="margin: 10%;">
+							<select class="custom-select my-1 mr-sm-2" id="ubicacionActual">
+								<option selected>Donde estás?</option>
+								<option value="ECI">ECI</option>
+								<option value="Andes">Andes</option>
+								<option value="Home">Home</option>
+							</select>
+
+							<br></br>
+
+							<select class="custom-select my-1 mr-sm-2" id="destino">
+								<option selected>Para donde vas?</option>
+								<option value="ECI">ECI</option>
+								<option value="Andes">Andes</option>
+								<option value="Home">Home</option>
+							</select>
+
+							<br></br>
+
+							<div class="container-login100-form-btn">
+								<button class="login100-form-btn" onclick="app.getConductores()" >
+									Iniciar
+								</button>
+							</div>
+
+							<br></br>
 						</div>
 					</div>
 				</article>
@@ -107,50 +121,7 @@
 				</table>
 				
 				</div>
-				
-				<!--
-				<div class="grid-container" style="display: grid; grid-template-columns: auto auto auto;">
-					
-					<article>
-						<div class="grid-item">
-							<header>
-								<h4 class="funct">Opcion 1</h4>
 
-								<br></br>
-
-								<p> Conductor: Orlando Gelves</p>
-								<p> Tiempo: 10 minutos</p>
-								<p> Valor: $10.000</p>
-
-							</header>
-					</article>
-
-					<article>
-						<div class="grid-item">
-							<header>
-								<h4 class="funct">Opcion 2</h4>
-
-								<br></br>
-
-								<p> Conductor: Orlando Gelves</p>
-								<p> Tiempo: 10 minutos</p>
-								<p> Valor: $10.000</p>
-							</header>
-					</article>
-
-					<article>
-						<div class="grid-item">
-							<header>
-								<h4 class="funct">Opcion 3</h4>
-
-								<br></br>
-
-								<p> Conductor: Orlando Gelves</p>
-								<p> Tiempo: 10 minutos</p>
-								<p> Valor: $10.000</p>
-
-					</article>
-					-->
 
 					</div>  
 				  </div>
@@ -171,7 +142,7 @@
 			<script src="assets/js/main.js"></script>
 			<script src="/webjars/sockjs-client/sockjs.min.js"></script>
 			<script src="/webjars/stomp-websocket/stomp.min.js"></script>
-			<script src="assets/js/apliclient.js"></script>
+			<script src="assets/js/apiclient.js"></script>
 			<script src="assets/js/app.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 

@@ -10,6 +10,7 @@ var apiclient = ( function () {
             url: '/uniwheels/getPasajeros',
 
         })
+
             .then(response => callback(response.data))
             .catch(error => console.log(error));
     });

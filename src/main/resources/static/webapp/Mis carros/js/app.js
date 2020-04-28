@@ -12,10 +12,7 @@ var app = (function(){
         if(carro in listaImagenes){
             console.log("esta la imagen");
             $("#imagen").empty();
-            var img = "<img src="+'"'+
-                    carro+".jpg"+
-                    '"'+
-                    " />";
+            var img = "<img src="+'"'+carro+".jpg"+'"'+" />";
             $('#imagen').append(img);
         }
         else{

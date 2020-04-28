@@ -1,18 +1,42 @@
 var app = (function(){
 
+    var dic = {};
+	
+	/**
+		Agregar funciones que:
+		1. Agreguen un nuevo pasajero a la lista de solicitudes de pasajeros en el Socket.
+		2. Eliminar el pasajero de lista de solicitudes cuando es aceptado.
+		3. Agregar el pasajero a la lista de pasajeros aceptados, con un botón de cancelar.
+	**/
+
 	var getPasajeros = function(){
-		//var lista = apiclient.getConductoresDisponibles(addConductores);
-		
+		apiclient.getConductoresDisponibles(addConductores);
 	};
 
 
 	var getCarros = function(){
-	    var carros = apiclient.getCarros(addCarros);
+	    console.log("estamos en JS");
+	    apiclient.getCarros(addCarros);
 	};
 
-	var addCarros = function(carros){
-	    console.log("ESTOS SON MIS CARROS");
-	    console.log(carros);
+	var addCarros = function(info){
+	    console.log("Vamos a poner mis carros");
+
+	    info.map(function(element){
+	        var nombre = element.marca +" "+ element.modelo;
+            $("#carro").append(
+                "<option value= "+nombre+">"+nombre+"</option>");
+            console.log(nombre);
+	    });
+
+	};
+
+	var infoViaje = function(){
+	    var inicio = $("#ubicacionActual").val();
+	    var destino = $("#destino").val();
+	    var carro = $("#carro").val();
+
+	    console.log(inicio+" "+destino+" "+carro);
 	};
 	
 	var addPasajeros = function(pasajeros){
@@ -29,7 +53,7 @@ var app = (function(){
 				"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
 				"</tr>"
 			*/
-			);
+			//);
 		});
 	};
 	
@@ -48,14 +72,17 @@ var app = (function(){
 				"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
 				"</tr>"
 			*/
-			);
+			//);
 		});
 	};
 	
 	return{	
 	    getPasajeros: getPasajeros,
 		addPasajeros: addPasajeros,
-		addSolicitudes: addSolicitudes
+		addSolicitudes: addSolicitudes,
+		getCarros: getCarros,
+		addCarros: addCarros,
+		infoViaje: infoViaje
 	};
 	
 })();

@@ -16,6 +16,7 @@ var app = (function(){
 	var addConductor = function(){
 		//var lista = apiclient.añadirConductorDisponible();
 		console.info('Connecting to WS...');
+		location.href = "../Conductor/conductor.html";
 
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);

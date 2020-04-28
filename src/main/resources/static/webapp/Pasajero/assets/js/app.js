@@ -1,5 +1,12 @@
 var app = (function(){
 
+    var infoViaje = function(){
+        var inicio = $("#ubicacionActual").val();
+        var destino = $("#destino").val();
+        console.log(inicio+" "+destino);
+        return destino.toString();
+    };
+
 	var getConductores = function(){
 		alert("aqui si");
 		console.info('Connecting to WS...');
@@ -25,7 +32,9 @@ var app = (function(){
 					);
 				});
 			});
-			stompClient.send("/app/conductoresDisponibles");
+			console.log(infoViaje());
+			console.log(typeof(infoViaje()));
+			stompClient.send("/app/conductoresDisponibles/"+infoViaje()+"/");
 		});
 	};
 
