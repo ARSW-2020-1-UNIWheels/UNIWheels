@@ -30,7 +30,7 @@ public class STOMPMessagesHandler extends BaseHandler{
     UniWheelsServices uniWheelsServices;
 
     @MessageMapping("/nuevoConductor")
-    public void agregarConductor(Ruta ruta, Principal principal, String camioneta) throws Exception {
+    public void agregarConductor(Ruta ruta,  String camionetagit,Principal principal) throws Exception {
         Conductor conductor = new Conductor();
         List<Carro> carrosPorUsuario = uniWheelsServices.getCarrosDelUsuario(getLoggedUser(principal).getUsuario());
         for (Carro c:carrosPorUsuario){
@@ -51,7 +51,7 @@ public class STOMPMessagesHandler extends BaseHandler{
         uniWheelsServices.saveConductorDisponible(conductor);
 
         List<Conductor> todosLosConductores = uniWheelsServices.getConductoresDisponibles();
-
+        uniWheelsServices.actualizarDB();
         msgt.convertAndSend("/uniwheels/conductoresDisponibles", todosLosConductores);
 
     }
@@ -63,6 +63,7 @@ public class STOMPMessagesHandler extends BaseHandler{
         DetallesUsuario usuario = getLoggedUser(principal);
         pasajero.setUsuario(usuario.getUsuario());
         conductor.posiblesPasajeros.add(pasajero);
+        uniWheelsServices.actualizarDB();
         msgt.convertAndSend("/uniwheels/posiblesConductores."+conductor.id, conductor.posiblesPasajeros);
 
     }
@@ -77,6 +78,7 @@ public class STOMPMessagesHandler extends BaseHandler{
         } else {
             conductor.posiblesPasajeros.remove(pasajero);
         }
+        uniWheelsServices.actualizarDB();
         msgt.convertAndSend("/uniwheels/posiblesConductores."+conductor.id, conductor.posiblesPasajeros);
     }
 
@@ -93,6 +95,7 @@ public class STOMPMessagesHandler extends BaseHandler{
         for (Pasajero pas: pasajeros){
             pas.nombreEstado = "Finalizado";
         }
+        uniWheelsServices.actualizarDB();
         msgt.convertAndSend("/uniwheels/conductorFinalizado");
     }
 

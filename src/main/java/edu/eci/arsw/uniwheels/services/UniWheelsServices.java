@@ -54,6 +54,10 @@ public class UniWheelsServices {
         uwp.updateDatabase();
     }
 
+    public void actualizarDB(){
+        uwp.updateDatabase();
+    }
+
     public void deleteCarro(Integer carro){
         uwp.deleteCarToUser(carro);
     }

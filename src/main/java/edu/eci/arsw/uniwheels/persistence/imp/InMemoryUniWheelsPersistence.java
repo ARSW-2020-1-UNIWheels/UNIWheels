@@ -71,6 +71,7 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
         pasajeroRepository.flush();
         conductorRepository.flush();
         rutaRepository.flush();
+        carroRepository.flush();
     }
 
     @Override
