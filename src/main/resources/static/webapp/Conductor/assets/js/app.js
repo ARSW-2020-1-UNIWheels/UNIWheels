@@ -1,4 +1,8 @@
+
+
 var app = (function(){
+
+	var placa;
 	class Conductor{
 		constructor(){
 		}
@@ -9,6 +13,17 @@ var app = (function(){
 			this.direccionDestino=direccionDestino;
 			this.precio = precio;
 
+		}
+	}
+	class Carro{
+		constructor(placa,marca,modelo) {
+			this.placa = placa;
+			this.marca = marca;
+			this.modelo = modelo;
+		}
+		 toString = function(){
+			var t = this.marca + " " + this.modelo;
+			return t;
 		}
 	}
     var dic = {};
@@ -34,10 +49,12 @@ var app = (function(){
 	    console.log("Vamos a poner mis carros");
 
 	    info.map(function(element){
-	        var nombre = element.marca +" "+ element.modelo;
+	    	var carro = new Carro(element.placa,element.marca,element.modelo);
+	        //var nombre = element.marca +" "+ element.modelo;
+			//alert(carro.toString())
             $("#carro").append(
-                "<option value= "+nombre+">"+nombre+"</option>");
-            console.log(nombre);
+				"<option value= \""+ carro.placa+"\"> "+ carro.toString()+" </option>");
+            //console.log(nombre);
 	    });
 
 	};
@@ -50,7 +67,7 @@ var app = (function(){
 
 	var addConductor = function(){
 		//var lista = apiclient.añadirConductorDisponible();
-		addSolicitudes
+
 		console.info('Connecting to WS...');
 
 
@@ -59,9 +76,10 @@ var app = (function(){
 		stompClient.connect({}, function (frame) {
 			alert("aqui entra");
 			console.log('Connected: ');
-			console.log(JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val())));
-			console.log($("#ubicacionActual").val());
-			stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val(),$("#precio").val())));
+			//console.log(JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val())));
+			//console.log($("#ubicacionActual").val());
+			alert($("#carro").val());
+			stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val(),$("#precio").val()))+$("#carro").val());
 		});
 
 	};
@@ -115,7 +133,6 @@ var app = (function(){
 						"</td> " +
 						"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
 						"</tr>"
-
 					);
 				});
 			});

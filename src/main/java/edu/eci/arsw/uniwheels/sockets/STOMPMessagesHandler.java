@@ -31,8 +31,9 @@ public class STOMPMessagesHandler extends BaseHandler{
 
     @MessageMapping("/nuevoConductor")
     public void agregarConductor(Ruta ruta,  String camioneta ,Principal principal) throws Exception {
-
         Conductor conductor = new Conductor();
+        String[] separacionJson = camioneta.split("}");
+        camioneta = separacionJson[1];
         List<Carro> carrosPorUsuario = uniWheelsServices.getCarrosDelUsuario(getLoggedUser(principal).getUsuario());
         for (Carro c:carrosPorUsuario){
             if (c.getPlaca().equals(camioneta)){
