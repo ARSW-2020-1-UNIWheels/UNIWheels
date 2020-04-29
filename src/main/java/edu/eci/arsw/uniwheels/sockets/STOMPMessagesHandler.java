@@ -29,11 +29,14 @@ public class STOMPMessagesHandler extends BaseHandler{
     UniWheelsServices uniWheelsServices;
 
     @MessageMapping("/nuevoConductor")
-    public void agregarConductor(Conductor conductor, Principal principal, Ruta ruta) throws Exception {
+    public void agregarConductor(Ruta ruta, Principal principal) throws Exception {
+        Conductor conductor = new Conductor();
+        System.out.println(ruta.direccionOrigen+ " " + ruta.direccionDestino);
         DetallesUsuario usuario = getLoggedUser(principal);
         conductor.setUsuario(usuario.getUsuario());
         conductor.nombreEstado = "Disponible";
         conductor.conductorName = usuario.getUsuario().username;
+        uniWheelsServices.saveRuta(ruta);
         conductor.setRuta(ruta);
         usuario.getUsuario().viajesRealizados.add(conductor);
         System.out.println(usuario.getUsuario().viajesRealizados.size());
@@ -46,8 +49,11 @@ public class STOMPMessagesHandler extends BaseHandler{
     }
 
     @MessageMapping("/agregarPosiblePasajero")
-    public void posiblePasajero(Conductor conductor, Pasajero pasajero, Principal principal) throws Exception {
+    public void posiblePasajero(String nameConductor, Principal principal) throws Exception {
+        Pasajero pasajero = new Pasajero();
+        Conductor conductor = uniWheelsServices.getConductor(nameConductor);
         DetallesUsuario usuario = getLoggedUser(principal);
+        pasajero.setUsuario(usuario.getUsuario());
         conductor.posiblesPasajeros.add(pasajero);
         msgt.convertAndSend("/uniwheels/posiblesConductores."+conductor.id, conductor.posiblesPasajeros);
 
@@ -72,11 +78,11 @@ public class STOMPMessagesHandler extends BaseHandler{
         List<Conductor> conductorPorDestino = new ArrayList<>();
         for (int i = 0; i<todosLosConductores.size();i++ ){
             //Agregar origen que puede ser también la universidad
-            if(todosLosConductores.get(i).ruta.direccionDestino.equals(destino)){
+            if(todosLosConductores.get(i).usuario.universidad.equals(destino)){
                 conductorPorDestino.add(todosLosConductores.get(i));
             }
         }
-        msgt.convertAndSend("/uniwheels/conductoresDisponibles", conductorPorDestino);
+        msgt.convertAndSend("/uniwheels/conductoresDisponibles", todosLosConductores);
     }
 
     @MessageMapping("/terminarCarrera")

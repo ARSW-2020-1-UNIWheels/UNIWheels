@@ -46,9 +46,6 @@ public class Usuario {
     @JsonIgnore
     public Set<Ruta> rutas;
 
-
-
-
     public Usuario(){
 
     }

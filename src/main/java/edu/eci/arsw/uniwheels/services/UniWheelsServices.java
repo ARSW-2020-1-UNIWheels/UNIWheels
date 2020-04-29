@@ -32,6 +32,10 @@ public class UniWheelsServices {
         return uwp.getConductoresDisponibles();
     }
 
+    public Conductor getConductor(String name) throws UniWheelsPersistenceException {
+        return uwp.getConductor(name);
+    }
+
     public void addCarroAlUsuario(Usuario usuario, Carro carro){
         carro.setUsuario(usuario);
         uwp.addCarToUser(carro);
@@ -43,6 +47,10 @@ public class UniWheelsServices {
 
     public void saveConductorDisponible(Conductor conductor) throws UniWheelsPersistenceException{
         uwp.saveConductorDisponible(conductor);
+        uwp.updateDatabase();
+    }
+    public void saveRuta(Ruta ruta)throws UniWheelsPersistenceException{
+        uwp.saveRuta(ruta);
         uwp.updateDatabase();
     }
 

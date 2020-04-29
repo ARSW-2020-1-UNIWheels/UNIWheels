@@ -1,5 +1,15 @@
 var app = (function(){
+	class Conductor{
+		constructor(){
+		}
+	}
+	class Ruta{
+		constructor(direccionOrigen, direccionDestino){
+			this.direccionOrigen = direccionOrigen;
+			this.direccionDestino=direccionDestino;
 
+		}
+	}
     var dic = {};
 	
 	/**
@@ -31,6 +41,30 @@ var app = (function(){
 
 	};
 
+
+
+	var stompClient = null;
+
+
+
+	var addConductor = function(){
+		//var lista = apiclient.añadirConductorDisponible();
+		addSolicitudes
+		console.info('Connecting to WS...');
+
+
+		var socket = new SockJS('/stompendpoint');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function (frame) {
+			alert("aqui entra");
+			console.log('Connected: ');
+			console.log(JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val())));
+			console.log($("#ubicacionActual").val());
+			stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val())));
+		});
+
+	};
+
 	var infoViaje = function(){
 	    var inicio = $("#ubicacionActual").val();
 	    var destino = $("#destino").val();
@@ -58,22 +92,34 @@ var app = (function(){
 	};
 	
 	
-	var addSolicitudes = function(pasajeros){
-		$("#tableSolicitudes > tbody").empty();
-		pasajeros.map(function(element){
-			/*
-			$("solicitudesPasajeros > tbody").append(
-				"<tr> <td>" +
-				element.conductorName +
-				"</td>" +
-				"<td>" +
-				element.tiempoRecorrido +
-				"</td> " +
-				"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
-				"</tr>"
-			*/
-			//);
+	var addSolicitudes = function(){
+
+		console.info('Connecting to WS...');
+		var socket = new SockJS('/stompendpoint');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function () {
+			console.log('Connected: ');
+			stompClient.subscribe("/uniwheels/agregarPosiblePasajero", function (conductores) {
+				console.log(conductores);
+				var conductoresData = JSON.parse(conductores.body);
+				$("#tableSolicitudes > tbody").empty();
+				conductoresData.map(function(element){
+
+					$("solicitudesPasajeros > tbody").append(
+						"<tr> <td>" +
+						element.usuario.username +
+						"</td>" +
+						"<td>" +
+						element.usuario.direccionResidencia +
+						"</td> " +
+						"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
+						"</tr>"
+
+					);
+				});
+			});
 		});
+
 	};
 	
 	return{	
@@ -82,7 +128,8 @@ var app = (function(){
 		addSolicitudes: addSolicitudes,
 		getCarros: getCarros,
 		addCarros: addCarros,
-		infoViaje: infoViaje
+		infoViaje: infoViaje,
+		addConductor: addConductor
 	};
 	
 })();
