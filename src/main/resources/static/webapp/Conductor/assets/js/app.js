@@ -66,7 +66,7 @@ var app = (function(){
 	var stompClient = null;
 
 	var addConductor = function(){
-
+		infoViaje();
 		console.info('Connecting to WS...');
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
@@ -81,31 +81,43 @@ var app = (function(){
 	    var inicio = $("#ubicacionActual").val();
 	    var destino = $("#destino").val();
 	    var carro = $("#carro").val();
+		var precio = $("#precio").val();
 
-	    console.log(inicio+" "+destino+" "+carro);
+	    console.log(inicio+" "+destino+" "+carro+" "+precio);
 	};
 	
 	var addPasajeros = function(pasajeros){
-		$("#tablePasajeros > tbody").empty();
-		pasajeros.map(function(element){
-			/*
-			$("#pasajerosAceptados > tbody").append(
-				"<tr> <td>" +
-				element.conductorName +
-				"</td>" +
-				"<td>" +
-				element.tiempoRecorrido +
-				"</td> " +
-				"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
-				"</tr>"
-			*/
-			//);
+		console.info('Connecting to WS...');
+		var socket = new SockJS('/stompendpoint');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function () {
+			console.log('Connected: ');
+			stompClient.subscribe("/uniwheels/pasajero."+pasajeros.name, function (pasajeros){
+				console.log(pasajeros);		
+				$("#tablePasajeros").empty();
+				pasajeros.map(function(element){
+					var markup = "<tr> <td>" +
+						element.name +
+						"</td>" +
+						"<td>" +
+						element.universidad +
+						"</td>" +
+						"<td>" +
+						element.puntuacion +
+						"</td>" +
+						"<td>" +
+						element.ubicacionActual+
+						"</tr>";
+					$("#tablePasajeros").append(markup);
+				})
+			});
 		});
 	};
 	
 	var aceptarPasajero = function (pasajero) {
 		console.log("vamos a enviar el nombre "+pasajero.name);
 		stompClient.send("/app/agregarPasajero",{},pasajero.name);
+		addPasajeros(pasajeros);
 	};
 
 	var addSolicitudes = function(){

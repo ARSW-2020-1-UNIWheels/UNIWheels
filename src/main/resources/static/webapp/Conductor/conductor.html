@@ -53,7 +53,6 @@
 				</header>
 			</div>
 		
-			<br></br>
 			<div class="inner" >
 				<article>
 					<br></br>
@@ -85,7 +84,14 @@
 
 							<br></br>
 
-							<input class="input100" type="text" name="precio" placeholder="Precio" id="precio">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">$</span>
+								</div>
+								<input id="precio" class="form-control" type="text" name="precio" placeholder="Precio" aria-label="Dollar amount (with dot and two decimal places)">
+							</div>
+
+							<!--<input class="input100" id="precio" type="text" name="precio" placeholder="Precio">-->
 
 							<br></br>
 
