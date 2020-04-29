@@ -66,6 +66,7 @@ public class STOMPMessagesHandler extends BaseHandler{
         pasajero.nombreEstado = "Disponible";
         DetallesUsuario usuario = getLoggedUser(principal);
         pasajero.setUsuario(usuario.getUsuario());
+        pasajero.pasajeroName = usuario.usuario.username;
         conductor.posiblesPasajeros.add(pasajero);
         pasajero.posiblesConductores.add(conductor);
         usuario.usuario.viajesRecibidos.add(pasajero);
@@ -75,18 +76,25 @@ public class STOMPMessagesHandler extends BaseHandler{
 
     }
 
-    @MessageMapping("/agregarPasajero")
-    public void accionSobrePasajero(Conductor conductor, Pasajero pasajero,boolean aceptado, Principal principal) throws Exception {
+    @MessageMapping("/agregarPasajero.{conductorUsername}")
+    public void accionSobrePasajero(Pasajero pasajero,String aceptado,@DestinationVariable String conductorUsername, Principal principal) throws Exception {
         DetallesUsuario usuario = getLoggedUser(principal);
-        if(aceptado){
+        Conductor conductor = uniWheelsServices.getConductor(conductorUsername);
+        String[] separacionJson = aceptado.split("}");
+        aceptado = separacionJson[1];
+
+        if(aceptado.equals("true")){
+
             conductor.pasajeros.add(pasajero);
             conductor.posiblesPasajeros.remove(pasajero);
-            msgt.convertAndSend("/uniwheels/pasajeroAceptado."+pasajero.id,conductor);
+            msgt.convertAndSend("/uniwheels/pasajeroAceptado."+pasajero.pasajeroName,conductor);
+            msgt.convertAndSend("/uniwheels/pasajero."+conductor.conductorName, conductor.pasajeros);
         } else {
             conductor.posiblesPasajeros.remove(pasajero);
         }
         uniWheelsServices.actualizarDB();
-        msgt.convertAndSend("/uniwheels/posiblesConductores."+conductor.id, conductor.posiblesPasajeros);
+
+        msgt.convertAndSend("/uniwheels/posiblesConductores."+conductor.conductorName, conductor.posiblesPasajeros);
     }
 
     @MessageMapping("/conductoresDisponibles")

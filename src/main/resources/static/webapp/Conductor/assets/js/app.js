@@ -114,10 +114,14 @@ var app = (function(){
 		});
 	};
 	
-	var aceptarPasajero = function (pasajero) {
+	var aceptarPasajero = function (pasajero,estado) {
 		console.log("vamos a enviar el nombre "+pasajero.name);
+<<<<<<< HEAD
 		stompClient.send("/app/agregarPasajero",{},pasajero.name);
 		addPasajeros(pasajeros);
+=======
+		stompClient.send("/app/agregarPasajero."+name,{},pasajero+estado);
+>>>>>>> 75382fd6f407a69f1729b0b351b8ff05ecfc923c
 	};
 
 	var addSolicitudes = function(){
@@ -143,8 +147,8 @@ var app = (function(){
 						"<td>" +
 						element.calificacion +
 						"</td>"+
-						"<td><form><button type='button' onclick='app.aceptarPasajero("+element+") >Aceptar</button></form></td>" +
-						"<td><form><button type='button' onclick='app.aceptarPasajero("+element+") >Rechazar</button></form></td>" +
+						"<td><form><button type='button' onclick='app.aceptarPasajero("+element+",'true') >Aceptar</button></form></td>" +
+						"<td><form><button type='button' onclick='app.aceptarPasajero("+element+",'false') >Rechazar</button></form></td>" +
 						"</tr>";
 					$("#tableSolicitudes > tbody").append(markup);
 				});
