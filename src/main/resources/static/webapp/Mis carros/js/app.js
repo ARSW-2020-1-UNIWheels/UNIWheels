@@ -33,10 +33,10 @@ var app = (function(){
 	    var imagen = "alaska.jpg";
 	    console.log("vamos a añadir el carro");
         $("#tableMis Carros > tbody").empty();
+		var boton = "<button type='button'">Agregar</button>";
         carros.map(function(element){
             $("#tableMisCarros > tbody").append(
 				//var boton = "<button type='button' onclick='apiclient.deleteCarro("+element.id+")"+">Agregar</button>";
-                var boton = "<button type='button'">Agregar</button>";
 				console.log(boton);
 				'<tr> <th scope="row"> </th>'+
                  "<td> " +

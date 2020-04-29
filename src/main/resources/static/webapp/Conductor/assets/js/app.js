@@ -1,5 +1,31 @@
+
+
 var app = (function(){
 
+	var placa;
+	class Conductor{
+		constructor(){
+		}
+	}
+	class Ruta{
+		constructor(direccionOrigen, direccionDestino,precio){
+			this.direccionOrigen = direccionOrigen;
+			this.direccionDestino=direccionDestino;
+			this.precio = precio;
+
+		}
+	}
+	class Carro{
+		constructor(placa,marca,modelo) {
+			this.placa = placa;
+			this.marca = marca;
+			this.modelo = modelo;
+		}
+		 toString = function(){
+			var t = this.marca + " " + this.modelo;
+			return t;
+		}
+	}
     var dic = {};
 	
 	/**
@@ -23,11 +49,38 @@ var app = (function(){
 	    console.log("Vamos a poner mis carros");
 
 	    info.map(function(element){
-	        var nombre = element.marca +" "+ element.modelo;
+	    	var carro = new Carro(element.placa,element.marca,element.modelo);
+	        //var nombre = element.marca +" "+ element.modelo;
+			//alert(carro.toString())
             $("#carro").append(
-                "<option value= "+nombre+">"+nombre+"</option>");
-            console.log(nombre);
+				"<option value= \""+ carro.placa+"\"> "+ carro.toString()+" </option>");
+            //console.log(nombre);
 	    });
+
+	};
+
+
+
+	var stompClient = null;
+
+
+
+	var addConductor = function(){
+		//var lista = apiclient.añadirConductorDisponible();
+
+		console.info('Connecting to WS...');
+
+
+		var socket = new SockJS('/stompendpoint');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function (frame) {
+			alert("aqui entra");
+			console.log('Connected: ');
+			//console.log(JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val())));
+			//console.log($("#ubicacionActual").val());
+			alert($("#carro").val());
+			stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val(),$("#precio").val()))+$("#carro").val());
+		});
 
 	};
 
@@ -58,22 +111,33 @@ var app = (function(){
 	};
 	
 	
-	var addSolicitudes = function(pasajeros){
-		$("#tableSolicitudes > tbody").empty();
-		pasajeros.map(function(element){
-			/*
-			$("solicitudesPasajeros > tbody").append(
-				"<tr> <td>" +
-				element.conductorName +
-				"</td>" +
-				"<td>" +
-				element.tiempoRecorrido +
-				"</td> " +
-				"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
-				"</tr>"
-			*/
-			//);
+	var addSolicitudes = function(){
+
+		console.info('Connecting to WS...');
+		var socket = new SockJS('/stompendpoint');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function () {
+			console.log('Connected: ');
+			stompClient.subscribe("/uniwheels/agregarPosiblePasajero", function (conductores) {
+				console.log(conductores);
+				var conductoresData = JSON.parse(conductores.body);
+				$("#tableSolicitudes > tbody").empty();
+				conductoresData.map(function(element){
+
+					$("solicitudesPasajeros > tbody").append(
+						"<tr> <td>" +
+						element.usuario.username +
+						"</td>" +
+						"<td>" +
+						element.usuario.direccionResidencia +
+						"</td> " +
+						"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
+						"</tr>"
+					);
+				});
+			});
 		});
+
 	};
 	
 	return{	
@@ -82,7 +146,8 @@ var app = (function(){
 		addSolicitudes: addSolicitudes,
 		getCarros: getCarros,
 		addCarros: addCarros,
-		infoViaje: infoViaje
+		infoViaje: infoViaje,
+		addConductor: addConductor
 	};
 	
 })();

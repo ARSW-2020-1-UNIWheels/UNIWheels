@@ -1,9 +1,7 @@
 package edu.eci.arsw.uniwheels.persistence;
 
-import edu.eci.arsw.uniwheels.model.Carro;
-import edu.eci.arsw.uniwheels.model.Conductor;
-import edu.eci.arsw.uniwheels.model.Pasajero;
-import edu.eci.arsw.uniwheels.model.Usuario;
+import edu.eci.arsw.uniwheels.model.*;
+
 import java.util.List;
 
 /**
@@ -17,6 +15,8 @@ public interface UniWheelsPersistence {
     public void savePasajeros( Pasajero pasajero) throws UniWheelsPersistenceException;
     public List<Conductor> getConductoresDisponibles() throws UniWheelsPersistenceException;
     public void saveConductorDisponible(Conductor conductor) throws UniWheelsPersistenceException;
+    public void saveRuta(Ruta ruta) throws UniWheelsPersistenceException;
+    public Conductor getConductor(String name ) throws UniWheelsPersistenceException;
 
     void addCarToUser(Carro carro);
 

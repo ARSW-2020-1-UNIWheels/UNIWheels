@@ -1,15 +1,9 @@
 package edu.eci.arsw.uniwheels.persistence.imp;
 
-import edu.eci.arsw.uniwheels.model.Carro;
-import edu.eci.arsw.uniwheels.model.Conductor;
-import edu.eci.arsw.uniwheels.model.Pasajero;
-import edu.eci.arsw.uniwheels.model.Usuario;
+import edu.eci.arsw.uniwheels.model.*;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistence;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
-import edu.eci.arsw.uniwheels.repository.CarroRepository;
-import edu.eci.arsw.uniwheels.repository.ConductorRepository;
-import edu.eci.arsw.uniwheels.repository.PasajeroRepository;
-import edu.eci.arsw.uniwheels.repository.UserRepository;
+import edu.eci.arsw.uniwheels.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,6 +29,9 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
 
     @Autowired
     private CarroRepository carroRepository;
+
+    @Autowired
+    private RutaRepository rutaRepository;
 
     @Override
     public void saveUser(Usuario usuario) throws UniWheelsPersistenceException {
@@ -73,6 +70,8 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
         userRepository.flush();
         pasajeroRepository.flush();
         conductorRepository.flush();
+        rutaRepository.flush();
+        carroRepository.flush();
     }
 
     @Override
@@ -125,6 +124,23 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     public void saveConductorDisponible(Conductor conductor) throws UniWheelsPersistenceException{
         conductorRepository.save(conductor);
         updateDatabase();
+    }
+
+    @Override
+    public void saveRuta(Ruta ruta) throws UniWheelsPersistenceException {
+        rutaRepository.save(ruta);
+        updateDatabase();
+    }
+
+    @Override
+    public Conductor getConductor(String name) throws UniWheelsPersistenceException {
+        List<Conductor> conductors = conductorRepository.findAll();
+        for(Conductor conduc:conductors){
+            if(conduc.getConductorName().equals(name)){
+                return conduc;
+            }
+        }
+        return null;
     }
 
 }

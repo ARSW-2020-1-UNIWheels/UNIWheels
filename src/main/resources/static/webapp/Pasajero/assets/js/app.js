@@ -15,41 +15,53 @@ var app = (function(){
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
 			stompClient.subscribe("/uniwheels/conductoresDisponibles", function (conductores) {
-			    console.log(conductores);
 				console.log("Entramos al socket");
 				var conductoresData = JSON.parse(conductores.body);
-				alert(conductoresData);
+				//alert(conductoresData);
 				$("#tableConductoresDisponibles > tbody").empty();
 				conductoresData.map(function(element){
-					console.log(element);
 					$("#tableConductoresDisponibles > tbody").append(
-						"<tr> <td>" +
+						'<tr>  <th scope="row"> </th>'+
+						"<td>" +
 						element.conductorName +
 						"</td>" +
 						"<td>" +
-						"carro" +
+						element.carro.marca+" "+element.carro.modelo +
 						"</td> " +
 						"<td>"+
-						"origen"+
+						element.ruta.direccionOrigen +
 						"</td>"+
 						"<td>"+
-						"destino"+
+						element.ruta.direccionDestino +
 						"<td">+
-						"precio"+
+						element.ruta.precio+
 						"</td>"+
-						"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
+						//"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
+						"<td><form><button type='button' onclick='app.agregarPosiblePasajero("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
 						"</tr>"
 					);
 				});
 			});
-			console.log(infoViaje());
-			console.log(typeof(infoViaje()));
-			stompClient.send("/app/conductoresDisponibles/"+infoViaje()+"/");
+			stompClient.send("/app/conductoresDisponibles" ,{},$("#destino").val());
+		});
+	};
+
+	var agregarPosiblePasajero = function(conductorName){
+		console.info('Connecting to WS...');
+		var socket = new SockJS('/stompendpoint');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function (frame) {
+			alert("aqui entra");
+			console.log('Connected: ');
+			console.log($("#ubicacionActual").val());
+
+			stompClient.send("/app/agregarPosiblePasajero",{},conductorName);
 		});
 	};
 
 	return{	
-	    getConductores: getConductores
+	    getConductores: getConductores,
+		agregarPosiblePasajero:agregarPosiblePasajero
 
 	};
 	
