@@ -48,11 +48,23 @@ var apiclient = ( function () {
             .catch(error => console.log(error));
     });
 	*/
+    var getUser = (function (callback) {
+        console.log("estamos en el axios");
+        axios({
+            method: 'GET',
+            url: '/auth/getUser',
+
+        })
+            .then(response => callback(response.data))
+            .catch(error => console.log(error));
+
+    });
 
     return{
         getPasajeros: getPasajeros,
         getSolicitudesPasajeros: getSolicitudesPasajeros,
-        getCarros: getCarros
+        getCarros: getCarros,
+        getUser:getUser
 		/* agregarPasajero: agregarPasajero*/
 		
     }

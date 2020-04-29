@@ -3,6 +3,7 @@
 var app = (function(){
 
 	var placa;
+	var name;
 	class Conductor{
 		constructor(){
 		}
@@ -34,6 +35,14 @@ var app = (function(){
 		2. Eliminar el pasajero de lista de solicitudes cuando es aceptado.
 		3. Agregar el pasajero a la lista de pasajeros aceptados, con un botón de cancelar.
 	**/
+
+	var _getUser = function(info){
+		name = info.username;
+	};
+
+	function get(){
+		apiclient.getUser(_getUser)
+	}
 
 	var getPasajeros = function(){
 		apiclient.getConductoresDisponibles(addConductores);
@@ -96,13 +105,14 @@ var app = (function(){
 	
 	
 	var addSolicitudes = function(){
-
+		get();
+		alert(name);
 		console.info('Connecting to WS...');
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
-			stompClient.subscribe("/uniwheels/agregarPosiblePasajero", function (conductores) {
+			stompClient.subscribe("/uniwheels/posiblesConductores."+name, function (conductores) {
 				console.log(conductores);
 				var conductoresData = JSON.parse(conductores.body);
 				$("#tableSolicitudes > tbody").empty();
@@ -131,7 +141,8 @@ var app = (function(){
 		getCarros: getCarros,
 		addCarros: addCarros,
 		infoViaje: infoViaje,
-		addConductor: addConductor
+		addConductor: addConductor,
+		get:get
 	};
 	
 })();
