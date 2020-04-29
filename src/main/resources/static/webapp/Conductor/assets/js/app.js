@@ -103,13 +103,9 @@ var app = (function(){
 		});
 	};
 	
-	var aceptarPasajero = function () {
-		console.info('Connecting to WS...');
-		var socket = new SockJS('/stompendpoint');
-		stompClient = Stomp.over(socket);
-		stompClient.connect({}, function (frame) {
-			stompClient.send("/app/pasajeroAceptado",{},conductorName);
-		});
+	var aceptarPasajero = function (pasajero) {
+		console.log("vamos a enviar el nombre "+pasajero.name);
+		stompClient.send("/app/agregarPasajero",{},pasajero.name);
 	};
 
 	var addSolicitudes = function(){
@@ -135,7 +131,8 @@ var app = (function(){
 						"<td>" +
 						element.calificacion +
 						"</td>"+
-						"<td><form><button type='button' onclick='app.aceptarPasajero("+"\""+element.conductorName+"&quot)' >Aceptar</button></form></td>" +
+						"<td><form><button type='button' onclick='app.aceptarPasajero("+element+") >Aceptar</button></form></td>" +
+						"<td><form><button type='button' onclick='app.aceptarPasajero("+element+") >Rechazar</button></form></td>" +
 						"</tr>";
 					$("#tableSolicitudes > tbody").append(markup);
 				});
