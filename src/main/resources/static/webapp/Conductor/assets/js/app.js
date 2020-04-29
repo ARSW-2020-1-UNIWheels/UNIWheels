@@ -51,7 +51,7 @@ var app = (function(){
 	    info.map(function(element){
 	    	var carro = new Carro(element.placa,element.marca,element.modelo);
 	        //var nombre = element.marca +" "+ element.modelo;
-			alert(carro.toString())
+			//alert(carro.toString())
             $("#carro").append(
 				"<option value= \""+ carro.placa+"\"> "+ carro.toString()+" </option>");
             //console.log(nombre);
@@ -76,9 +76,10 @@ var app = (function(){
 		stompClient.connect({}, function (frame) {
 			alert("aqui entra");
 			console.log('Connected: ');
-			console.log(JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val())));
-			console.log($("#ubicacionActual").val());
-			stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val(),$("#precio").val())),$("#carro").val());
+			//console.log(JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val())));
+			//console.log($("#ubicacionActual").val());
+			alert($("#carro").val());
+			stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val(),$("#precio").val()))+$("#carro").val());
 		});
 
 	};
