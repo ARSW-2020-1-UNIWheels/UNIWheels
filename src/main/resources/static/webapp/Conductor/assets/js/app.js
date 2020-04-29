@@ -114,9 +114,9 @@ var app = (function(){
 			console.log('Connected: ');
 			stompClient.subscribe("/uniwheels/posiblesConductores."+name, function (conductores) {
 				console.log(conductores);
-				var conductoresData = JSON.parse(conductores.body);
+				//var conductoresData = JSON.parse(conductores.body);
 				$("#tableSolicitudes > tbody").empty();
-				conductoresData.map(function(element){
+				conductores.map(function(element){
 
 					$("tableSolicitudes > tbody").append(
 						"<tr> <td>" +
