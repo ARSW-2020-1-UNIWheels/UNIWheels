@@ -106,7 +106,7 @@ var app = (function(){
 	
 	var addSolicitudes = function(){
 		get();
-		alert(name);
+		//alert(name);
 		console.info('Connecting to WS...');
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
@@ -118,8 +118,7 @@ var app = (function(){
 				$("#tableSolicitudes > tbody").empty();
 				conductoresData.map(function(element){
 					console.log(element);
-					$("tableSolicitudes > tbody").append(
-						"<tr> <td>" +
+					var markup = "<tr> <td>" +
 						element.usuario.username +
 						"</td>" +
 						"<td>" +
@@ -127,8 +126,8 @@ var app = (function(){
 						"</td>"+
 						"<td>" +
 						element.usuario.direccionResidencia +
-						"</td></tr>"
-					);
+						"</td></tr>";
+					$("#tableSolicitudes > tbody").append(markup);
 				});
 			});
 		});
