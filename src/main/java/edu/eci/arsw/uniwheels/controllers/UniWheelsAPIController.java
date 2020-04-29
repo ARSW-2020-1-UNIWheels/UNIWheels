@@ -40,17 +40,6 @@ public class UniWheelsAPIController extends BaseController {
         }
     }
 
-    @RequestMapping(value="/getAllUniversitys",method = RequestMethod.GET)
-    public ResponseEntity<?> getAllUniversitys(){
-        try{
-            List<Universidad> lista = uws.getAllUniversity();
-            return new ResponseEntity<>(lista,HttpStatus.OK);
-        } catch (Exception ex){
-            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
-        }
-    }
-
     @RequestMapping(value="/createUniversity",method = RequestMethod.POST)
     public ResponseEntity<?> CreateUniversity(@RequestBody Universidad universidad){
         try{

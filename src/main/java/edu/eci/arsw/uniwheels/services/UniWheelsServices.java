@@ -97,8 +97,6 @@ public class UniWheelsServices {
         uwp.deleteUniversity(universidad);
     }
 
-    public List<Universidad> getAllUniversity(){
-        return uwp.getAllUniversity();
-    }
+
 
 }
