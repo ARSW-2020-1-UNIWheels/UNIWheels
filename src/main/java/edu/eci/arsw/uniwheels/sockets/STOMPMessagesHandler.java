@@ -14,6 +14,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
+import javax.persistence.EntityManager;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,12 +74,17 @@ public class STOMPMessagesHandler extends BaseHandler{
     }
 
     @MessageMapping("/conductoresDisponibles")
-    public void conductoresDisponibles(String destino) throws Exception {
+    public void conductoresDisponibles(Principal principal) throws Exception {
         List<Conductor> todosLosConductores = uniWheelsServices.getConductoresDisponibles();
+        DetallesUsuario usuario = getLoggedUser(principal);
         List<Conductor> conductorPorDestino = new ArrayList<>();
+        EntityManager manager = new EntityManager()
         for (int i = 0; i<todosLosConductores.size();i++ ){
             //Agregar origen que puede ser también la universidad
-            if(todosLosConductores.get(i).usuario.universidad.equals(destino)){
+            System.out.println(todosLosConductores.get(i).usuario);
+            System.out.println(usuario.usuario.universidad);
+
+            if(todosLosConductores.get(i).usuario.universidad.equals(usuario.usuario.universidad)){
                 conductorPorDestino.add(todosLosConductores.get(i));
             }
         }

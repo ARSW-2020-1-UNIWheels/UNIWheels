@@ -8,7 +8,7 @@ var app = (function(){
     };
 
 	var getConductores = function(){
-		//alert("aqui si");
+		alert("aqui si");
 		console.info('Connecting to WS...');
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
