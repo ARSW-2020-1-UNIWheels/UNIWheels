@@ -35,7 +35,10 @@ var app = (function(){
         $("#tableMis Carros > tbody").empty();
         carros.map(function(element){
             $("#tableMisCarros > tbody").append(
-                '<tr> <th scope="row"> </th>'+
+				//var boton = "<button type='button' onclick='apiclient.deleteCarro("+element.id+")"+">Agregar</button>";
+                var boton = "<button type='button'">Agregar</button>";
+				console.log(boton);
+				'<tr> <th scope="row"> </th>'+
                  "<td> " +
                 element.marca +
                 "</td>" +
@@ -45,7 +48,8 @@ var app = (function(){
                 "<td>"+
                 element.placa+
                 "</td>"+
-                "<td id='imagen'>"+ getImagen(element.modelo)+"</td>" +
+                //"<td id='imagen'>"+ getImagen(element.modelo)+"</td>" +
+				"<td id='imagen'>"+boton+"</td>"+
                 "</tr>"
             );
         });

@@ -20,11 +20,24 @@ var apiclient = ( function () {
 			.then(response => callback(response.data))
             .catch(error => console.log(error));
 
-	});		
+	});	
+	
+	var getCarros = (function (callback) {
+		console.log("estamos en el client");
+		axios({
+			method: 'GET',
+			url: '/uniwheels/getCarros/',
+		})			
+			.then(response => callback(response.data))
+			.catch(error => console.log(error));
+    });
+
+	
 
     return{
         añadirConductorDisponible: añadirConductorDisponible,
 		getUser: getUser,
+		getCarros: getCarros
     }
 })();
 

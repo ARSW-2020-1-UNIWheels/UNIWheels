@@ -16,17 +16,27 @@ var app = (function(){
 			console.log('Connected: ');
 			stompClient.subscribe("/uniwheels/conductoresDisponibles", function (conductores) {
 			    console.log(conductores);
+				console.log("Entramos al socket");
 				var conductoresData = JSON.parse(conductores.body);
 				alert(conductoresData);
 				$("#tableConductoresDisponibles > tbody").empty();
 				conductoresData.map(function(element){
+					console.log(element);
 					$("#tableConductoresDisponibles > tbody").append(
 						"<tr> <td>" +
 						element.conductorName +
 						"</td>" +
 						"<td>" +
-						element.tiempoRecorrido +
+						"carro" +
 						"</td> " +
+						"<td>"+
+						"origen"+
+						"</td>"+
+						"<td>"+
+						"destino"+
+						"<td">+
+						"precio"+
+						"</td>"+
 						"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
 						"</tr>"
 					);
