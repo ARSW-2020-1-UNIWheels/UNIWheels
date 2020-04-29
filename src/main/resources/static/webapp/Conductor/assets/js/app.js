@@ -79,7 +79,7 @@ var app = (function(){
 			//console.log(JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val())));
 			//console.log($("#ubicacionActual").val());
 			alert($("#carro").val());
-			stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val(),$("#precio").val()))+$("#carro").val());
+			stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val(),parseInt($("#precio").val(),10)))+$("#carro").val());
 		});
 
 	};
