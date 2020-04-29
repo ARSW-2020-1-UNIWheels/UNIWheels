@@ -113,20 +113,21 @@ var app = (function(){
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
 			stompClient.subscribe("/uniwheels/posiblesConductores."+name, function (conductores) {
-				console.log(conductores);
-				//var conductoresData = JSON.parse(conductores.body);
+				//console.log(conductores);
+				var conductoresData = JSON.parse(conductores.body);
 				$("#tableSolicitudes > tbody").empty();
-				conductores.map(function(element){
-
+				conductoresData.map(function(element){
+					console.log(element);
 					$("tableSolicitudes > tbody").append(
 						"<tr> <td>" +
 						element.usuario.username +
 						"</td>" +
 						"<td>" +
+						element.usuario.universidad +
+						"</td>"+
+						"<td>" +
 						element.usuario.direccionResidencia +
-						"</td> " +
-						"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
-						"</tr>"
+						"</td></tr>"
 					);
 				});
 			});
