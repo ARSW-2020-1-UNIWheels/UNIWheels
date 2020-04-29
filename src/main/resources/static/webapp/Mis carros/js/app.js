@@ -33,11 +33,10 @@ var app = (function(){
 	    var imagen = "alaska.jpg";
 	    console.log("vamos a añadir el carro");
         $("#tableMis Carros > tbody").empty();
-		var boton = "<button type='button'">Agregar</button>";
         carros.map(function(element){
+			var boton = '<div class="container-login100-form-btn"><button class="login100-form-btn"'+
+				'type="submit" onclick="apiclient.deleteCarro('+element.id.toString()+')">Eliminar</button></div>';
             $("#tableMisCarros > tbody").append(
-				//var boton = "<button type='button' onclick='apiclient.deleteCarro("+element.id+")"+">Agregar</button>";
-				console.log(boton);
 				'<tr> <th scope="row"> </th>'+
                  "<td> " +
                 element.marca +
@@ -48,7 +47,6 @@ var app = (function(){
                 "<td>"+
                 element.placa+
                 "</td>"+
-                //"<td id='imagen'>"+ getImagen(element.modelo)+"</td>" +
 				"<td id='imagen'>"+boton+"</td>"+
                 "</tr>"
             );

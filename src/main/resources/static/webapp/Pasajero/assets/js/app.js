@@ -20,26 +20,20 @@ var app = (function(){
 				//alert(conductoresData);
 				$("#tableConductoresDisponibles > tbody").empty();
 				conductoresData.map(function(element){
-					$("#tableConductoresDisponibles > tbody").append(
-						'<tr>  <th scope="row"> </th>'+
-						"<td>" +
-						element.conductorName +
-						"</td>" +
-						"<td>" +
+					var markup = '<tr><td>' + element.conductorName +
+						"</td><td>" +
 						element.carro.marca+" "+element.carro.modelo +
-						"</td> " +
-						"<td>"+
+						"</td><td>"+
 						element.ruta.direccionOrigen +
-						"</td>"+
-						"<td>"+
+						"</td><td>"+
 						element.ruta.direccionDestino +
-						"<td">+
-						element.ruta.precio+
+						"</td><td>"+
+							element.ruta.precio+
 						"</td>"+
 						//"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
 						"<td><form><button type='button' onclick='app.agregarPosiblePasajero("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
-						"</tr>"
-					);
+						"</tr>";
+					$("#tableConductoresDisponibles > tbody").append(markup);
 				});
 			});
 			stompClient.send("/app/conductoresDisponibles" ,{},$("#destino").val());

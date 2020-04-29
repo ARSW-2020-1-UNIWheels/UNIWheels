@@ -15,8 +15,12 @@ var apiclient = (function(){
         axios({
             method: 'DELETE',
             url: '/uniwheels/deleteCarro/'+carro+"/'",
+			data: null,
+			headers: {
+				'content-type': 'application/json',
+			}
         })			
-			.then(response => console.log("eliminó "+carro))
+			.then(response => console.log(response.data))
             .catch(error => console.log(error));
     });
 
