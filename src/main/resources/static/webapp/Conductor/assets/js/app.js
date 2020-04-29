@@ -118,7 +118,7 @@ var app = (function(){
 				$("#tableSolicitudes > tbody").empty();
 				conductoresData.map(function(element){
 
-					$("solicitudesPasajeros > tbody").append(
+					$("tableSolicitudes > tbody").append(
 						"<tr> <td>" +
 						element.usuario.username +
 						"</td>" +
