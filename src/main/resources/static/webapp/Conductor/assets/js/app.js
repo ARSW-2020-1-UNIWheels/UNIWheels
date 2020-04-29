@@ -149,7 +149,8 @@ var app = (function(){
 		addCarros: addCarros,
 		infoViaje: infoViaje,
 		addConductor: addConductor,
-		get:get
+		get:get,
+		aceptarPasajero:aceptarPasajero
 	};
 	
 })();
