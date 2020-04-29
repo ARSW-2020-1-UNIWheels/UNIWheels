@@ -31,11 +31,9 @@ var app = (function(){
 						//"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
 						"<td><form><button type='button' onclick='app.agregarPosiblePasajero("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
 						"</tr>";
-<<<<<<< HEAD
-					$("#tableConductoresDisponibles > tbody").append(markup);
-=======
+
 					$("#conductoresDisponibles").append(markup);
->>>>>>> 7f9b2ff964a63f395066fc0a3aa996020af82367
+
 				});
 			});
 			stompClient.send("/app/conductoresDisponibles" ,{},$("#destino").val());
