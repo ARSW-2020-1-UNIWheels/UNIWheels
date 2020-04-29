@@ -89,4 +89,16 @@ public class UniWheelsServices {
         uwp.updateDatabase();
     }
 
+    public void createUniversity(Universidad universidad){
+        uwp.createUniversity(universidad);
+    }
+
+    public void deleteUniveristy(Universidad universidad){
+        uwp.deleteUniversity(universidad);
+    }
+
+    public List<Universidad> getAllUniversity(){
+        return uwp.getAllUniversity();
+    }
+
 }

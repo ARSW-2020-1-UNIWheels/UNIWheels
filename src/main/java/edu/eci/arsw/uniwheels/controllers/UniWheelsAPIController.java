@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.eci.arsw.uniwheels.model.Carro;
 import edu.eci.arsw.uniwheels.model.Conductor;
+import edu.eci.arsw.uniwheels.model.Universidad;
 import edu.eci.arsw.uniwheels.model.Usuario;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
 import edu.eci.arsw.uniwheels.services.AuthServices;
@@ -38,6 +39,40 @@ public class UniWheelsAPIController extends BaseController {
             return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping(value="/getAllUniversitys",method = RequestMethod.GET)
+    public ResponseEntity<?> getAllUniversitys(){
+        try{
+            List<Universidad> lista = uws.getAllUniversity();
+            return new ResponseEntity<>(lista,HttpStatus.OK);
+        } catch (Exception ex){
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value="/createUniversity",method = RequestMethod.POST)
+    public ResponseEntity<?> CreateUniversity(@RequestBody Universidad universidad){
+        try{
+            uws.createUniversity(universidad);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception ex){
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value="/deleteUniversity",method = RequestMethod.DELETE)
+    public ResponseEntity<?> DeleteUniversity(@RequestBody Universidad universidad){
+        try{
+            uws.createUniversity(universidad);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception ex){
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);
+        }
+    }
+
 
     @RequestMapping(value="/deleteCarro/{id}",method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCarroAlUsuario(@PathVariable String id){

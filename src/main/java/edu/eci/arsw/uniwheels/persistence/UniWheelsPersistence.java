@@ -23,6 +23,12 @@ public interface UniWheelsPersistence {
 
     void deleteCarToUser(Integer carro);
 
+    void createUniversity(Universidad universidad);
+
+    void deleteUniversity(Universidad universidad);
+
+    List<Universidad> getAllUniversity();
+
     List<Carro> getCarrosPorUsuario(Usuario usuario);
 
     public void updateDatabase();
