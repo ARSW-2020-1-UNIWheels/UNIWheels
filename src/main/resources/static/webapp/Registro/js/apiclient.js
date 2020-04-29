@@ -9,7 +9,6 @@ var apiclient = (function(){
 	});
 
 	var agregarUsuario = (function (info) {
-		console.log("estamos en el client");
 		axios({
 			method: 'POST',
 			url: '/auth/addUser',

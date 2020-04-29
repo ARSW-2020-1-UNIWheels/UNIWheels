@@ -8,7 +8,6 @@ var app = (function(){
     };
 
 	var getConductores = function(){
-		alert("aqui si");
 		console.info('Connecting to WS...');
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
@@ -17,7 +16,6 @@ var app = (function(){
 			stompClient.subscribe("/uniwheels/conductoresDisponibles", function (conductores) {
 				console.log("Entramos al socket");
 				var conductoresData = JSON.parse(conductores.body);
-				//alert(conductoresData);
 				$("#conductoresDisponibles").empty();
 				conductoresData.map(function(element){
 					var markup = '<tr><td>' + element.conductorName +
@@ -45,10 +43,6 @@ var app = (function(){
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function (frame) {
-			alert("aqui entra");
-			console.log('Connected: ');
-			console.log($("#ubicacionActual").val());
-
 			stompClient.send("/app/agregarPosiblePasajero",{},conductorName);
 		});
 	};

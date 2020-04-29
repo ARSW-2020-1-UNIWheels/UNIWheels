@@ -25,7 +25,6 @@ var app = (function(){
 		var datos = new FormData(formulario);
 
 		if( datos.get("pass")!= datos.get("confirmar pass")){
-			alert("La contraseña no coincide !!");
 			location.reload();
 		}
 		else{
