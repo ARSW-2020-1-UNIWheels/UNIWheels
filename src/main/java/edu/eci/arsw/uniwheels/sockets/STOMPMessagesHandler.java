@@ -30,10 +30,10 @@ public class STOMPMessagesHandler extends BaseHandler{
     UniWheelsServices uniWheelsServices;
 
     @MessageMapping("/nuevoConductor")
-    public void agregarConductor(Ruta ruta, String camioneta,Principal principal) throws Exception {
+    public void agregarConductor(Ruta ruta,  String camioneta ,Principal principal) throws Exception {
         Conductor conductor = new Conductor();
-        System.out.println(ruta+ " "+camioneta);
-
+        String[] separacionJson = camioneta.split("}");
+        camioneta = separacionJson[1];
         List<Carro> carrosPorUsuario = uniWheelsServices.getCarrosDelUsuario(getLoggedUser(principal).getUsuario());
         for (Carro c:carrosPorUsuario){
             if (c.getPlaca().equals(camioneta)){

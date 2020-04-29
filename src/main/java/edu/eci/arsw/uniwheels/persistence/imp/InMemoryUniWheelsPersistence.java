@@ -33,6 +33,9 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     @Autowired
     private RutaRepository rutaRepository;
 
+    @Autowired
+    private UniversidadRepository universidadRepository;
+
     @Override
     public void saveUser(Usuario usuario) throws UniWheelsPersistenceException {
         String pwd = usuario.getPassword();
@@ -54,6 +57,23 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     }
 
     @Override
+    public void createUniversity(Universidad universidad){
+        universidadRepository.save(universidad);
+        updateDatabase();
+    }
+    @Override
+    public void deleteUniversity(Universidad universidad){
+        universidadRepository.delete(universidad);
+        updateDatabase();
+    }
+    @Override
+    public List<Universidad> getAllUniversity(){
+        List<Universidad> universidades = universidadRepository.findAll();
+        updateDatabase();
+        return universidades;
+    }
+
+    @Override
     public List<Carro> getCarrosPorUsuario(Usuario usuario){
         List<Carro> listaCompletaCarros = carroRepository.findAll();
         List<Carro> carrosDelUsuario = new ArrayList<>();
@@ -72,6 +92,7 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
         conductorRepository.flush();
         rutaRepository.flush();
         carroRepository.flush();
+        universidadRepository.flush();
     }
 
     @Override
