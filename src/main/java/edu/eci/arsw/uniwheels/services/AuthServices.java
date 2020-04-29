@@ -1,6 +1,7 @@
 package edu.eci.arsw.uniwheels.services;
 
 import edu.eci.arsw.uniwheels.model.DetallesUsuario;
+import edu.eci.arsw.uniwheels.model.Universidad;
 import edu.eci.arsw.uniwheels.model.Usuario;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistence;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
@@ -10,11 +11,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AuthServices implements UserDetailsService {
     @Autowired
     UniWheelsPersistence uwp = null;
 
+
+    public List<Universidad> getAllUniversity(){
+        return uwp.getAllUniversity();
+    }
 
     public void addUser(Usuario usuario) throws UniWheelsPersistenceException {
         uwp.saveUser(usuario);

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Set;
 
 @Entity
 @Table(name = "pasajero")
@@ -21,8 +22,10 @@ public class Pasajero {
     @OneToOne
     public Ruta ruta;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="conductor")
+    @JoinColumn(name="pasajeros")
     public Conductor conductor;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "posiblesPasajeros")
+    public Set<Conductor> posiblesConductores;
     public String nombreEstado;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="usuario")

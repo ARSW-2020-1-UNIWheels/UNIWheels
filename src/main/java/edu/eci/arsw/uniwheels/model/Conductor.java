@@ -24,7 +24,8 @@ public class Conductor {
     public int tiempoRecorrido;
     @OneToOne
     public Carro carro;
-    @OneToMany
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "conductor")
     @JsonIgnore
     public List<Pasajero> pasajeros;
     @OneToOne
@@ -32,7 +33,7 @@ public class Conductor {
     @OneToOne
     public Calificacion calificacion;
     public String nombreEstado;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "conductor")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     public Set<Pasajero> posiblesPasajeros;
     @ManyToOne(fetch = FetchType.LAZY)

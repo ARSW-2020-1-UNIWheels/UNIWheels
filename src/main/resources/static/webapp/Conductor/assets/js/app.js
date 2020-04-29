@@ -39,7 +39,6 @@ var app = (function(){
 		apiclient.getConductoresDisponibles(addConductores);
 	};
 
-
 	var getCarros = function(){
 	    console.log("estamos en JS");
 	    apiclient.getCarros(addCarros);
@@ -47,38 +46,23 @@ var app = (function(){
 
 	var addCarros = function(info){
 	    console.log("Vamos a poner mis carros");
-
 	    info.map(function(element){
 	    	var carro = new Carro(element.placa,element.marca,element.modelo);
-	        //var nombre = element.marca +" "+ element.modelo;
-			//alert(carro.toString())
             $("#carro").append(
 				"<option value= \""+ carro.placa+"\"> "+ carro.toString()+" </option>");
-            //console.log(nombre);
 	    });
 
 	};
 
-
-
 	var stompClient = null;
 
-
-
 	var addConductor = function(){
-		//var lista = apiclient.añadirConductorDisponible();
 
 		console.info('Connecting to WS...');
-
-
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function (frame) {
-			alert("aqui entra");
 			console.log('Connected: ');
-			//console.log(JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val())));
-			//console.log($("#ubicacionActual").val());
-			alert($("#carro").val());
 			stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val(),parseInt($("#precio").val(),10)))+$("#carro").val());
 		});
 

@@ -8,7 +8,6 @@ var app = (function(){
     };
 
 	var getConductores = function(){
-		alert("aqui si");
 		console.info('Connecting to WS...');
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
@@ -17,8 +16,7 @@ var app = (function(){
 			stompClient.subscribe("/uniwheels/conductoresDisponibles", function (conductores) {
 				console.log("Entramos al socket");
 				var conductoresData = JSON.parse(conductores.body);
-				//alert(conductoresData);
-				$("#tableConductoresDisponibles > tbody").empty();
+				$("#conductoresDisponibles").empty();
 				conductoresData.map(function(element){
 					var markup = '<tr><td>' + element.conductorName +
 						"</td><td>" +
@@ -33,7 +31,11 @@ var app = (function(){
 						//"<td><form><button type='button' onclick='apiclient.agregarPosibleConductor("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
 						"<td><form><button type='button' onclick='app.agregarPosiblePasajero("+"\""+element.conductorName+"&quot)' >Agregar</button></form></td>" +
 						"</tr>";
+<<<<<<< HEAD
 					$("#tableConductoresDisponibles > tbody").append(markup);
+=======
+					$("#conductoresDisponibles").append(markup);
+>>>>>>> 7f9b2ff964a63f395066fc0a3aa996020af82367
 				});
 			});
 			stompClient.send("/app/conductoresDisponibles" ,{},$("#destino").val());
@@ -45,10 +47,6 @@ var app = (function(){
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function (frame) {
-			alert("aqui entra");
-			console.log('Connected: ');
-			console.log($("#ubicacionActual").val());
-
 			stompClient.send("/app/agregarPosiblePasajero",{},conductorName);
 		});
 	};

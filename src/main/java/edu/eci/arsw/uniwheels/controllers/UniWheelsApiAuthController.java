@@ -1,5 +1,6 @@
 package edu.eci.arsw.uniwheels.controllers;
 
+import edu.eci.arsw.uniwheels.model.Universidad;
 import edu.eci.arsw.uniwheels.model.Usuario;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
 import edu.eci.arsw.uniwheels.services.AuthServices;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(path = "/auth")
@@ -30,6 +35,18 @@ public class UniWheelsApiAuthController extends BaseController{
 
 
     }
+    @RequestMapping(value="/getAllUniversitys",method = RequestMethod.GET)
+    public ResponseEntity<?> getAllUniversitys(){
+        try{
+            List<Universidad> lista = authServices.getAllUniversity();
+            return new ResponseEntity<>(lista,HttpStatus.OK);
+        } catch (Exception ex){
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 
     @RequestMapping (path = "/addUser",method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody Usuario usuario){

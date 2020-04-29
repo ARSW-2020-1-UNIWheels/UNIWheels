@@ -1,10 +1,21 @@
 var app = (function(){
-	
+	var a=function () {
+		apiclient.getUniversidades(agregarUniversidades);
+	};
+
 	var agregarUsuario = function(datos){
 		var datosDos = JSON.stringify(datos);
 		apiclient.agregarUsuario(datosDos);
-	};	
-	
+	};
+
+	var agregarUniversidades = function(info){
+		info.map(function(element){
+			$("#universidades").append(
+				"<option value= \"" +element.nombre +"\">");
+		});
+
+	};
+
 	var verificarInformacion = function(e){
 		console.log("entramos....");
 		e.preventDefault();
@@ -12,9 +23,8 @@ var app = (function(){
 
 		console.log("damos click");
 		var datos = new FormData(formulario);
-			
+
 		if( datos.get("pass")!= datos.get("confirmar pass")){
-			alert("La contraseña no coincide !!");
 			location.reload();
 		}
 		else{
@@ -26,20 +36,22 @@ var app = (function(){
 				"rol": "user",
 				"universidad":datos.get("universidad"),
 				"direccionResidencia": datos.get("direccion")}
-		
+
 			agregarUsuario(info);
 		}
 	};
-	
+
 	var init = function(){
 		console.log("si funciona");
 		document.addEventListener("submit",verificarInformacion);
 	};
-	
+
 	return{
 		agregarUsuario: agregarUsuario,
 		verificarInformacion: verificarInformacion,
-		init: init
+		init: init,
+		agregarUniversidades:agregarUniversidades,
+		a:a
 	};
 })();
 
