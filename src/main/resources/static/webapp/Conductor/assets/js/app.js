@@ -4,9 +4,10 @@ var app = (function(){
 		}
 	}
 	class Ruta{
-		constructor(direccionOrigen, direccionDestino){
+		constructor(direccionOrigen, direccionDestino,precio){
 			this.direccionOrigen = direccionOrigen;
 			this.direccionDestino=direccionDestino;
+			this.precio = precio;
 
 		}
 	}
@@ -60,7 +61,7 @@ var app = (function(){
 			console.log('Connected: ');
 			console.log(JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val())));
 			console.log($("#ubicacionActual").val());
-			stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val())));
+			stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val(),$("#precio").val())));
 		});
 
 	};
