@@ -103,7 +103,15 @@ var app = (function(){
 		});
 	};
 	
-	
+	var aceptarPasajero = function () {
+		console.info('Connecting to WS...');
+		var socket = new SockJS('/stompendpoint');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function (frame) {
+			stompClient.send("/app/pasajeroAceptado",{},conductorName);
+		});
+	};
+
 	var addSolicitudes = function(){
 		get();
 		//alert(name);
@@ -125,8 +133,10 @@ var app = (function(){
 						element.usuario.universidad +
 						"</td>"+
 						"<td>" +
-						element.usuario.direccionResidencia +
-						"</td></tr>";
+						element.calificacion +
+						"</td>"+
+						"<td><form><button type='button' onclick='app.aceptarPasajero("+"\""+element.conductorName+"&quot)' >Aceptar</button></form></td>" +
+						"</tr>";
 					$("#tableSolicitudes > tbody").append(markup);
 				});
 			});

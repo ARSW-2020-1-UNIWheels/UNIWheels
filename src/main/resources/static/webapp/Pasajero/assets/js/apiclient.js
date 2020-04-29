@@ -1,5 +1,17 @@
 var apiclient = ( function () {
 
+    var getUser = (function (callback) {
+        console.log("estamos en el axios");
+        axios({
+            method: 'GET',
+            url: '/auth/getUser',
+
+        })
+            .then(response => callback(response.data))
+            .catch(error => console.log(error));
+
+    });
+
     var getConductoresDisponibles = (function (callback) {
 
         axios({
@@ -23,6 +35,7 @@ var apiclient = ( function () {
 
     return{
         getConductoresDisponibles: getConductoresDisponibles,
-        agregarPosibleConductor:agregarPosibleConductor
+        agregarPosibleConductor:agregarPosibleConductor,
+        getUser:getUser
     }
 })();

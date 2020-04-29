@@ -1,5 +1,13 @@
 var app = (function(){
 
+	var name;
+	var _getUser = function(info){
+		name = info.username;
+	};
+
+	function get(){
+		apiclient.getUser(_getUser)
+	}
     var infoViaje = function(){
         var inicio = $("#ubicacionActual").val();
         var destino = $("#destino").val();
@@ -8,6 +16,7 @@ var app = (function(){
     };
 
 	var getConductores = function(){
+		get();
 		console.info('Connecting to WS...');
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
@@ -39,6 +48,14 @@ var app = (function(){
 			});
 			stompClient.send("/app/conductoresDisponibles" ,{},$("#destino").val());
 		});
+
+		console.info('Connecting to WS...');
+		var socket = new SockJS('/stompendpoint');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function () {
+			console.log('Connected: ');
+			stompClient.subscribe("/uniwheels/pasajeroAceptado."+name);
+		});
 	};
 
 	var agregarPosiblePasajero = function(conductorName){
@@ -52,7 +69,8 @@ var app = (function(){
 
 	return{	
 	    getConductores: getConductores,
-		agregarPosiblePasajero:agregarPosiblePasajero
+		agregarPosiblePasajero:agregarPosiblePasajero,
+		get:get
 
 	};
 	
