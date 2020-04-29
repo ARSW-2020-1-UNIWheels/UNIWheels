@@ -60,13 +60,18 @@ public class STOMPMessagesHandler extends BaseHandler{
 
     @MessageMapping("/agregarPosiblePasajero")
     public void posiblePasajero(String nameConductor, Principal principal) throws Exception {
+        System.out.println("Este es el conductor que llego"+nameConductor);
         Pasajero pasajero = new Pasajero();
         Conductor conductor = uniWheelsServices.getConductor(nameConductor);
+        pasajero.nombreEstado = "Disponible";
         DetallesUsuario usuario = getLoggedUser(principal);
         pasajero.setUsuario(usuario.getUsuario());
         conductor.posiblesPasajeros.add(pasajero);
+        pasajero.posiblesConductores.add(conductor);
+        usuario.usuario.viajesRecibidos.add(pasajero);
+        uniWheelsServices.agregarPosiblePasajero(pasajero);
         uniWheelsServices.actualizarDB();
-        msgt.convertAndSend("/uniwheels/posiblesConductores."+conductor.id, conductor.posiblesPasajeros);
+        msgt.convertAndSend("/uniwheels/posiblesConductores."+conductor.conductorName, conductor.posiblesPasajeros);
 
     }
 

@@ -62,30 +62,8 @@ public class UniWheelsServices {
         uwp.deleteCarToUser(carro);
     }
 
-    public void agregarPosiblePasajero(Usuario pasajero, Usuario conductor) throws UniWheelsPersistenceException{
-        System.out.println(conductor.viajesRealizados.size());
-        System.out.println("Eyyyy estoy entrando acá");
-        List<Conductor> listaConductor = new ArrayList<>(conductor.viajesRealizados);
-        Conductor con = listaConductor.get(conductor.viajesRealizados.size()-1);
-        Pasajero pas = null;
-        boolean acabadoDeCrear = true;
-        if (pasajero.viajesRecibidos.size() ==0){
-            pas = new Pasajero(0, con, null, null, "Disponible");
-            pas.setUsuario(pasajero);
-            acabadoDeCrear = false;
-            uwp.savePasajeros(pas);
-        } else {
-            List<Pasajero> listaPasajero = new ArrayList<>(pasajero.viajesRecibidos);
-            pas = listaPasajero.get(pasajero.viajesRecibidos.size()-1);
-        }
-        if (pas.nombreEstado.equals("Finalizado")) {
-            pas = new Pasajero(0, con, null, null, "Disponible");
-            pas.setUsuario(pasajero);
-            uwp.savePasajeros(pas);
-        } else if (pas.nombreEstado.equals("Ocupado") || (pas.nombreEstado.equals("Disponible") && acabadoDeCrear)){
-            throw new UniWheelsPersistenceException("El pasajero ya esta tomando un servicio");
-        }
-        uwp.agregarPasajeroALaRuta(pas, con);
+    public void agregarPosiblePasajero(Pasajero pasajero) throws UniWheelsPersistenceException{
+        uwp.savePasajeros(pasajero);
         uwp.updateDatabase();
     }
 

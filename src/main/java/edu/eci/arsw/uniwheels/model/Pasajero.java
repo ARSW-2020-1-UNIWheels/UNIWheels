@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,8 +25,12 @@ public class Pasajero {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="pasajeros")
     public Conductor conductor;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "posiblesPasajeros")
-    public Set<Conductor> posiblesConductores;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "pasajeroxconductor",
+            joinColumns = @JoinColumn(name = "pasajero_id"),
+            inverseJoinColumns = @JoinColumn(name = "conductor_id")
+    )
+    public Set<Conductor> posiblesConductores = new HashSet<>();
     public String nombreEstado;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="usuario")

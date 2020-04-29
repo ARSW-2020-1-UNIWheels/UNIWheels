@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.*;
 
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,9 +35,9 @@ public class Conductor {
     @OneToOne
     public Calificacion calificacion;
     public String nombreEstado;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "posiblesConductores",cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     @JsonIgnore
-    public Set<Pasajero> posiblesPasajeros;
+    public Set<Pasajero> posiblesPasajeros = new HashSet<>();
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="usuario")
     @JsonIgnore

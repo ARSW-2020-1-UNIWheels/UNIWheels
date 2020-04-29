@@ -158,6 +158,7 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
         List<Conductor> conductors = conductorRepository.findAll();
         for(Conductor conduc:conductors){
             if(conduc.getConductorName().equals(name)){
+                System.out.println("Encontré un conductor");
                 return conduc;
             }
         }
