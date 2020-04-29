@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -38,6 +40,7 @@ public class Usuario {
     public Set<Carro> carros;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "usuario")
     @JsonIgnore
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Set<Conductor> viajesRealizados;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "usuario")
     @JsonIgnore

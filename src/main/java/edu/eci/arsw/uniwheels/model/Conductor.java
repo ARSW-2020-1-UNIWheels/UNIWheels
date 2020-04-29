@@ -36,7 +36,6 @@ public class Conductor {
     @JsonIgnore
     public Set<Pasajero> posiblesPasajeros;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name="usuario")
     @JsonIgnore
     public Usuario usuario;

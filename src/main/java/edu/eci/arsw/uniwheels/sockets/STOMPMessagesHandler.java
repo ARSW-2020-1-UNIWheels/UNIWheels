@@ -1,12 +1,10 @@
 package edu.eci.arsw.uniwheels.sockets;
 
 
-import edu.eci.arsw.uniwheels.model.Conductor;
-import edu.eci.arsw.uniwheels.model.DetallesUsuario;
-import edu.eci.arsw.uniwheels.model.Pasajero;
-import edu.eci.arsw.uniwheels.model.Ruta;
+import edu.eci.arsw.uniwheels.model.*;
 import edu.eci.arsw.uniwheels.services.UniWheelsServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -15,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,15 @@ public class STOMPMessagesHandler extends BaseHandler{
     UniWheelsServices uniWheelsServices;
 
     @MessageMapping("/nuevoConductor")
-    public void agregarConductor(Ruta ruta, Principal principal) throws Exception {
+    public void agregarConductor(Ruta ruta, Principal principal, String camioneta) throws Exception {
         Conductor conductor = new Conductor();
+        List<Carro> carrosPorUsuario = uniWheelsServices.getCarrosDelUsuario(getLoggedUser(principal).getUsuario());
+        for (Carro c:carrosPorUsuario){
+            if (c.getPlaca().equals(camioneta)){
+                conductor.carro = c;
+                break;
+            }
+        }
         System.out.println(ruta.direccionOrigen+ " " + ruta.direccionDestino);
         DetallesUsuario usuario = getLoggedUser(principal);
         conductor.setUsuario(usuario.getUsuario());
@@ -76,18 +83,6 @@ public class STOMPMessagesHandler extends BaseHandler{
     @MessageMapping("/conductoresDisponibles")
     public void conductoresDisponibles(Principal principal) throws Exception {
         List<Conductor> todosLosConductores = uniWheelsServices.getConductoresDisponibles();
-        DetallesUsuario usuario = getLoggedUser(principal);
-        List<Conductor> conductorPorDestino = new ArrayList<>();
-        EntityManager manager = new EntityManager()
-        for (int i = 0; i<todosLosConductores.size();i++ ){
-            //Agregar origen que puede ser también la universidad
-            System.out.println(todosLosConductores.get(i).usuario);
-            System.out.println(usuario.usuario.universidad);
-
-            if(todosLosConductores.get(i).usuario.universidad.equals(usuario.usuario.universidad)){
-                conductorPorDestino.add(todosLosConductores.get(i));
-            }
-        }
         msgt.convertAndSend("/uniwheels/conductoresDisponibles", todosLosConductores);
     }
 
