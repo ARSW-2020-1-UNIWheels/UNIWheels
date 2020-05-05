@@ -96,13 +96,13 @@ var app = (function(){
 		
 	};
 	
-	var addPasajeros = function(pasajeros){
+	var addPasajeros = function(){
 		console.info('Connecting to WS...');
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
-			stompClient.subscribe("/uniwheels/pasajero."+pasajeros.name, function (pasajeros){
+			stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
 				console.log(pasajeros);		
 				$("#tablePasajeros").empty();
 				pasajeros.map(function(element){
@@ -126,8 +126,12 @@ var app = (function(){
 	
 	var aceptarPasajero = function (pasajero,estado) {
 		console.log("vamos a enviar el nombre "+pasajero+" "+estado);
-		addPasajeros(pasajeros);
-		stompClient.send("/app/agregarPasajero."+name,{},pasajero+estado);
+		addPasajeros();
+		var socket = new SockJS('/stompendpoint');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function () {
+			stompClient.send("/app/agregarPasajero." + name, {}, pasajero + estado);
+		});
 	};
 
 	var addSolicitudes = function(){
