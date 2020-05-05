@@ -39,6 +39,20 @@ public class UniWheelsAPIController extends BaseController {
             return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
+    @RequestMapping(value="/existConductor", method =  RequestMethod.GET)
+    public ResponseEntity<?> existConductor(){
+        try {
+            Conductor conductor = uws.getConductor(getLoggedUser().usuario.username);
+            boolean respuesta = false;
+            if(conductor!=null){
+                respuesta = true;
+            }
+            return new ResponseEntity<>(respuesta,HttpStatus.ACCEPTED);
+        } catch (UniWheelsPersistenceException ex) {
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
 
     @RequestMapping(value="/createUniversity",method = RequestMethod.POST)
     public ResponseEntity<?> CreateUniversity(@RequestBody Universidad universidad){
