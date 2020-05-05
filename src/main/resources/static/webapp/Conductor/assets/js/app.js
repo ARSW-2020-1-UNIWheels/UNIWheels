@@ -66,7 +66,7 @@ var app = (function(){
 	var stompClient = null;
 
 	var addConductor = function(){
-		infoViaje();
+		//infoViaje();
 		console.info('Connecting to WS...');
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
@@ -84,6 +84,16 @@ var app = (function(){
 		var precio = $("#precio").val();
 
 	    console.log(inicio+" "+destino+" "+carro+" "+precio);
+		console.log(typeof(inicio)+" "+typeof(precio));
+		
+		
+		if(inicio==="Donde otás?" || destino==="Para donde vas?" || carro==="Que carro vas a usar?" || precio===""){
+			alert("Debes ingresar todos los datospara iniciar tu viaje!!");
+		}
+		else{
+			addConductor();
+		}
+		
 	};
 	
 	var addPasajeros = function(pasajeros){
@@ -115,13 +125,9 @@ var app = (function(){
 	};
 	
 	var aceptarPasajero = function (pasajero,estado) {
-		console.log("vamos a enviar el nombre "+pasajero.name);
-<<<<<<< HEAD
-		stompClient.send("/app/agregarPasajero",{},pasajero.name);
+		console.log("vamos a enviar el nombre "+pasajero+" "+estado);
 		addPasajeros(pasajeros);
-=======
 		stompClient.send("/app/agregarPasajero."+name,{},pasajero+estado);
->>>>>>> 75382fd6f407a69f1729b0b351b8ff05ecfc923c
 	};
 
 	var addSolicitudes = function(){

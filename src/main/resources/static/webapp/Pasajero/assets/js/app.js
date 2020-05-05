@@ -24,9 +24,13 @@ var app = (function(){
 			console.log('Connected: ');
 			stompClient.subscribe("/uniwheels/conductoresDisponibles", function (conductores) {
 				console.log("Entramos al socket");
+				console.log(conductores);
 				var conductoresData = JSON.parse(conductores.body);
+				console.log(conductoresData);
 				$("#conductoresDisponibles").empty();
 				conductoresData.map(function(element){
+					console.log(element);
+					console.log(element.carro);
 					var markup = '<tr><td>' + element.conductorName +
 						"</td><td>" +
 						element.carro.marca+" "+element.carro.modelo +
@@ -46,7 +50,7 @@ var app = (function(){
 
 				});
 			});
-			stompClient.send("/app/conductoresDisponibles" ,{},$("#destino").val());
+			stompClient.send("/app/conductoresDisponibles");
 		});
 
 		console.info('Connecting to WS...');
