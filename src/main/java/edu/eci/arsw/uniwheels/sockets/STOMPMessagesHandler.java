@@ -105,6 +105,13 @@ public class STOMPMessagesHandler extends BaseHandler{
 
             conductor.pasajeros.add(pasajero);
             conductor.posiblesPasajeros.remove(pasajero);
+            List<Conductor> otrosConductores = uniWheelsServices.getConductoresDisponibles();
+            for(Conductor otroConductor:otrosConductores){
+                if(otroConductor.posiblesPasajeros.contains(pasajero)){
+                    otroConductor.posiblesPasajeros.remove(pasajero);
+                    msgt.convertAndSend("/uniwheels/posiblesConductores."+otroConductor.conductorName, otroConductor.posiblesPasajeros);
+                }
+            }
             msgt.convertAndSend("/uniwheels/pasajeroAceptado."+pasajero.pasajeroName,conductor);
             msgt.convertAndSend("/uniwheels/pasajero."+conductor.conductorName, conductor.pasajeros);
         } else {
