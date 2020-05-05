@@ -3,11 +3,21 @@ var apiclient = ( function () {
 	/* Implementar API de conductor !! */ 
 	
     var getPasajeros = (function (callback) {
-
-	
         axios({
             method: 'GET',
             url: '/uniwheels/getPasajeros',
+
+        })
+
+            .then(response => callback(response.data))
+            .catch(error => console.log(error));
+    });
+
+    var getExisteConductor = (function (callback) {
+
+        axios({
+            method: 'GET',
+            url: '/uniwheels/existConductor',
 
         })
 
@@ -64,7 +74,8 @@ var apiclient = ( function () {
         getPasajeros: getPasajeros,
         getSolicitudesPasajeros: getSolicitudesPasajeros,
         getCarros: getCarros,
-        getUser:getUser
+        getUser:getUser,
+        getExisteConductor:getExisteConductor
 		/* agregarPasajero: agregarPasajero*/
 		
     }
