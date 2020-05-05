@@ -102,7 +102,7 @@ var app = (function(){
 			stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
 				console.log(pasajeros);
 				var pasajerosData = JSON.parse(pasajeros.body);
-				$("#tablePasajeros").empty();
+				$("#pasajerosAceptados").empty();
 				pasajerosData.map(function(element){
 					var markup = "<tr> <td>" +
 						element.name +
@@ -116,7 +116,7 @@ var app = (function(){
 						"<td>" +
 						element.ubicacionActual+
 						"</tr>";
-					$("#tablePasajeros").append(markup);
+					$("#pasajerosAceptados").append(markup);
 				})
 			});
 			stompClient.send("/app/recibirPasajeros");

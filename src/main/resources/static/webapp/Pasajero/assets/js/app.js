@@ -52,7 +52,9 @@ var app = (function(){
 			});
 			stompClient.send("/app/conductoresDisponibles");
 		});
+	};
 
+	var pasajeroAceptado = function () {
 		console.info('Connecting to WS...');
 		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
@@ -64,7 +66,7 @@ var app = (function(){
 				console.log(conductor);
 				var conductorData = JSON.parse(conductor.body);
 				console.log(conductorData);
-				
+
 				var card = '<div class="card" style="width: 30rem; text-align: center">'+
 					'<img src="..." class="card-img-top" alt="...">'+
 					'<div class="card-body">'+
@@ -78,11 +80,11 @@ var app = (function(){
 					'<li class="list-group-item">'+conductorData.carro.placa+'</li>'+
 					'</ul>'+
 					'<div class="card-body">'+
-					'<a href="#" class="card-link">Cancelar viaje</a>'+
+					'<a href="#" class="card-link" onclick="alert("Metodo en construcción")">Cancelar viaje</a>'+
 					'</div>'+
 					'</div>';
-					
-				
+
+
 				var markup = '<div id="div-table" class="content" style="text-align: center;">'+
 					'<br></br>'+
 					'<header>'+
@@ -90,11 +92,11 @@ var app = (function(){
 					'</header>'+
 					'<br></br>'+card+
 					'<br></br>';
-					
+
 				$("#div-table").append(markup);
 			});
 		});
-	};
+	}
 
 	var agregarPosiblePasajero = function(conductorName){
 		console.info('Connecting to WS...');
@@ -110,7 +112,8 @@ var app = (function(){
 	    getConductores: getConductores,
 		agregarPosiblePasajero:agregarPosiblePasajero,
 		get:get,
-		infoViaje: infoViaje
+		infoViaje: infoViaje,
+		pasajeroAceptado:pasajeroAceptado
 
 	};
 	
