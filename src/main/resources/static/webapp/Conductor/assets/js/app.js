@@ -153,8 +153,8 @@ var app = (function(){
 						"<td>" +
 						element.calificacion +
 						"</td>"+
-						"<td><form><button type='button' onclick='app.aceptarPasajero("+element+",'true') >Aceptar</button></form></td>" +
-						"<td><form><button type='button' onclick='app.aceptarPasajero("+element+",'false') >Rechazar</button></form></td>" +
+						"<td><form><button type='button' onclick='app.aceptarPasajero("+JSON.stringify(element)+",\"true\")' >Aceptar</button></form></td>" +
+						"<td><form><button type='button' onclick='app.aceptarPasajero("+JSON.stringify(element)+",\"false\")' >Rechazar</button></form></td>" +
 						"</tr>";
 					$("#tableSolicitudes > tbody").append(markup);
 				});
@@ -171,7 +171,8 @@ var app = (function(){
 		addCarros: addCarros,
 		infoViaje: infoViaje,
 		addConductor: addConductor,
-		get:get
+		get:get,
+		aceptarPasajero:aceptarPasajero
 	};
 	
 })();
