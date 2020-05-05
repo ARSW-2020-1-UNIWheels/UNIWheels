@@ -2,6 +2,7 @@ package edu.eci.arsw.uniwheels.sockets;
 
 
 import edu.eci.arsw.uniwheels.model.*;
+import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
 import edu.eci.arsw.uniwheels.services.UniWheelsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -28,6 +29,21 @@ public class STOMPMessagesHandler extends BaseHandler{
 
     @Autowired
     UniWheelsServices uniWheelsServices;
+
+    @MessageMapping("/recibirPasajeros")
+    public void recibirPasajeros(Principal principal){
+        Usuario usuario = getLoggedUser(principal).usuario;
+        Conductor conductor = null;
+        try{
+            conductor = uniWheelsServices.getConductor(usuario.username);
+        } catch (UniWheelsPersistenceException ex){
+            ex.printStackTrace();
+        }
+        if(conductor!=null){
+            msgt.convertAndSend("/uniwheels/pasajero."+conductor.conductorName, conductor.pasajeros);
+            msgt.convertAndSend("/uniwheels/posiblesConductores."+conductor.conductorName, conductor.posiblesPasajeros);
+        }
+    }
 
     @MessageMapping("/nuevoConductor")
     public void agregarConductor(Ruta ruta,  String camioneta ,Principal principal) throws Exception {
@@ -77,11 +93,13 @@ public class STOMPMessagesHandler extends BaseHandler{
     }
 
     @MessageMapping("/agregarPasajero.{conductorUsername}")
-    public void accionSobrePasajero(Pasajero pasajero,String aceptado,@DestinationVariable String conductorUsername, Principal principal) throws Exception {
+    public void accionSobrePasajero(String idPasajero,@DestinationVariable String conductorUsername, Principal principal) throws Exception {
         DetallesUsuario usuario = getLoggedUser(principal);
         Conductor conductor = uniWheelsServices.getConductor(conductorUsername);
-        String[] separacionJson = aceptado.split("}");
-        aceptado = separacionJson[1];
+        String[] separacionJson = idPasajero.split(",");
+        idPasajero = separacionJson[0];
+        String aceptado = separacionJson[1];
+        Pasajero pasajero = uniWheelsServices.getPasajero(Integer.parseInt(idPasajero));
 
         if(aceptado.equals("true")){
 

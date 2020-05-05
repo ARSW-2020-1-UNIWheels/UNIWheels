@@ -54,6 +54,14 @@ public class UniWheelsServices {
         uwp.updateDatabase();
     }
 
+    public Pasajero getPasajero(int id){
+        Pasajero pasajero = uwp.getPasajero(id);
+        if(pasajero!=null){
+            return pasajero;
+        }
+        return null;
+    }
+
     public void actualizarDB(){
         uwp.updateDatabase();
     }
