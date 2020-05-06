@@ -2,6 +2,7 @@ var app = (function(){
 
 	var placa;
 	var name;
+	var socket=new SockJS('/stompendpoint');
 	class Conductor{
 		constructor(){
 		}
@@ -66,12 +67,10 @@ var app = (function(){
 	var addConductor = function(){
 		//infoViaje();
 		console.info('Connecting to WS...');
-		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
-		stompClient.connect({}, function (frame) {
-			console.log('Connected: ');
-			stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val(),parseInt($("#precio").val(),10)))+$("#carro").val());
-		});
+		console.log('Connected: ');
+		stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val(),parseInt($("#precio").val(),10)))+$("#carro").val());
+
 
 	};
 
@@ -92,45 +91,38 @@ var app = (function(){
 		}
 		desabilitar(true);
 	};
-	
-	var addPasajeros = function(){
-		console.info('Connecting to WS...');
-		var socket = new SockJS('/stompendpoint');
-		stompClient = Stomp.over(socket);
-		stompClient.connect({}, function () {
-			console.log('Connected: ');
-			stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
-				//console.log(pasajeros);
-				var pasajerosData = JSON.parse(pasajeros.body);
-				console.log(pasajeros);
-				$("#pasajerosAceptados").empty();
-				pasajerosData.map(function(element){
-					var markup = "<tr> <td>" +
-						element.usuario.username +
-						"</td>" +
-						"<td>" +
-						element.usuario.universidad +
-						"</td>" +
-						"<td>" +
-						element.calificacion +
-						"</td>"
 
-					$("#pasajerosAceptados").append(markup);
-				})
-			});
-			stompClient.send("/app/recibirPasajeros");
+	var addPasajeros = function(){
+		stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
+			//console.log(pasajeros);
+			var pasajerosData = JSON.parse(pasajeros.body);
+			console.log(pasajeros);
+			$("#pasajerosAceptados").empty();
+			pasajerosData.map(function(element){
+				var markup = "<tr> <td>" +
+					element.usuario.username +
+					"</td>" +
+					"<td>" +
+					element.usuario.universidad +
+					"</td>" +
+					"<td>" +
+					element.calificacion +
+					"</td>"
+
+				$("#pasajerosAceptados").append(markup);
+			})
 		});
+		stompClient.send("/app/recibirPasajeros");
+
 	};
 	
 	var aceptarPasajero = function (pasajero,estado) {
 		console.log("vamos a enviar el nombre "+pasajero+" "+estado);
 		addPasajeros();
 
-		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
-		stompClient.connect({}, function () {
-			stompClient.send("/app/agregarPasajero." + name, {}, pasajero.id +","+ estado);
-		});
+		stompClient.send("/app/agregarPasajero." + name, {}, pasajero.id +","+ estado);
+
 	};
 
 	var desabilitar = function (data) {
@@ -147,7 +139,6 @@ var app = (function(){
 		get();
 		apiclient.getExisteConductor(desabilitar);
 		console.info('Connecting to WS...');
-		var socket = new SockJS('/stompendpoint');
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
@@ -171,15 +162,7 @@ var app = (function(){
 					$("#tableSolicitudes > tbody").append(markup);
 				});
 			});
-		});
-
-
-		socket = new SockJS('/stompendpoint');
-		stompClient = Stomp.over(socket);
-		stompClient.connect({}, function () {
-			console.log('Connected: ');
 			stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
-				//console.log(pasajeros);
 				var pasajerosData = JSON.parse(pasajeros.body);
 				console.log(pasajeros);
 				$("#pasajerosAceptados").empty();
@@ -199,6 +182,7 @@ var app = (function(){
 			});
 			stompClient.send("/app/recibirPasajeros");
 		});
+
 	};
 	
 	return{	
