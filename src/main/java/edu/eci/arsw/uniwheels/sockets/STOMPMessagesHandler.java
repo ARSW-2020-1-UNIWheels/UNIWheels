@@ -110,6 +110,7 @@ public class STOMPMessagesHandler extends BaseHandler{
             for(Conductor otroConductor:otrosConductores){
                 if(otroConductor.posiblesPasajeros.contains(pasajero)){
                     otroConductor.posiblesPasajeros.remove(pasajero);
+                    pasajero.posiblesConductores.remove(otroConductor);
                     msgt.convertAndSend("/uniwheels/posiblesConductores."+otroConductor.conductorName, otroConductor.posiblesPasajeros);
                 }
             }
@@ -118,6 +119,7 @@ public class STOMPMessagesHandler extends BaseHandler{
         } else {
             conductor.posiblesPasajeros.remove(pasajero);
         }
+        uniWheelsServices.saveConductorDisponible(conductor);
         uniWheelsServices.actualizarDB();
 
         msgt.convertAndSend("/uniwheels/posiblesConductores."+conductor.conductorName, conductor.posiblesPasajeros);
@@ -130,7 +132,9 @@ public class STOMPMessagesHandler extends BaseHandler{
     }
 
     @MessageMapping("/terminarCarrera")
-    public void terminarCarrera(Conductor conductor) throws Exception{
+    public void terminarCarrera(Principal principal) throws Exception{
+        Usuario usuario = getLoggedUser(principal).usuario;
+        Conductor conductor = uniWheelsServices.getConductor(usuario.username);
         conductor.nombreEstado = "Finalizado";
         List<Pasajero> pasajeros = conductor.getPasajeros();
         for (Pasajero pas: pasajeros){
