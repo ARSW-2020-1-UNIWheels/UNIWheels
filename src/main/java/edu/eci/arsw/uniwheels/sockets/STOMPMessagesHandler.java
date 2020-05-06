@@ -12,6 +12,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -131,10 +132,9 @@ public class STOMPMessagesHandler extends BaseHandler{
         msgt.convertAndSend("/uniwheels/conductoresDisponibles", todosLosConductores);
     }
 
-    @MessageMapping("/terminarCarrera")
-    public void terminarCarrera(Principal principal) throws Exception{
-        Usuario usuario = getLoggedUser(principal).usuario;
-        Conductor conductor = uniWheelsServices.getConductor(usuario.username);
+    @MessageMapping("/terminarCarrera.{conductorNagit me}")
+    public void terminarCarrera(@PathVariable String conductorName, Principal principal) throws Exception{
+        Conductor conductor = uniWheelsServices.getConductor(conductorName);
         conductor.nombreEstado = "Finalizado";
         List<Pasajero> pasajeros = conductor.getPasajeros();
         for (Pasajero pas: pasajeros){
