@@ -173,6 +173,32 @@ var app = (function(){
 			});
 		});
 
+
+		socket = new SockJS('/stompendpoint');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function () {
+			console.log('Connected: ');
+			stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
+				//console.log(pasajeros);
+				var pasajerosData = JSON.parse(pasajeros.body);
+				console.log(pasajeros);
+				$("#pasajerosAceptados").empty();
+				pasajerosData.map(function(element){
+					var markup = "<tr> <td>" +
+						element.usuario.username +
+						"</td>" +
+						"<td>" +
+						element.usuario.universidad +
+						"</td>" +
+						"<td>" +
+						element.calificacion +
+						"</td>"
+
+					$("#pasajerosAceptados").append(markup);
+				})
+			});
+			stompClient.send("/app/recibirPasajeros");
+		});
 	};
 	
 	return{	
