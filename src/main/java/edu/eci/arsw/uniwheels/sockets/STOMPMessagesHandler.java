@@ -94,13 +94,14 @@ public class STOMPMessagesHandler extends BaseHandler{
 
     @MessageMapping("/agregarPasajero.{conductorUsername}")
     public void accionSobrePasajero(String idPasajero,@DestinationVariable String conductorUsername, Principal principal) throws Exception {
+
         DetallesUsuario usuario = getLoggedUser(principal);
         Conductor conductor = uniWheelsServices.getConductor(conductorUsername);
         String[] separacionJson = idPasajero.split(",");
         idPasajero = separacionJson[0];
         String aceptado = separacionJson[1];
         Pasajero pasajero = uniWheelsServices.getPasajero(Integer.parseInt(idPasajero));
-
+        System.out.println(aceptado);
         if(aceptado.equals("true")){
 
             conductor.pasajeros.add(pasajero);

@@ -100,22 +100,21 @@ var app = (function(){
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
 			stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
-				console.log(pasajeros);
+				//console.log(pasajeros);
 				var pasajerosData = JSON.parse(pasajeros.body);
+				console.log(pasajeros);
 				$("#pasajerosAceptados").empty();
 				pasajerosData.map(function(element){
 					var markup = "<tr> <td>" +
-						element.name +
+						element.usuario.username +
 						"</td>" +
 						"<td>" +
-						element.universidad +
+						element.usuario.universidad +
 						"</td>" +
 						"<td>" +
-						element.puntuacion +
-						"</td>" +
-						"<td>" +
-						element.ubicacionActual+
-						"</tr>";
+						element.calificacion +
+						"</td>"
+
 					$("#pasajerosAceptados").append(markup);
 				})
 			});
