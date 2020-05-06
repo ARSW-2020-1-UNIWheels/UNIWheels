@@ -3,6 +3,8 @@ package edu.eci.arsw.uniwheels.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SQLUpdate;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "pasajero")
 @Transactional
+@DynamicUpdate
 public class Pasajero {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +26,7 @@ public class Pasajero {
     @OneToOne
     public Ruta ruta;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="pasajeros")
+    @JoinColumn(table="pasajero",name = "conductor")
     public Conductor conductor;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "pasajeroxconductor",

@@ -83,6 +83,10 @@ public class UniWheelsServices {
         uwp.deleteUniversity(universidad);
     }
 
+    public void savePasajero(Pasajero pasajero) throws UniWheelsPersistenceException {
+        uwp.savePasajeros(pasajero);
+    }
+
 
 
 }

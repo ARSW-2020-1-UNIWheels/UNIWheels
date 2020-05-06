@@ -125,6 +125,7 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     @Override
     public void savePasajeros(Pasajero pasajero) throws UniWheelsPersistenceException{
         pasajeroRepository.save(pasajero);
+        updateDatabase();
 
     }
 
