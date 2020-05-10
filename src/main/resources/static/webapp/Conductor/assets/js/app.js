@@ -180,13 +180,13 @@ var app = (function(){
 				})
 			});
 			stompClient.send("/app/recibirPasajeros");
-		});
 
-		stompClient.subscribe("/uniwheels/terminarCarrera."+name, function (){
-			desabilitar(false);
-			alert("Termino su viaje exitosamente");
-			$("#pasajerosAceptados").empty();
-			$("#tableSolicitudes > tbody").empty();
+			stompClient.subscribe("/uniwheels/terminarCarrera."+name, function (){
+				desabilitar(false);
+				alert("Termino su viaje exitosamente");
+				$("#pasajerosAceptados").empty();
+				$("#tableSolicitudes > tbody").empty();
+			});
 		});
 	};
 
