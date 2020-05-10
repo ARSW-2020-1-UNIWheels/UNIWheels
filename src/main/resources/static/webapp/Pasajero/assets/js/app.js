@@ -112,7 +112,6 @@ var app = (function(){
 
 	var pasajeroAceptado = function () {
 		console.info('Connecting to WS...');
-
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function () {
 			console.log('Connected: ');

@@ -126,14 +126,13 @@ var app = (function(){
 	};
 
 	var desabilitar = function (data) {
-		if(data == true){
-			$("#ubicacionActual").attr("disabled",true);
-			$("#destino").attr("disabled",true);
-			$("#carro").attr("disabled",true);
-			$("#precio").attr("disabled",true);
-			$("#iniciar").attr("disabled",true);
-		}
+		$("#ubicacionActual").attr("disabled",data);
+		$("#destino").attr("disabled",data);
+		$("#carro").attr("disabled",data);
+		$("#precio").attr("disabled",data);
+		$("#iniciar").attr("disabled",data);
 	};
+
 
 	var addSolicitudes = function(){
 		get();
@@ -181,8 +180,18 @@ var app = (function(){
 				})
 			});
 			stompClient.send("/app/recibirPasajeros");
-		});
 
+			stompClient.subscribe("/uniwheels/terminarCarrera."+name, function (){
+				desabilitar(false);
+				alert("Termino su viaje exitosamente");
+				$("#pasajerosAceptados").empty();
+				$("#tableSolicitudes > tbody").empty();
+			});
+		});
+	};
+
+	var terminarViaje = function () {
+		stompClient.send("/app/terminarCarrera."+name,{},{});
 	};
 	
 	return{	
@@ -195,7 +204,8 @@ var app = (function(){
 		addConductor: addConductor,
 		get:get,
 		aceptarPasajero:aceptarPasajero,
-		desabilitar:desabilitar
+		desabilitar:desabilitar,
+		terminarViaje:terminarViaje
 	};
 	
 })();
