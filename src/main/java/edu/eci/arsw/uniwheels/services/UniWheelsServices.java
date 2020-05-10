@@ -87,6 +87,14 @@ public class UniWheelsServices {
         uwp.savePasajeros(pasajero);
     }
 
+    public void updateEstado(String estado, int idConductor, int idPasajero){
+        uwp.updateEstado(estado, idConductor, idPasajero);
+    }
+
+    public void updateConductorinPassanger(Conductor conductor, int idPasajero){
+        uwp.updateConductorinPassenger(conductor, idPasajero);
+    }
+
 
 
 }

@@ -178,4 +178,18 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
         return null;
     }
 
+    @Override
+    public void updateEstado(String estado, int idConductor, int idPasajero){
+        if(idConductor == 0 && idPasajero !=0){
+            pasajeroRepository.updatePasajeroDisponible(estado,idPasajero);
+        } else if (idConductor !=0 && idPasajero == 0){
+            conductorRepository.updateConductorDisponible(estado,idConductor);
+        }
+    }
+
+    @Override
+    public void updateConductorinPassenger(Conductor conductor,int idPasajero){
+        pasajeroRepository.updatePasajeroConductor(conductor,idPasajero);
+    }
+
 }

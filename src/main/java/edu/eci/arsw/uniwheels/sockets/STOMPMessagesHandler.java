@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,9 +104,10 @@ public class STOMPMessagesHandler extends BaseHandler{
         String aceptado = separacionJson[1];
         Pasajero pasajero = uniWheelsServices.getPasajero(Integer.parseInt(idPasajero));
         System.out.println(aceptado);
-        if(aceptado.equals("true")){
+        if(aceptado.equals("true") && conductor.pasajeros.size()<5){
 
             conductor.pasajeros.add(pasajero);
+            uniWheelsServices.updateConductorinPassanger(conductor,pasajero.id);
             conductor.posiblesPasajeros.remove(pasajero);
             List<Conductor> otrosConductores = uniWheelsServices.getConductoresDisponibles();
             for(Conductor otroConductor:otrosConductores){
@@ -132,16 +134,19 @@ public class STOMPMessagesHandler extends BaseHandler{
         msgt.convertAndSend("/uniwheels/conductoresDisponibles", todosLosConductores);
     }
 
-    @MessageMapping("/terminarCarrera.{conductorNagit me}")
+    @MessageMapping("/terminarCarrera.{conductorName}")
     public void terminarCarrera(@PathVariable String conductorName, Principal principal) throws Exception{
         Conductor conductor = uniWheelsServices.getConductor(conductorName);
         conductor.nombreEstado = "Finalizado";
+        uniWheelsServices.updateEstado(conductor.nombreEstado,conductor.id,0);
         List<Pasajero> pasajeros = conductor.getPasajeros();
         for (Pasajero pas: pasajeros){
             pas.nombreEstado = "Finalizado";
+            uniWheelsServices.updateEstado(pas.nombreEstado,0,pas.id);
         }
         uniWheelsServices.actualizarDB();
-        msgt.convertAndSend("/uniwheels/conductorFinalizado");
+        msgt.convertAndSend("/uniwheels/conductorFinalizado."+conductor.conductorName);
+
     }
 
 }
