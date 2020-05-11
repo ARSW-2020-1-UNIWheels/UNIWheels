@@ -107,6 +107,8 @@ public class STOMPMessagesHandler extends BaseHandler{
         boolean hayCupo = true;
         if(conductor.pasajeros.size()==3 && aceptado.equals("true")){
             uniWheelsServices.updateEstado("Sin cupo",conductor.id,0);
+
+        } else if (conductor.pasajeros.size()==4){
             hayCupo = false;
         }
         if(aceptado.equals("true") && hayCupo){
@@ -135,6 +137,8 @@ public class STOMPMessagesHandler extends BaseHandler{
         }
         uniWheelsServices.actualizarDB();
         conductor = uniWheelsServices.getConductor(conductorUsername);
+        List<Conductor> todosLosConductores = uniWheelsServices.getConductoresDisponibles();
+        msgt.convertAndSend("/uniwheels/conductoresDisponibles", todosLosConductores);
         msgt.convertAndSend("/uniwheels/posiblesConductores."+conductor.conductorName, conductor.posiblesPasajeros);
     }
 
