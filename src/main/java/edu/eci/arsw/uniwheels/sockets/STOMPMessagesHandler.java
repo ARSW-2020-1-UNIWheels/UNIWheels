@@ -104,6 +104,9 @@ public class STOMPMessagesHandler extends BaseHandler{
         String aceptado = separacionJson[1];
         Pasajero pasajero = uniWheelsServices.getPasajero(Integer.parseInt(idPasajero));
         System.out.println(aceptado);
+        if(conductor.pasajeros.size()==5){
+            uniWheelsServices.updateEstado("Sin cupo",conductor.id,0);
+        }
         if(aceptado.equals("true") && conductor.pasajeros.size()<5){
 
             //conductor.pasajeros.add(pasajero);
@@ -125,6 +128,7 @@ public class STOMPMessagesHandler extends BaseHandler{
             msgt.convertAndSend("/uniwheels/pasajero."+conductor.conductorName, conductor.pasajeros);
         } else {
             uniWheelsServices.updateEstado("Rechazado",0,pasajero.id);
+            uniWheelsServices.updateConductorinPassanger(conductor,pasajero.id);
             uniWheelsServices.deletePosiblePasajero(pasajero.id,conductor.id);
         }
         uniWheelsServices.actualizarDB();
