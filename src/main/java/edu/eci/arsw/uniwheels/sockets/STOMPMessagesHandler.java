@@ -115,7 +115,8 @@ public class STOMPMessagesHandler extends BaseHandler{
                 if(otroConductor.posiblesPasajeros.contains(pasajero) && otroConductor.id == conductor.id){
 
                     uniWheelsServices.deletePosiblePasajero(pasajero.id,otroConductor.id);
-                    msgt.convertAndSend("/uniwheels/posiblesConductores."+otroConductor.conductorName, otroConductor.posiblesPasajeros);
+                    Conductor otroConductorPrueba = uniWheelsServices.getConductor(otroConductor.conductorName);
+                    msgt.convertAndSend("/uniwheels/posiblesConductores."+otroConductor.conductorName, otroConductorPrueba.posiblesPasajeros);
                 }
             }
             conductor = uniWheelsServices.getConductor(conductorUsername);
@@ -123,7 +124,7 @@ public class STOMPMessagesHandler extends BaseHandler{
 
             msgt.convertAndSend("/uniwheels/pasajero."+conductor.conductorName, conductor.pasajeros);
         } else {
-            conductor.posiblesPasajeros.remove(pasajero);
+            uniWheelsServices.deletePosiblePasajero(pasajero.id,conductor.id);
         }
         uniWheelsServices.actualizarDB();
         conductor = uniWheelsServices.getConductor(conductorUsername);
