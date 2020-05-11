@@ -137,7 +137,7 @@ public class STOMPMessagesHandler extends BaseHandler{
     }
 
     @MessageMapping("/terminarCarrera.{conductorName}")
-    public void terminarCarrera(@PathVariable String conductorName, Principal principal) throws Exception{
+    public void terminarCarrera(@DestinationVariable String conductorName, Principal principal) throws Exception{
         Conductor conductor = uniWheelsServices.getConductor(conductorName);
         conductor.nombreEstado = "Finalizado";
         uniWheelsServices.updateEstado(conductor.nombreEstado,conductor.id,0);

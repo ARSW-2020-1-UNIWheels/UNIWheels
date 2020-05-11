@@ -1,6 +1,7 @@
 var app = (function(){
 
 	var name;
+	var conduc;
 	var socket = new SockJS('/stompendpoint');
 
 	var _getUser = function(info){
@@ -65,7 +66,9 @@ var app = (function(){
 				console.log(conductor);
 				var conductorData = JSON.parse(conductor.body);
 				console.log(conductorData);
-
+				conduc = conductorData.conductorName;
+				stompClient.subscribe("/uniwheels/conductorFinalizado."+conduc, function (){
+				});
 				var card = '<div class="card" style="width: 30rem; text-align: center; background-color: #333333">' +
 					'<img src="../../images/pic01.jpg" class="card-img-top" alt="...">' +
 					'<div class="card-body">' +
