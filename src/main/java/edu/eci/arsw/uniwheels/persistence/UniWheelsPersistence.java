@@ -40,4 +40,6 @@ public interface UniWheelsPersistence {
     void updateEstado(String estado, int idConductor, int idPasajero);
 
     void updateConductorinPassenger(Conductor conductor, int idPasajero);
+
+    void deletePosiblePasajero(int idPasajero, int idConductor);
 }

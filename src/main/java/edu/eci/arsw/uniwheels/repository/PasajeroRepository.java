@@ -22,4 +22,8 @@ public interface PasajeroRepository extends JpaRepository<Pasajero,Integer> {
     @Query("update Pasajero u set u.nombreEstado = :nombreEstado where u.id = :id")
     void updatePasajeroDisponible(@Param("nombreEstado") String nombreEstado,@Param("id") int id);
 
+    @Modifying
+    @Query(value = "DELETE FROM pasajeroxconductor AS pxc WHERE pxc.pasajero_id= ?1 AND pxc.conductor_id=?2", nativeQuery = true)
+    void deletingPosiblesConductores(int idPasajero,int idConductor);
+
 }

@@ -192,4 +192,9 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
         pasajeroRepository.updatePasajeroConductor(conductor,idPasajero);
     }
 
+    @Override
+    public void deletePosiblePasajero(int idPasajero, int idConductor){
+        pasajeroRepository.deletingPosiblesConductores(idPasajero, idConductor);
+    }
+
 }

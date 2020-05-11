@@ -92,7 +92,12 @@ public class UniWheelsServices {
     }
 
     public void updateConductorinPassanger(Conductor conductor, int idPasajero){
+        System.out.println(conductor.id+" "+idPasajero);
         uwp.updateConductorinPassenger(conductor, idPasajero);
+    }
+
+    public void deletePosiblePasajero(int idPasajero,int idConductor){
+        uwp.deletePosiblePasajero(idPasajero, idConductor);
     }
 
 

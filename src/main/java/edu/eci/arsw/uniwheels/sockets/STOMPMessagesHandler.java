@@ -109,11 +109,12 @@ public class STOMPMessagesHandler extends BaseHandler{
             conductor.pasajeros.add(pasajero);
             uniWheelsServices.updateConductorinPassanger(conductor,pasajero.id);
             conductor.posiblesPasajeros.remove(pasajero);
+            uniWheelsServices.deletePosiblePasajero(pasajero.id,conductor.id);
             List<Conductor> otrosConductores = uniWheelsServices.getConductoresDisponibles();
             for(Conductor otroConductor:otrosConductores){
-                if(otroConductor.posiblesPasajeros.contains(pasajero)){
-                    otroConductor.posiblesPasajeros.remove(pasajero);
-                    pasajero.posiblesConductores.remove(otroConductor);
+                if(otroConductor.posiblesPasajeros.contains(pasajero) && otroConductor.id == conductor.id){
+
+                    uniWheelsServices.deletePosiblePasajero(pasajero.id,otroConductor.id);
                     msgt.convertAndSend("/uniwheels/posiblesConductores."+otroConductor.conductorName, otroConductor.posiblesPasajeros);
                 }
             }
@@ -122,9 +123,8 @@ public class STOMPMessagesHandler extends BaseHandler{
         } else {
             conductor.posiblesPasajeros.remove(pasajero);
         }
-        uniWheelsServices.saveConductorDisponible(conductor);
         uniWheelsServices.actualizarDB();
-
+        conductor = uniWheelsServices.getConductor(conductorUsername);
         msgt.convertAndSend("/uniwheels/posiblesConductores."+conductor.conductorName, conductor.posiblesPasajeros);
     }
 
