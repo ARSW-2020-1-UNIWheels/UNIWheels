@@ -135,7 +135,7 @@ public class STOMPMessagesHandler extends BaseHandler{
     }
 
     @MessageMapping("/terminarCarrera.{conductorName}")
-    public void terminarCarrera(@PathVariable String conductorName, Principal principal) throws Exception{
+    public void terminarCarrera(@DestinationVariable String conductorName, Principal principal) throws Exception{
         Conductor conductor = uniWheelsServices.getConductor(conductorName);
         conductor.nombreEstado = "Finalizado";
         uniWheelsServices.updateEstado(conductor.nombreEstado,conductor.id,0);
@@ -144,8 +144,8 @@ public class STOMPMessagesHandler extends BaseHandler{
             pas.nombreEstado = "Finalizado";
             uniWheelsServices.updateEstado(pas.nombreEstado,0,pas.id);
         }
-        uniWheelsServices.actualizarDB();
-        msgt.convertAndSend("/uniwheels/conductorFinalizado."+conductor.conductorName);
+        //uniWheelsServices.actualizarDB();
+        msgt.convertAndSend("/uniwheels/conductorFinalizado."+conductor.conductorName,"Viaje Finalizado");
 
     }
 
