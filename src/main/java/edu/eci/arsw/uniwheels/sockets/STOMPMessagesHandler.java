@@ -124,6 +124,7 @@ public class STOMPMessagesHandler extends BaseHandler{
 
             msgt.convertAndSend("/uniwheels/pasajero."+conductor.conductorName, conductor.pasajeros);
         } else {
+            uniWheelsServices.updateEstado("Rechazado",0,pasajero.id);
             uniWheelsServices.deletePosiblePasajero(pasajero.id,conductor.id);
         }
         uniWheelsServices.actualizarDB();
