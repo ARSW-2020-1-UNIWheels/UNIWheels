@@ -105,7 +105,7 @@ public class STOMPMessagesHandler extends BaseHandler{
         Pasajero pasajero = uniWheelsServices.getPasajero(Integer.parseInt(idPasajero));
         System.out.println(aceptado);
         boolean hayCupo = true;
-        if(conductor.pasajeros.size()==4){
+        if(conductor.pasajeros.size()==3 && aceptado.equals("true")){
             uniWheelsServices.updateEstado("Sin cupo",conductor.id,0);
             hayCupo = false;
         }
