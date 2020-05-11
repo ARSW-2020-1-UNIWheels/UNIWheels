@@ -13,6 +13,7 @@
 
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+					
 	</head>
 	<body>
 
@@ -81,7 +82,7 @@
 		<!-- Pasajeros -->
 
 		<section id="two1">
-			<div id="div-table" class="content" style="text-align: center;">
+			<div id="div-table" class="content" style="text-align: center;margin-left:40px; margin-right:40px">
 				<br></br>
 				<header>
 					<h2>Conductores Disponibles</h2>
@@ -127,6 +128,8 @@
 			<script src="/webjars/sockjs-client/sockjs.min.js"></script>
 			<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+			<script src="assets/js/mapa.js"></script>
 			<script src="assets/js/apiclient.js"></script>
 			<script src="assets/js/app.js"></script>
 			<script>window.onload = app.getConductores()</script>

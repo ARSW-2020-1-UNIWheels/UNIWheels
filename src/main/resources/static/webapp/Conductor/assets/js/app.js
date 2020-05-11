@@ -84,7 +84,7 @@ var app = (function(){
 		console.log(typeof(inicio)+" "+typeof(precio));
 
 		if(inicio==="Donde otás?" || destino==="Para donde vas?" || carro==="Que carro vas a usar?" || precio===""){
-			alert("Debes ingresar todos los datospara iniciar tu viaje!!");
+			alert("Debes ingresar todos los datos para iniciar tu viaje!!");
 		}
 		else{
 			addConductor();

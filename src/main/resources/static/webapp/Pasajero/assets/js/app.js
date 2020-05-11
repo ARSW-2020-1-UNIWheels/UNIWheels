@@ -1,7 +1,26 @@
+document.addEventListener('DOMContentLoaded', function () {
+  if (document.querySelectorAll('#map').length > 0)
+  {
+	if (document.querySelector('html').lang)
+	  lang = document.querySelector('html').lang;
+	else
+	  lang = 'en';
+
+	var js_file = document.createElement('script');
+	js_file.type = 'text/javascript';
+	js_file.src = 'https://maps.googleapis.com/maps/api/js?callback=initMap&AIzaSyCuKZ_scrWAaiekIHPLWfXHuDhgZJKUpvM&language=' + lang;
+	document.getElementsByTagName('head')[0].appendChild(js_file);
+  }
+});
+
+
+
 var app = (function(){
 
 	var name;
 	var socket = new SockJS('/stompendpoint');
+
+
 
 	var _getUser = function(info){
 		name = info.username;
@@ -67,7 +86,6 @@ var app = (function(){
 				console.log(conductorData);
 
 				var card = '<div class="card" style="width: 30rem; text-align: center; background-color: #333333">' +
-					'<img src="../../images/pic01.jpg" class="card-img-top" alt="...">' +
 					'<div class="card-body">' +
 					'<h5 class="card-title">' + conductorData.conductorName + '</h5>' +
 					'<p class="card-text" style="color:#FFFFFF">El valor de la carrera es de: ' + conductorData.ruta.precio + '.</p>' +
@@ -79,33 +97,40 @@ var app = (function(){
 					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">' + conductorData.carro.placa + '</li>' +
 					'</ul>' +
 					'<div class="card-body">' +
-					'<a href="#" class="card-link" onclick="alert("Metodo en construcción")">Cancelar viaje</a>' +
+					'<p class="card-link" onclick="alert('+'Metodo en construcción'+')">Cancelar viaje</p>' +
+					//'<p class="card-link" onclick="app.initMap()">Ver Ubicación</p>' +
 					'</div>' +
 					'</div>';
-
-				var markup2 = '<div id="div-table">' +
-					'<br></br>' +
-					'<header>' +
-					'<h2>Mi Condutor</h2>' +
-					'</header>' +
-					'<br></br>' +
-					'<div class="inner">' +
-					'<article>' +
-					'<div class="content">' +
-					card +
-					'</div>' +
-					'</article>' +
-					'<article class="alt">' +
-					'<div class="content">' +
-					'<div class="image fit">' +
-					//'<img src="/webapp/Pasajero/images/mapa.jpg" width="100%" height="80%" />'+
-					'</div>' +
-					'</div>' +
-					'</article>' +
-					'</div>' +
-					'</div>';
+					
+				
+				var markup2 = '<div class="inner">'+
+					'<br></br>'+
+					'<header>'+
+						'<h2>Mi Condutor</h2>'+
+					'</header>'+
+					'<br></br>'+
+					'<div class="container">'+
+						'<div class="row">'+
+							'<div class="col">'+
+								'<div id="card">'+
+									card+
+								'</div>'+
+							'</div>'+
+							'<div class="col">'+
+								'<div id="map" class="image fit">'+
+									'<img src="/webapp/Pasajero/images/mapa.jpg" width="100%" height="80%" />'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+					'</div>'+
+					'</div>'+
+					'<br></br>';
+					
 
 				$("#div-table").append(markup2);
+				console.log("vamos a poner el mapa");
+				misCoordenadas();
+				
 			});
 		});
 	};
@@ -139,29 +164,30 @@ var app = (function(){
 					'</div>'+
 					'</div>';
 					
-				var markup2 = '<div id="div-table">'+
+				var markup2 = '<div id="div-table" class="inner">'
 					'<br></br>'+
 					'<header>'+
 						'<h2>Mi Condutor</h2>'+
 					'</header>'+
 					'<br></br>'+
-					'<div class="inner">'+
-						'<article>'+
-							'<div class="content">'+
-								card+
-							'</div>'+
-						'</article>'+
-						'<article class="alt">'+
-							'<div class="content">'+
-								'<div class="image fit">'+
-									//'<img src="/webapp/Pasajero/images/mapa.jpg" width="100%" height="80%" />'+
+					'<div class="container">'+
+						'<div class="row">'+
+							'<div class="col">'+
+								'<div id="card">'+
+									card+
 								'</div>'+
 							'</div>'+
-						'</article>'+
-					'</div>'+
+							'<div class="col">'+
+								'<div id="map">'+
+									'<h1>AQUI VA EL MAPA</h1>'+
+									card+
+								'</div>'+
+							'</div>'+
+						'</div'>+
 					'</div>';
-			
+					
 				$("#div-table").append(markup2);
+				//Agregar etiqueta donde llama al mapa 
 			});
 		});
 	}
@@ -175,8 +201,57 @@ var app = (function(){
 		stompClient.send("/app/agregarPosiblePasajero",{},conductorName);
 
 	};
-		
+	
+	
+	var map;
 
+	function initMap(){
+		map = new google.maps.Map(document.getElementById('map'), {
+		center: {lat: -34.397, lng: 150.644},
+		zoom: 8
+		});
+	};
+
+
+	var markers;
+	var bounds;
+
+	function plotMarkers(m){
+		initMap();	
+		markers = [];
+		bounds = new google.maps.LatLngBounds();
+
+		m.forEach(function (marker) {
+		var position = new google.maps.LatLng(marker.lat, marker.lng);
+
+		console.log("estamos en el map");
+		markers.push(
+		  new google.maps.Marker({
+			position: position,
+			map: map,
+			animation: google.maps.Animation.DROP
+		  })
+		);
+
+		bounds.extend(position);
+		});
+
+		map.fitBounds(bounds);
+	};
+	
+	function misCoordenadas(){
+		console.log("calculando coordenadas");
+		navigator.geolocation.watchPosition(mostrarPosicion);
+	};
+	
+	function mostrarPosicion(position){
+		console.log(position.coords.latitude+" "+position.coords.longitude);
+		
+		var datos = "{'latitude:'"+position.coords.latitude+", 'longitude':"+position.coords.longitude+"}";
+		var datos_arr = JSON.parse(datos);
+		plotMarkers(datos_arr);
+	}
+		
 	return{	
 	    getConductores: getConductores,
 		agregarPosiblePasajero:agregarPosiblePasajero,
