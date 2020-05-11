@@ -170,7 +170,7 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     public Conductor getConductor(String name) throws UniWheelsPersistenceException {
         List<Conductor> conductors = conductorRepository.findAll();
         for(Conductor conduc:conductors){
-            if(conduc.getConductorName().equals(name) && conduc.getNombreEstado().equals("Disponible")){
+            if(conduc.getConductorName().equals(name) && (conduc.getNombreEstado().equals("Disponible") || conduc.getNombreEstado().equals("Sin cupo"))){
                 System.out.println("Encontré un conductor");
                 return conduc;
             }
