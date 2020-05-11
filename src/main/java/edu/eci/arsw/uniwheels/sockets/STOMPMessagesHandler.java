@@ -106,9 +106,9 @@ public class STOMPMessagesHandler extends BaseHandler{
         System.out.println(aceptado);
         if(aceptado.equals("true") && conductor.pasajeros.size()<5){
 
-            conductor.pasajeros.add(pasajero);
+            //conductor.pasajeros.add(pasajero);
             uniWheelsServices.updateConductorinPassanger(conductor,pasajero.id);
-            conductor.posiblesPasajeros.remove(pasajero);
+            //conductor.posiblesPasajeros.remove(pasajero);
             uniWheelsServices.deletePosiblePasajero(pasajero.id,conductor.id);
             List<Conductor> otrosConductores = uniWheelsServices.getConductoresDisponibles();
             for(Conductor otroConductor:otrosConductores){
@@ -118,7 +118,9 @@ public class STOMPMessagesHandler extends BaseHandler{
                     msgt.convertAndSend("/uniwheels/posiblesConductores."+otroConductor.conductorName, otroConductor.posiblesPasajeros);
                 }
             }
+            conductor = uniWheelsServices.getConductor(conductorUsername);
             msgt.convertAndSend("/uniwheels/pasajeroAceptado."+pasajero.pasajeroName,conductor);
+
             msgt.convertAndSend("/uniwheels/pasajero."+conductor.conductorName, conductor.pasajeros);
         } else {
             conductor.posiblesPasajeros.remove(pasajero);
@@ -144,8 +146,7 @@ public class STOMPMessagesHandler extends BaseHandler{
             pas.nombreEstado = "Finalizado";
             uniWheelsServices.updateEstado(pas.nombreEstado,0,pas.id);
         }
-        uniWheelsServices.actualizarDB();
-        msgt.convertAndSend("/uniwheels/conductorFinalizado."+conductor.conductorName);
+        msgt.convertAndSend("/uniwheels/conductorFinalizado."+conductor.conductorName,"Viaje Finalizado");
 
     }
 
