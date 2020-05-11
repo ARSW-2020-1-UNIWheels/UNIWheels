@@ -36,4 +36,10 @@ public interface UniWheelsPersistence {
 
     public void updateDatabase();
     public void agregarPasajeroALaRuta(Pasajero pasajero, Conductor conductor);
+
+    void updateEstado(String estado, int idConductor, int idPasajero);
+
+    void updateConductorinPassenger(Conductor conductor, int idPasajero);
+
+    void deletePosiblePasajero(int idPasajero, int idConductor);
 }

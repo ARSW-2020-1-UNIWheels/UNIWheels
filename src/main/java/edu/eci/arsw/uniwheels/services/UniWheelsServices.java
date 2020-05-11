@@ -87,6 +87,19 @@ public class UniWheelsServices {
         uwp.savePasajeros(pasajero);
     }
 
+    public void updateEstado(String estado, int idConductor, int idPasajero){
+        uwp.updateEstado(estado, idConductor, idPasajero);
+    }
+
+    public void updateConductorinPassanger(Conductor conductor, int idPasajero){
+        System.out.println(conductor.id+" "+idPasajero);
+        uwp.updateConductorinPassenger(conductor, idPasajero);
+    }
+
+    public void deletePosiblePasajero(int idPasajero,int idConductor){
+        uwp.deletePosiblePasajero(idPasajero, idConductor);
+    }
+
 
 
 }

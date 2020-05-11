@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 var app = (function(){
 
 	var name;
+	var conduc;
 	var socket = new SockJS('/stompendpoint');
 
 
@@ -84,7 +85,9 @@ var app = (function(){
 				console.log(conductor);
 				var conductorData = JSON.parse(conductor.body);
 				console.log(conductorData);
-
+				conduc = conductorData.conductorName;
+				stompClient.subscribe("/uniwheels/conductorFinalizado."+conduc, function (){
+				});
 				var card = '<div class="card" style="width: 30rem; text-align: center; background-color: #333333">' +
 					'<div class="card-body">' +
 					'<h5 class="card-title">' + conductorData.conductorName + '</h5>' +

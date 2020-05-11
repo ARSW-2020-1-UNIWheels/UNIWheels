@@ -1,4 +1,6 @@
 var app = (function(){
+	var escuela = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@mail.escuelaing.edu.co/i;
+
 	var a=function () {
 		apiclient.getUniversidades(agregarUniversidades);
 	};
@@ -26,8 +28,9 @@ var app = (function(){
 
 		if( datos.get("pass")!= datos.get("confirmar pass")){
 			location.reload();
-		}
-		else{
+		}else if(!(escuela.test(String(datos.get("correo"))))){
+			alert("La dirección de email es incorrecta!.");
+		}else{
 			var info = {
 				"userId":9,
 				"username":datos.get("usuario"),

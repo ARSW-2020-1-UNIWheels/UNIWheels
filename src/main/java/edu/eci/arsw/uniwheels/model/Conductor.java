@@ -35,7 +35,7 @@ public class Conductor {
     @OneToOne
     public Calificacion calificacion;
     public String nombreEstado;
-    @ManyToMany(mappedBy = "posiblesConductores",cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "posiblesConductores", cascade = {CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.EAGER)
     @JsonIgnore
     public Set<Pasajero> posiblesPasajeros = new HashSet<>();
     @ManyToOne(fetch = FetchType.LAZY)
