@@ -100,8 +100,6 @@ var app = (function(){
 					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">' + conductorData.carro.placa + '</li>' +
 					'</ul>' +
 					'<div class="card-body">' +
-					'<p class="card-link" onclick="alert('+'Metodo en construcción'+')">Cancelar viaje</p>' +
-					//'<p class="card-link" onclick="app.initMap()">Ver Ubicación</p>' +
 					'</div>' +
 					'</div>';
 					
