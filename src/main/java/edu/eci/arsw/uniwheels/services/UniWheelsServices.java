@@ -131,5 +131,9 @@ public class UniWheelsServices {
         return valoracionCompleta;
     }
 
+    public List<Pasajero> obtenerPasajerosPorNombre(String username){
+        return uwp.obtenerTodosLosPasajerosPorUsuario(username);
+    }
+
 
 }

@@ -18,7 +18,4 @@ public interface ConductorRepository extends JpaRepository<Conductor,Integer> {
     @Query("update Conductor u set u.nombreEstado = :nombreEstado where u.id = :id")
     void updateConductorDisponible(@Param("nombreEstado") String nombreEstado, @Param("id") int id);
 
-    @Modifying
-    @Query("update Conductor p set p.calificacion=:superCalificacion where p.id=:idConductor")
-    void updateValoracion(@Param("superCalificacion") int superCalificacion,@Param("idConductor") int idConductor);
 }

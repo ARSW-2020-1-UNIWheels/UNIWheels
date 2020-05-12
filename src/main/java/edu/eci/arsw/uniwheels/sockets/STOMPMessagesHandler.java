@@ -131,7 +131,7 @@ public class STOMPMessagesHandler extends BaseHandler{
             uniWheelsServices.updateConductorinPassanger(conductor,pasajero.id);
             //conductor.posiblesPasajeros.remove(pasajero);
             uniWheelsServices.deletePosiblePasajero(pasajero.id,conductor.id);
-            Set<Pasajero> otrosViajesPasajero = pasajero.usuario.viajesRecibidos;
+            List<Pasajero> otrosViajesPasajero = uniWheelsServices.obtenerPasajerosPorNombre(pasajero.pasajeroName);
             for(Pasajero p:otrosViajesPasajero){
                 if(p.id!=pasajero.id){
                     uniWheelsServices.updateEstado("Finalizado",0,p.id);

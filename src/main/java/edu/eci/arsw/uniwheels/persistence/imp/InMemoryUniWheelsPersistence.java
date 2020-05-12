@@ -4,6 +4,7 @@ import edu.eci.arsw.uniwheels.model.*;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistence;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
 import edu.eci.arsw.uniwheels.repository.*;
+import org.hibernate.mapping.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -204,6 +205,18 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
 
 
         calificacionRepository.save(calificacion);
+    }
+
+    @Override
+    public List<Pasajero> obtenerTodosLosPasajerosPorUsuario(String pasajeroName){
+        List<Pasajero> todosLosPasajeros =pasajeroRepository.findAll();
+        List<Pasajero> valoresAEnviar = new ArrayList<>();
+        for(Pasajero p: todosLosPasajeros){
+            if(p.pasajeroName.equals(pasajeroName) && p.nombreEstado.equals("Disponible")){
+                valoresAEnviar.add(p);
+            }
+        }
+        return valoresAEnviar;
     }
 
 
