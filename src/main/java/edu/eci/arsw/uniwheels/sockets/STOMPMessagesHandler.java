@@ -78,7 +78,7 @@ public class STOMPMessagesHandler extends BaseHandler{
     @MessageMapping("/obtenerPasajeroEnViaje")
     public void obtenerPasajeroEnViaje(Principal principal){
         Usuario usuario = getLoggedUser(principal).usuario;
-        Set<Pasajero> viajesRecibidos = usuario.viajesRecibidos;
+        List<Pasajero> viajesRecibidos = uniWheelsServices.obtenerPasajerosPorNombre(usuario.username);
         Conductor conductorActual = null;
         for(Pasajero p: viajesRecibidos){
             if(p.nombreEstado.equals("Aceptado")){
