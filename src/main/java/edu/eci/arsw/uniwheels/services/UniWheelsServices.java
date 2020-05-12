@@ -135,5 +135,9 @@ public class UniWheelsServices {
         return uwp.obtenerTodosLosPasajerosPorUsuario(username);
     }
 
+    public Conductor obtenerPasajerosPorNombreParaAceptar(String username){
+        return uwp.obtenerTodosLosPasajerosPorUsuarioAceptado(username);
+    }
+
 
 }

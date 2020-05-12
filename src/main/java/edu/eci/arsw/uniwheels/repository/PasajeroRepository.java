@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @Service
 @Transactional
@@ -25,6 +27,9 @@ public interface PasajeroRepository extends JpaRepository<Pasajero,Integer> {
     @Modifying
     @Query(value = "DELETE FROM pasajeroxconductor AS pxc WHERE pxc.pasajero_id= ?1 AND pxc.conductor_id=?2", nativeQuery = true)
     void deletingPosiblesConductores(int idPasajero,int idConductor);
+
+    @Query("SELECT p.conductor FROM Pasajero as p WHERE  p.pasajeroName=:namePasajero AND p.nombreEstado='Aceptado'")
+    Conductor traerIDConductor(@Param("namePasajero")String namePasajero);
 
 
 }
