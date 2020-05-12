@@ -27,6 +27,7 @@ public class Pasajero {
     public Ruta ruta;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(table="pasajero",name = "conductor")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Conductor conductor;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "pasajeroxconductor",
