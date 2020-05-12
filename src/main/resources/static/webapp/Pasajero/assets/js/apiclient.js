@@ -33,9 +33,19 @@ var apiclient = ( function () {
             .catch(error => console.log(error));
     });
 
+    var agregarPuntuacion = (function (id,val) {
+        axios({
+            method: 'POST',
+            url: '/uniwheels/addValoracion/'+id+"/"+0+"/"+val,
+
+        })
+            .catch(error => console.log(error));
+    });
+
     return{
         getConductoresDisponibles: getConductoresDisponibles,
         agregarPosibleConductor:agregarPosibleConductor,
-        getUser:getUser
+        getUser:getUser,
+        agregarPuntuacion:agregarPuntuacion
     }
 })();

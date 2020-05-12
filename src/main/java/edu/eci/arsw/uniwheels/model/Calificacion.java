@@ -1,5 +1,7 @@
 package edu.eci.arsw.uniwheels.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.websocket.OnOpen;
 
@@ -11,8 +13,10 @@ public class Calificacion {
     public int id;
     public int valor;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     public Conductor conductor;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     public Pasajero pasajero;
 
     public Calificacion(){

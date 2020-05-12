@@ -174,10 +174,34 @@ var app = (function(){
 						"</td>" +
 						"<td>" +
 						element.calificacion +
-						"</td>"
+						"</td>"+
+						"</tr>";
 
 					$("#pasajerosAceptados").append(markup);
-				})
+					var aiuda = $("#numeros:selected").val();
+					var a = "<tr> <td>" +
+						element.usuario.username +
+						"</td>" +
+						"<td>" +
+						element.calificacion +
+						"</td>" +
+						"<td>" +
+						"<select id='numeros' name='numeros'>"+
+							"<option value='5'>5</option>"+
+							"<option value='4'>4</option>"+
+							"<option value='3'>3</option>"+
+							"<option value='2'>2</option>"+
+							"<option value='1'>1</option>"+
+						"</select>" +
+						"</td>"+
+						"<td><form><button type='button' onclick='app.agregarPuntuacion(\"" +
+						aiuda +
+						'" , "' +
+						element.id +
+						"\")' >Calificar</button></form></td>" +
+						"</tr>";
+					$("#calificaciones").append(a);
+				});
 			});
 			stompClient.send("/app/recibirPasajeros");
 
@@ -194,7 +218,12 @@ var app = (function(){
 		$("#tableSolicitudes > tbody").empty();
 		stompClient.send("/app/terminarCarrera."+name);
 	};
-	
+
+	var agregarPuntuacion = function (punt,id) {
+		apiclient.agregarPuntuacion(id,Math.floor(Math.random() * 5) + 1);
+	};
+
+
 	return{	
 	    getPasajeros: getPasajeros,
 		addPasajeros: addPasajeros,
@@ -206,7 +235,8 @@ var app = (function(){
 		get:get,
 		aceptarPasajero:aceptarPasajero,
 		desabilitar:desabilitar,
-		terminarViaje:terminarViaje
+		terminarViaje:terminarViaje,
+		agregarPuntuacion:agregarPuntuacion
 	};
 	
 })();

@@ -85,8 +85,9 @@ var app = (function(){
 				console.log(conductor);
 				var conductorData = JSON.parse(conductor.body);
 				console.log(conductorData);
-				conduc = conductorData.conductorName;
-				stompClient.subscribe("/uniwheels/conductorFinalizado."+conduc, function (){
+				conduc = conductorData;
+				stompClient.subscribe("/uniwheels/conductorFinalizado."+conduc.conductorName, function (){
+
 				});
 				var card = '<div class="card" style="width: 30rem; text-align: center; background-color: #333333">' +
 					'<div class="card-body">' +
@@ -126,14 +127,32 @@ var app = (function(){
 					'</div>'+
 					'</div>'+
 					'<br></br>';
-					
 
 				$("#div-table").append(markup2);
+				var puntuacion = '<div class="inner">'+
+						'<br></br>'+
+						"<select id='numeros' name='numeros'>"+
+							"<option value='5'>5</option>"+
+							"<option value='4'>4</option>"+
+							"<option value='3'>3</option>"+
+							"<option value='2'>2</option>"+
+							"<option value='1'>1</option>"+
+						"</select>" +
+						'<div>' +
+							"<td><form><button type='button' onclick='app.agregarPuntuacion($(\"#numeros\").val())' >Calificar</button></form></td>" +
+						'</div>'+
+					'<br></br>'+
+					'</div>';
+				$("#div-table").append(puntuacion);
+
 				console.log("vamos a poner el mapa");
 				misCoordenadas();
 				
 			});
 		});
+	};
+	var agregarPuntuacion = function (punt) {
+		apiclient.agregarPuntuacion(conduc.id,punt);
 	};
 
 	var pasajeroAceptado = function () {
@@ -252,13 +271,14 @@ var app = (function(){
 		var datos_arr = JSON.parse(datos);
 		plotMarkers(datos_arr);
 	}
-		
+
 	return{	
 	    getConductores: getConductores,
 		agregarPosiblePasajero:agregarPosiblePasajero,
 		get:get,
 		infoViaje: infoViaje,
-		pasajeroAceptado:pasajeroAceptado
+		pasajeroAceptado:pasajeroAceptado,
+		agregarPuntuacion:agregarPuntuacion
 	};
 	
 })();
