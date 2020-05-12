@@ -200,14 +200,8 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     }
 
     @Override
-    public void añadirValoracion(int valoracion, int idConductor, int idPasajero){
-        Calificacion calificacion = new Calificacion();
-        calificacion.valor = valoracion;
-        if(idConductor!=0){
-            calificacion.conductor = conductorRepository.findById(idConductor).get();
-        } else if (idPasajero !=0){
-            calificacion.pasajero = pasajeroRepository.findById(idPasajero).get();
-        }
+    public void añadirValoracion(Calificacion calificacion){
+
 
         calificacionRepository.save(calificacion);
     }

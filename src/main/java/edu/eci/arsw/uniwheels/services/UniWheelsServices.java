@@ -99,8 +99,8 @@ public class UniWheelsServices {
         uwp.deletePosiblePasajero(idPasajero, idConductor);
     }
 
-    public void añadirValoracion(int valoracion,int idConductor,int idPasajero){
-        uwp.añadirValoracion(valoracion, idConductor,idPasajero);
+    public void añadirValoracion(Calificacion valoracion){
+        uwp.añadirValoracion(valoracion);
     }
 
     public float obtenerValoracionPorUsuario(String username, String tipo) throws UniWheelsPersistenceException {

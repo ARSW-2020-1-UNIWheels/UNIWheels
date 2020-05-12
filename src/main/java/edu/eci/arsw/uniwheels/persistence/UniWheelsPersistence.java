@@ -47,5 +47,6 @@ public interface UniWheelsPersistence {
 
 
 
-    void añadirValoracion(int valoracion, int idConductor, int idPasajero);
+
+    void añadirValoracion(Calificacion calificacion);
 }

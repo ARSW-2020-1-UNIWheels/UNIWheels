@@ -3,10 +3,7 @@ package edu.eci.arsw.uniwheels.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.eci.arsw.uniwheels.model.Carro;
-import edu.eci.arsw.uniwheels.model.Conductor;
-import edu.eci.arsw.uniwheels.model.Universidad;
-import edu.eci.arsw.uniwheels.model.Usuario;
+import edu.eci.arsw.uniwheels.model.*;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
 import edu.eci.arsw.uniwheels.services.AuthServices;
 import edu.eci.arsw.uniwheels.services.UniWheelsServices;
@@ -111,9 +108,9 @@ public class UniWheelsAPIController extends BaseController {
     }
 
     @RequestMapping(value="/addValoracion",method=RequestMethod.POST)
-    public ResponseEntity<?> añadirValoracion(@RequestBody int valoracion,@RequestBody int idConductor,@RequestBody int idPasajero){
+    public ResponseEntity<?> añadirValoracion(@RequestBody Calificacion valoracion){
         try{
-            uws.añadirValoracion(valoracion, idConductor, idPasajero);
+            uws.añadirValoracion(valoracion);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e){
             Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);
