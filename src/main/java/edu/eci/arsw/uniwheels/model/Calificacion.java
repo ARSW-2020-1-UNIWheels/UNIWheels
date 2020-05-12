@@ -10,12 +10,35 @@ public class Calificacion {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
     public int valor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Conductor conductor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Pasajero pasajero;
+
     public Calificacion(){
 
     }
     public Calificacion( int valor){
         this.valor = valor;
     }
+
+    public Conductor getConductor() {
+        return conductor;
+    }
+
+    public void setConductor(Conductor conductor) {
+        this.conductor = conductor;
+    }
+
+    public Pasajero getPasajero() {
+        return pasajero;
+    }
+
+    public void setPasajero(Pasajero pasajero) {
+        this.pasajero = pasajero;
+    }
+
+
 
     public int getId() {
         return id;

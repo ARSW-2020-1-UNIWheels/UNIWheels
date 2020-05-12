@@ -42,4 +42,8 @@ public interface UniWheelsPersistence {
     void updateConductorinPassenger(Conductor conductor, int idPasajero);
 
     void deletePosiblePasajero(int idPasajero, int idConductor);
+
+
+
+    void añadirValoracion(int valoracion, int idConductor, int idPasajero);
 }

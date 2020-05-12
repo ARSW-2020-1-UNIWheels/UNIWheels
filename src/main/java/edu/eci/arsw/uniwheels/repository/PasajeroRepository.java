@@ -26,4 +26,8 @@ public interface PasajeroRepository extends JpaRepository<Pasajero,Integer> {
     @Query(value = "DELETE FROM pasajeroxconductor AS pxc WHERE pxc.pasajero_id= ?1 AND pxc.conductor_id=?2", nativeQuery = true)
     void deletingPosiblesConductores(int idPasajero,int idConductor);
 
+    @Modifying
+    @Query("update Pasajero p set p.calificacion=:superCalificacion where p.id=:idPasajero")
+    void updateValoracion(@Param("superCalificacion") int superCalificacion,@Param("idPasajero") int idPasajero);
+
 }

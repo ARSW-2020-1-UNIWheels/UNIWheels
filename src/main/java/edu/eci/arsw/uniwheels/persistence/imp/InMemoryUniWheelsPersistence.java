@@ -36,6 +36,9 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     @Autowired
     private UniversidadRepository universidadRepository;
 
+    @Autowired
+    private CalificacionRepository calificacionRepository;
+
     @Override
     public void saveUser(Usuario usuario) throws UniWheelsPersistenceException {
         String pwd = usuario.getPassword();
@@ -196,5 +199,20 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     public void deletePosiblePasajero(int idPasajero, int idConductor){
         pasajeroRepository.deletingPosiblesConductores(idPasajero, idConductor);
     }
+
+    @Override
+    public void añadirValoracion(int valoracion, int idConductor, int idPasajero){
+        Calificacion calificacion = new Calificacion();
+        calificacion.valor = valoracion;
+        if(idConductor!=0){
+            calificacion.conductor = conductorRepository.findById(idConductor).get();
+        } else if (idPasajero !=0){
+            calificacion.pasajero = pasajeroRepository.findById(idPasajero).get();
+        }
+
+        calificacionRepository.save(calificacion);
+    }
+
+
 
 }

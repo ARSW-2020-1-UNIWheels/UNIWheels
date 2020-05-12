@@ -100,6 +100,37 @@ public class UniWheelsServices {
         uwp.deletePosiblePasajero(idPasajero, idConductor);
     }
 
+    public void añadirValoracion(int valoracion,int idConductor,int idPasajero){
+        uwp.añadirValoracion(valoracion, idConductor,idPasajero);
+    }
+
+    public float obtenerValoracionPorUsuario(String username, String tipo) throws UniWheelsPersistenceException {
+        Usuario usuario = uwp.getUser(username);
+        float valoracionCompleta = 0;
+        int sumaCalificaciones = 0;
+        if(tipo.equals("conductor")){
+            for(Conductor c:usuario.viajesRealizados){
+                for(Calificacion cal:c.calificacion){
+                    valoracionCompleta+=cal.valor;
+                    sumaCalificaciones++;
+                }
+            }
+            if(sumaCalificaciones!=0) {
+                valoracionCompleta = valoracionCompleta / sumaCalificaciones;
+            }
+        } else {
+            for(Pasajero p:usuario.viajesRecibidos){
+                for(Calificacion cal:p.calificacion){
+                    valoracionCompleta+=cal.valor;
+                    sumaCalificaciones++;
+                }
+            }
+            if(sumaCalificaciones!=0) {
+                valoracionCompleta = valoracionCompleta / sumaCalificaciones;
+            }
+        }
+        return valoracionCompleta;
+    }
 
 
 }

@@ -110,6 +110,28 @@ public class UniWheelsAPIController extends BaseController {
         }
     }
 
+    @RequestMapping(value="/addValoracion",method=RequestMethod.POST)
+    public ResponseEntity<?> añadirValoracion(@RequestBody int valoracion,@RequestBody int idConductor,@RequestBody int idPasajero){
+        try{
+            uws.añadirValoracion(valoracion, idConductor, idPasajero);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception e){
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value="/getValoracion/{username}/{tipo}")
+    public ResponseEntity<?> getValoracion(@PathVariable String username,@PathVariable String tipo){
+        try {
+            float valoracion = uws.obtenerValoracionPorUsuario(username,tipo);
+            return new ResponseEntity<>(valoracion,HttpStatus.OK);
+        } catch (UniWheelsPersistenceException e) {
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 
 

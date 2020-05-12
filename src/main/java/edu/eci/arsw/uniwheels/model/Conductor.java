@@ -32,8 +32,8 @@ public class Conductor {
     public List<Pasajero> pasajeros;
     @OneToOne
     public Ruta ruta;
-    @OneToOne
-    public Calificacion calificacion;
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "conductor")
+    public Set<Calificacion> calificacion = new HashSet<>();
     public String nombreEstado;
     @ManyToMany(mappedBy = "posiblesConductores", cascade = {CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.EAGER)
     @JsonIgnore
@@ -91,11 +91,11 @@ public class Conductor {
         this.ruta = ruta;
     }
 
-    public Calificacion getCalificacion() {
+    public Set<Calificacion> getCalificacion() {
         return calificacion;
     }
 
-    public void setCalificacion(Calificacion calificacion) {
+    public void setCalificacion(Set<Calificacion> calificacion) {
         this.calificacion = calificacion;
     }
 
