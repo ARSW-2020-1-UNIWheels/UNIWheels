@@ -81,7 +81,9 @@ public class STOMPMessagesHandler extends BaseHandler{
         List<Pasajero> viajesRecibidos = uniWheelsServices.obtenerPasajerosPorNombre(usuario.username);
         Conductor conductorActual = null;
         for(Pasajero p: viajesRecibidos){
+
             if(p.nombreEstado.equals("Aceptado")){
+                System.out.println("entro aqui");
                 msgt.convertAndSend("/uniwheels/pasajeroAceptado."+usuario.username,p.conductor);
                 break;
             }

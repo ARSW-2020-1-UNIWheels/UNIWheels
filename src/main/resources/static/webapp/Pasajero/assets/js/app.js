@@ -148,7 +148,16 @@ var app = (function(){
 				misCoordenadas();
 			});
 			stompClient.subscribe("/obtenerPasajeroEnViaje");
-			stompClient.send("/app/obtenerPasajeroEnViaje")
+			stompClient.send("/app/obtenerPasajeroEnViaje");
+
+			stompClient.subscribe("/uniwheels/pasajeroRechazado." + name, function (conductor) {
+				$("#alertas").empty();
+				var conductorData = JSON.parse(conductor.body);
+				var alerta = '<div class="alert alert-info" role="alert">'+
+					'Disculpa, tu solicitud fue rechazada por ' +conductorData.conductorName + '. Intenta nuevamente o con otro conductor' +
+					'</div>';
+				$("#alertas").append(alerta);
+			});
 		});
 	};
 	var agregarPuntuacion = function (punt) {
