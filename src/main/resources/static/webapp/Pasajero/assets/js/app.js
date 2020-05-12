@@ -221,6 +221,12 @@ var app = (function(){
 		initMap();	
 		markers = [];
 		bounds = new google.maps.LatLngBounds();
+		
+		console.log(m);
+		console.log(typeof(m));
+		m.map(function(info){
+			console.log(info);
+		});
 
 		m.forEach(function (marker) {
 		var position = new google.maps.LatLng(marker.lat, marker.lng);
@@ -233,6 +239,8 @@ var app = (function(){
 			animation: google.maps.Animation.DROP
 		  })
 		);
+
+
 
 		bounds.extend(position);
 		});
@@ -247,9 +255,9 @@ var app = (function(){
 	
 	function mostrarPosicion(position){
 		console.log(position.coords.latitude+" "+position.coords.longitude);
-		
-		var datos = "{'latitude:'"+position.coords.latitude+", 'longitude':"+position.coords.longitude+"}";
-		var datos_arr = JSON.parse(datos);
+		console.log(typeof(position.coords.latitude));
+		var datos = {"lat":position.coords.latitude,"lng":position.coords.longitude};
+		var datos_arr = JSON.parse(datos.body);
 		plotMarkers(datos_arr);
 	}
 		

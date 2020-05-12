@@ -86,6 +86,9 @@ var app = (function(){
 		if(inicio==="Donde otás?" || destino==="Para donde vas?" || carro==="Que carro vas a usar?" || precio===""){
 			alert("Debes ingresar todos los datos para iniciar tu viaje!!");
 		}
+		else if(destino==inicio){
+			alert("Debes elegir un lugar de destino diferente a tu lugar de origen!!");
+		}
 		else{
 			addConductor();
 		}
@@ -193,6 +196,7 @@ var app = (function(){
 		$("#pasajerosAceptados").empty();
 		$("#tableSolicitudes > tbody").empty();
 		stompClient.send("/app/terminarCarrera."+name);
+		location.href = "../Menu/menu.html";
 	};
 	
 	return{	
