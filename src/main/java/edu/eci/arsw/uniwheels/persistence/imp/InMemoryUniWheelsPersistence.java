@@ -4,6 +4,7 @@ import edu.eci.arsw.uniwheels.model.*;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistence;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
 import edu.eci.arsw.uniwheels.repository.*;
+import org.hibernate.mapping.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,6 +36,9 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
 
     @Autowired
     private UniversidadRepository universidadRepository;
+
+    @Autowired
+    private CalificacionRepository calificacionRepository;
 
     @Override
     public void saveUser(Usuario usuario) throws UniWheelsPersistenceException {
@@ -132,7 +136,6 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     @Override
     public List<Conductor> getConductoresDisponibles() throws UniWheelsPersistenceException{
         List<Conductor> conductors = conductorRepository.findAll();
-        System.out.println(conductors.size());
         List<Conductor> conductoresDisponibles = new ArrayList<>();
         for(Conductor conduc:conductors){
             if(conduc.getNombreEstado().equals("Disponible")){
@@ -159,19 +162,19 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
         List<Pasajero> pasajeros = pasajeroRepository.findAll();
         for(Pasajero pasajero:pasajeros){
             if(pasajero.getId() == id){
-                System.out.println("Encontré un pasajero");
                 return pasajero;
             }
         }
         return null;
     }
 
+
+
     @Override
     public Conductor getConductor(String name) throws UniWheelsPersistenceException {
         List<Conductor> conductors = conductorRepository.findAll();
         for(Conductor conduc:conductors){
-            if(conduc.getConductorName().equals(name) && conduc.getNombreEstado().equals("Disponible")){
-                System.out.println("Encontré un conductor");
+            if(conduc.getConductorName().equals(name) && (conduc.getNombreEstado().equals("Disponible") || conduc.getNombreEstado().equals("Sin cupo"))){
                 return conduc;
             }
         }
@@ -196,5 +199,34 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     public void deletePosiblePasajero(int idPasajero, int idConductor){
         pasajeroRepository.deletingPosiblesConductores(idPasajero, idConductor);
     }
+
+    @Override
+    public void añadirValoracion(int idConductor, int idPasajero,int valoracion){
+        Calificacion calificacion = new Calificacion();
+
+        if(idConductor!=0) {
+            calificacion.conductor = conductorRepository.findById(idConductor).get();
+        } else if (idPasajero !=0) {
+            calificacion.pasajero = pasajeroRepository.findById(idPasajero).get();
+        }
+        calificacion.valor = valoracion;
+
+
+        calificacionRepository.save(calificacion);
+    }
+
+    @Override
+    public List<Pasajero> obtenerTodosLosPasajerosPorUsuario(String pasajeroName){
+        List<Pasajero> todosLosPasajeros =pasajeroRepository.findAll();
+        List<Pasajero> valoresAEnviar = new ArrayList<>();
+        for(Pasajero p: todosLosPasajeros){
+            if(p.pasajeroName.equals(pasajeroName) && p.nombreEstado.equals("Disponible")){
+                valoresAEnviar.add(p);
+            }
+        }
+        return valoresAEnviar;
+    }
+
+
 
 }

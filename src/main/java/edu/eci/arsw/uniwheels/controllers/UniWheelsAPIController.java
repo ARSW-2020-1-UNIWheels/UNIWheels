@@ -3,10 +3,7 @@ package edu.eci.arsw.uniwheels.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.eci.arsw.uniwheels.model.Carro;
-import edu.eci.arsw.uniwheels.model.Conductor;
-import edu.eci.arsw.uniwheels.model.Universidad;
-import edu.eci.arsw.uniwheels.model.Usuario;
+import edu.eci.arsw.uniwheels.model.*;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
 import edu.eci.arsw.uniwheels.services.AuthServices;
 import edu.eci.arsw.uniwheels.services.UniWheelsServices;
@@ -107,6 +104,28 @@ public class UniWheelsAPIController extends BaseController {
         } catch (Exception e){
             Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value="/addValoracion/{idConductor}/{idPasajero}/{valoracion}",method=RequestMethod.POST)
+    public ResponseEntity<?> añadirValoracion(@PathVariable int idConductor,@PathVariable int idPasajero,@PathVariable int valoracion){
+        try{
+            uws.añadirValoracion(idConductor,idPasajero,valoracion);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception e){
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value="/getValoracion/{username}/{tipo}")
+    public ResponseEntity<?> getValoracion(@PathVariable String username,@PathVariable String tipo){
+        try {
+            float valoracion = uws.obtenerValoracionPorUsuario(username,tipo);
+            return new ResponseEntity<>(valoracion,HttpStatus.OK);
+        } catch (UniWheelsPersistenceException e) {
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

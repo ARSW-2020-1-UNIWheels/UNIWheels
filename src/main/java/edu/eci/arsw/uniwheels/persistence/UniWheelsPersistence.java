@@ -19,6 +19,8 @@ public interface UniWheelsPersistence {
 
     Pasajero getPasajero(int id);
 
+
+
     public Conductor getConductor(String name ) throws UniWheelsPersistenceException;
 
     void addCarToUser(Carro carro);
@@ -42,4 +44,11 @@ public interface UniWheelsPersistence {
     void updateConductorinPassenger(Conductor conductor, int idPasajero);
 
     void deletePosiblePasajero(int idPasajero, int idConductor);
+
+
+
+
+    void añadirValoracion(int idConductor, int idPasajero,int valoracion);
+
+    List<Pasajero> obtenerTodosLosPasajerosPorUsuario(String pasajeroName);
 }

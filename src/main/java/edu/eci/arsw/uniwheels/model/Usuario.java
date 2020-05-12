@@ -23,11 +23,11 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
     public int userId;
-    @Column(name="username")
+    @Column(name="username",unique=true)
     public String username;
     @Column(name="password")
     public String password;
-    @Column(name="email")
+    @Column(name="email",unique=true)
     public String email;
     @Column(name="rol")
     public String rol;

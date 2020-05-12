@@ -92,7 +92,6 @@ public class UniWheelsServices {
     }
 
     public void updateConductorinPassanger(Conductor conductor, int idPasajero){
-        System.out.println(conductor.id+" "+idPasajero);
         uwp.updateConductorinPassenger(conductor, idPasajero);
     }
 
@@ -100,6 +99,41 @@ public class UniWheelsServices {
         uwp.deletePosiblePasajero(idPasajero, idConductor);
     }
 
+    public void añadirValoracion(int idConductor, int idPasajero,int valoracion){
+        uwp.añadirValoracion(idConductor,idPasajero,valoracion);
+    }
+
+    public float obtenerValoracionPorUsuario(String username, String tipo) throws UniWheelsPersistenceException {
+        Usuario usuario = uwp.getUser(username);
+        float valoracionCompleta = 0;
+        int sumaCalificaciones = 0;
+        if(tipo.equals("conductor")){
+            for(Conductor c:usuario.viajesRealizados){
+                for(Calificacion cal:c.calificacion){
+                    valoracionCompleta+=cal.valor;
+                    sumaCalificaciones++;
+                }
+            }
+            if(sumaCalificaciones!=0) {
+                valoracionCompleta = valoracionCompleta / sumaCalificaciones;
+            }
+        } else {
+            for(Pasajero p:usuario.viajesRecibidos){
+                for(Calificacion cal:p.calificacion){
+                    valoracionCompleta+=cal.valor;
+                    sumaCalificaciones++;
+                }
+            }
+            if(sumaCalificaciones!=0) {
+                valoracionCompleta = valoracionCompleta / sumaCalificaciones;
+            }
+        }
+        return valoracionCompleta;
+    }
+
+    public List<Pasajero> obtenerPasajerosPorNombre(String username){
+        return uwp.obtenerTodosLosPasajerosPorUsuario(username);
+    }
 
 
 }

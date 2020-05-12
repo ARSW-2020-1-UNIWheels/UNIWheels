@@ -21,8 +21,8 @@ public class Pasajero {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
     public int tiempoRecorrido;
-    @OneToOne
-    public Calificacion calificacion;
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "pasajero")
+    public Set<Calificacion> calificacion = new HashSet<>();
     @OneToOne
     public Ruta ruta;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,7 +44,7 @@ public class Pasajero {
     public Pasajero(){
 
     }
-    public Pasajero(int tiempoRecorrido, Conductor conductor, Ruta ruta, Calificacion calificacion, String nombreEstado){
+    public Pasajero(int tiempoRecorrido, Conductor conductor, Ruta ruta, Set<Calificacion> calificacion, String nombreEstado){
         this.tiempoRecorrido = tiempoRecorrido;
         this.conductor = conductor;
         this.ruta = ruta;
@@ -68,11 +68,11 @@ public class Pasajero {
         this.tiempoRecorrido = tiempoRecorrido;
     }
 
-    public Calificacion getCalificacion() {
+    public Set<Calificacion> getCalificacion() {
         return calificacion;
     }
 
-    public void setCalificacion(Calificacion calificacion) {
+    public void setCalificacion(Set<Calificacion> calificacion) {
         this.calificacion = calificacion;
     }
 

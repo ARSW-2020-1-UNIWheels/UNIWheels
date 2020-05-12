@@ -70,12 +70,22 @@ var apiclient = ( function () {
 
     });
 
+    var agregarPuntuacion = (function (id,val) {
+        axios({
+            method: 'POST',
+            url: '/uniwheels/addValoracion/'+0+"/"+id+"/"+val,
+
+        })
+            .catch(error => console.log(error));
+    });
+
     return{
         getPasajeros: getPasajeros,
         getSolicitudesPasajeros: getSolicitudesPasajeros,
         getCarros: getCarros,
         getUser:getUser,
-        getExisteConductor:getExisteConductor
+        getExisteConductor:getExisteConductor,
+        agregarPuntuacion:agregarPuntuacion
 		/* agregarPasajero: agregarPasajero*/
 		
     }
