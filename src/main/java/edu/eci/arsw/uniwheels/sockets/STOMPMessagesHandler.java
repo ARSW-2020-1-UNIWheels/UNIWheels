@@ -82,12 +82,9 @@ public class STOMPMessagesHandler extends BaseHandler{
         Conductor conductorActual = null;
         for(Pasajero p: viajesRecibidos){
             if(p.nombreEstado.equals("Aceptado")){
-                conductorActual = p.conductor;
+                msgt.convertAndSend("/uniwheels/pasajeroAceptado."+usuario.username,p.conductor);
                 break;
             }
-        }
-        if(conductorActual!= null){
-            msgt.convertAndSend("/uniwheels/pasajeroAceptado."+usuario.username,conductorActual);
         }
 
     }

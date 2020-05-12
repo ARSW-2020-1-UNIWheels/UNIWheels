@@ -42,7 +42,6 @@ var app = (function(){
 	var getConductores = function(){
 		get();
 		console.info('Connecting to WS...');
-
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
@@ -147,8 +146,9 @@ var app = (function(){
 
 				console.log("vamos a poner el mapa");
 				misCoordenadas();
-				
 			});
+			stompClient.subscribe("/obtenerPasajeroEnViaje");
+			stompClient.send("/app/obtenerPasajeroEnViaje")
 		});
 	};
 	var agregarPuntuacion = function (punt) {
