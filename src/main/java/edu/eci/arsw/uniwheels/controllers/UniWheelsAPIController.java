@@ -107,10 +107,10 @@ public class UniWheelsAPIController extends BaseController {
         }
     }
 
-    @RequestMapping(value="/addValoracion",method=RequestMethod.POST)
-    public ResponseEntity<?> añadirValoracion(@RequestBody Calificacion valoracion){
+    @RequestMapping(value="/addValoracion/{idConductor}/{idPasajero}/{valoracion}",method=RequestMethod.POST)
+    public ResponseEntity<?> añadirValoracion(@PathVariable int idConductor,@PathVariable int idPasajero,@PathVariable int valoracion){
         try{
-            uws.añadirValoracion(valoracion);
+            uws.añadirValoracion(idConductor,idPasajero,valoracion);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e){
             Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);

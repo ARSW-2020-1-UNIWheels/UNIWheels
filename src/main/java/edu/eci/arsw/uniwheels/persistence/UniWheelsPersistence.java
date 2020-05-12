@@ -48,7 +48,7 @@ public interface UniWheelsPersistence {
 
 
 
-    void añadirValoracion(Calificacion calificacion);
+    void añadirValoracion(int idConductor, int idPasajero,int valoracion);
 
     List<Pasajero> obtenerTodosLosPasajerosPorUsuario(String pasajeroName);
 }
