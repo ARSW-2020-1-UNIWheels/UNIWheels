@@ -135,7 +135,6 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
     @Override
     public List<Conductor> getConductoresDisponibles() throws UniWheelsPersistenceException{
         List<Conductor> conductors = conductorRepository.findAll();
-        System.out.println(conductors.size());
         List<Conductor> conductoresDisponibles = new ArrayList<>();
         for(Conductor conduc:conductors){
             if(conduc.getNombreEstado().equals("Disponible")){
@@ -162,19 +161,19 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
         List<Pasajero> pasajeros = pasajeroRepository.findAll();
         for(Pasajero pasajero:pasajeros){
             if(pasajero.getId() == id){
-                System.out.println("Encontré un pasajero");
                 return pasajero;
             }
         }
         return null;
     }
 
+
+
     @Override
     public Conductor getConductor(String name) throws UniWheelsPersistenceException {
         List<Conductor> conductors = conductorRepository.findAll();
         for(Conductor conduc:conductors){
             if(conduc.getConductorName().equals(name) && (conduc.getNombreEstado().equals("Disponible") || conduc.getNombreEstado().equals("Sin cupo"))){
-                System.out.println("Encontré un conductor");
                 return conduc;
             }
         }
