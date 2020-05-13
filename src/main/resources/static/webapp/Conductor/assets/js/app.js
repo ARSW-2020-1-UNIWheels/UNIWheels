@@ -28,12 +28,6 @@ var app = (function(){
 	}
     var dic = {};
 	
-	/**
-		Agregar funciones que:
-		1. Agreguen un nuevo pasajero a la lista de solicitudes de pasajeros en el Socket.
-		2. Eliminar el pasajero de lista de solicitudes cuando es aceptado.
-		3. Agregar el pasajero a la lista de pasajeros aceptados, con un botón de cancelar.
-	**/
 
 	var _getUser = function(info){
 		name = info.username;
@@ -71,6 +65,11 @@ var app = (function(){
 		console.log('Connected: ');
 		stompClient.send("/app/nuevoConductor",{},JSON.stringify(new Ruta($("#ubicacionActual").val(),$("#destino").val(),parseInt($("#precio").val(),10)))+$("#carro").val());
 
+         $(document).ready(function() {
+              console.log("¡Tu viaje a iniciado!");
+              toastr.options = { "positionClass": "toast-bottom-right"};
+              toastr.success('¡Tu viaje a iniciado!');
+         });
 
 	};
 
@@ -84,7 +83,19 @@ var app = (function(){
 		console.log(typeof(inicio)+" "+typeof(precio));
 
 		if(inicio==="Donde otás?" || destino==="Para donde vas?" || carro==="Que carro vas a usar?" || precio===""){
-			alert("Debes ingresar todos los datos para iniciar tu viaje!!");
+			//alert("Debes ingresar todos los datos para iniciar tu viaje!!");
+			$(document).ready(function() {
+                  console.log("Debes ingresar todos los datos para iniciar tu viaje!!");
+                  toastr.options = { "positionClass": "toast-bottom-right"};
+                  toastr.info('Debes ingresar todos los datos para iniciar tu viaje!!');
+             });
+		}
+		else if( inicio==destino){
+            $(document).ready(function() {
+                  console.log("Tu punto de destino debe ser diferente a tu viaje!!");
+                  toastr.options = { "positionClass": "toast-bottom-right"};
+                  toastr.info('Tu punto de destino debe ser diferente a tu viaje!!');
+             });
 		}
 		else{
 			addConductor();
@@ -213,10 +224,19 @@ var app = (function(){
 
 	var terminarViaje = function () {
 		desabilitar(false);
-		alert("Termino su viaje exitosamente");
+		//alert("Termino su viaje exitosamente");
+
+         $(document).ready(function() {
+              console.log("Termino su viaje exitosamente");
+              toastr.options = { "positionClass": "toast-bottom-right"};
+              toastr.success('Termino su viaje exitosamente');
+         });
+
+
 		$("#pasajerosAceptados").empty();
 		$("#tableSolicitudes > tbody").empty();
 		stompClient.send("/app/terminarCarrera."+name);
+		location.href = "../Menu/menu.html";
 	};
 
 	var agregarPuntuacion = function (punt,id) {
