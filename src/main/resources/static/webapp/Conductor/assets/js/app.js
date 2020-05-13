@@ -176,6 +176,7 @@ var app = (function(){
 				var pasajerosData = JSON.parse(pasajeros.body);
 				console.log(pasajeros);
 				$("#pasajerosAceptados").empty();
+				$("#calificaciones").empty();
 				pasajerosData.map(function(element){
 					var markup = "<tr> <td>" +
 						element.usuario.username +
@@ -205,7 +206,7 @@ var app = (function(){
 							"<option value='1'>1</option>"+
 						"</select>" +
 						"</td>"+
-						"<td><form><button type='button' onclick='app.agregarPuntuacion(\"" +
+						"<td><form><button type='button' id='"+element.id+"' onclick='app.agregarPuntuacion(\"" +
 						aiuda +
 						'" , "' +
 						element.id +
