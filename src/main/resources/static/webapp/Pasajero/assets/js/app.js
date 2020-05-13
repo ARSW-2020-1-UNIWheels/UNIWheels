@@ -88,6 +88,14 @@ var app = (function(){
 				stompClient.subscribe("/uniwheels/conductorFinalizado."+conduc.conductorName, function (){
 
 				});
+
+                 $(document).ready(function() {
+                      console.log("¡Tu solicitud fue aceptada!");
+                      toastr.options = { "positionClass": "toast-bottom-right"};
+                      toastr.success('¡Tu solicitud fue aceptada!');
+                 });
+
+
 				var card = '<div class="card" style="width: 30rem; text-align: center; background-color: #333333">' +
 					'<div class="card-body">' +
 					'<h5 class="card-title">' + conductorData.conductorName + '</h5>' +
@@ -151,12 +159,22 @@ var app = (function(){
 			stompClient.send("/app/obtenerPasajeroEnViaje");
 
 			stompClient.subscribe("/uniwheels/pasajeroRechazado." + name, function (conductor) {
+				/*
 				$("#alertas").empty();
 				var conductorData = JSON.parse(conductor.body);
 				var alerta = '<div class="alert alert-info" role="alert">'+
 					'Disculpa, tu solicitud fue rechazada por ' +conductorData.conductorName + '. Intenta nuevamente o con otro conductor' +
 					'</div>';
 				$("#alertas").append(alerta);
+
+				*/
+				var conductorData = JSON.parse(conductor.body);
+                 $(document).ready(function() {
+                      console.log("Viaje rechazado por "+conductorData.conductorName);
+                      toastr.options = { "positionClass": "toast-bottom-right"};
+                      toastr.info('Disculpa, '+conductorData.conductorName+" no puede aceptar tu solicitud. Intenta nuevamente con otro conductor!!");
+                 });
+
 			});
 		});
 	};
@@ -189,7 +207,6 @@ var app = (function(){
 					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">'+conductorData.carro.placa+'</li>'+
 					'</ul>'+
 					'<div class="card-body">'+
-					'<a href="#" class="card-link" onclick="alert("Metodo en construcción")">Cancelar viaje</a>'+
 					'</div>'+
 					'</div>';
 					
