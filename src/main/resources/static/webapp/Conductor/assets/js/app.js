@@ -222,6 +222,8 @@ var app = (function(){
 
 	var agregarPuntuacion = function (punt,id) {
 		apiclient.agregarPuntuacion(id,Math.floor(Math.random() * 5) + 1);
+		var a  = "#" + id;
+		$(a).attr("disabled",true);
 	};
 
 
