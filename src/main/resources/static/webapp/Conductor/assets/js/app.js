@@ -195,7 +195,7 @@ var app = (function(){
 							"<option value='1'>1</option>"+
 						"</select>" +
 						"</td>"+
-						"<td><form><button type='button' id='element.id' onclick='app.agregarPuntuacion(\"" +
+						"<td><form><button type='button' id='"+element.id+"' onclick='app.agregarPuntuacion(\"" +
 						aiuda +
 						'" , "' +
 						element.id +
