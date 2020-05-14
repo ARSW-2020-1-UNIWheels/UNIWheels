@@ -60,6 +60,25 @@ Nuestra aplicación le dará una sensación de seguridad a los dos usuarios con 
 + COMO conductor QUIERO ofrecer mi carro como Wheels PARA PODER sustentar el alto costo del parqueadero de la universidad.   
 + COMO pasajero QUIERO poder ver el tiempo real donde esta mi wheels PARA PODER salir a tiempo de mi casa y llegar cerca de su ruta a tiempo.  
 
+## Manual de Usuario
+Bienvenido a UNI-WHEELS, para que tengas una buena experiencia te recomendamos crear tu propia cuenta en la opción de registrar. Los datos que debes ingresar son los siguientes:
++ Nombre de Usuario
++ Correo (debe ser tu correo institucional de la Universidad)
++ Universidad
++ Dirección 
++ Comtraseña
+
+Cuando ya estes adentro de la aplicación, tendrás la opción de elegir que servicio quieres tomar: PASAJERO o CONDUCTOR. 
+
+Si eliges PASAJERO, se te mostrará en pantalla la información de todos los conductores activos de la aplicación; cada uno te dirá su punto de origen, destino, universidad a la que pertenece y el costo del viaje. Ten en cuenta, que el costo de cada viaje lo establece el conductor,por eso te podrás encontrar con tarifas de diferente valor. Elige el CONDUCTOR que se ajuste a tus necesidades y enviale una solicitud. Cuando tu solicitud sea aceptada, podrás ver la ubicació en tiempo real de tu CONDUCTOR. 
+No olvides al terminar el viaje, calificarlo.
+
+Si eliges CONDUCTOR, te dirigirás a una nueva pantalla donde vas a ingresar la información básica de tu viaje: origen, destino, carro que vas a usar(recuerda que puedes registrar varios carros en la aplicación)y por último el costo; será a tu criterio. 
+Cuando inicie tu viaje, verás la información de Tus Solicitudes(PASAJEROS que soliciten unirse a tu viaje) y Tus Pasajeros.
+Siempre tendrás la opción de rechazar o aceptar una solicitud, solo ten en cuenta que máximo podrás llevar cuatro usuarios contigo.
+
+Cada vez que aceptes un PASAJERO, verás la información de su ubicación en un mapa, así podrás llegar facíl al punto de encuentro. Cuando termines tu recorrido, pulsa el botón de finalizar viaje y califica a tus PASAJEROS.
+
 
 ## Estado del proyecto
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e193b7b32c3342ccadb0c7f681896b06)](https://www.codacy.com/gh/ARSW-2020-1-UNIWheels/UNIWheels?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ARSW-2020-1-UNIWheels/UNIWheels&amp;utm_campaign=Badge_Grade)
