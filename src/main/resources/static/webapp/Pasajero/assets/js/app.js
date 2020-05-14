@@ -87,6 +87,14 @@ var app = (function(){
 				conduc = conductorData;
 				stompClient.subscribe("/uniwheels/conductorFinalizado."+conduc.conductorName, function (){
 
+                    console.log("PROBANDO .... SI SIRVE");
+
+                    $(document).ready(function() {
+                         console.log("¡Tu vaije terminó");
+                         toastr.options = { "positionClass": "toast-bottom-right"};
+                         toastr.success('¡Tu vaije terminó. Por favor califica a tu conductor!');
+                    });
+
 				});
 
                  $(document).ready(function() {
@@ -292,10 +300,12 @@ var app = (function(){
 	
 	function mostrarPosicion(position){
 		console.log(position.coords.latitude+" "+position.coords.longitude);
-		
-		var datos = "{'latitude:'"+position.coords.latitude+", 'longitude':"+position.coords.longitude+"}";
-		var datos_arr = JSON.parse(datos);
-		plotMarkers(datos_arr);
+		var lat = parseFloat(position.latitude);
+		var log = parseFloat(position.longitude);
+		var datos = {'latitude':lat,'longitude':log};
+
+        console.log(typeof(lat)+" "+typeof(log));
+		plotMarkers([datos]);
 	}
 
 	return{	

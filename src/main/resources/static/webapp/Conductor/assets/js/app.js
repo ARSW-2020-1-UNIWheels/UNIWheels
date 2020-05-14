@@ -137,6 +137,8 @@ var app = (function(){
 	};
 
 	var desabilitar = function (data) {
+
+
 		$("#ubicacionActual").attr("disabled",data);
 		$("#destino").attr("disabled",data);
 		$("#carro").attr("disabled",data);
@@ -237,7 +239,8 @@ var app = (function(){
 		$("#pasajerosAceptados").empty();
 		$("#tableSolicitudes > tbody").empty();
 		stompClient.send("/app/terminarCarrera."+name);
-		location.href = "../Menu/menu.html";
+		//Verifcar que calificó a sus conductores y ahí si finalizar
+		//location.href = "../Menu/menu.html";
 	};
 
 	var agregarPuntuacion = function (punt,id) {
