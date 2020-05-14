@@ -27,7 +27,7 @@ var app = (function(){
 	
 	var verificar = function(info){
 		if(info.length ==0){
-			//alert(" ¡Para Ofrecer un WHEELS debes registrar un carro!");
+			alert(" ¡Para Ofrecer un WHEELS debes registrar un carro!");
 			putAlert(" ¡Para Ofrecer un WHEELS debes registrar un carro!");
 		}
 		else{
@@ -38,6 +38,7 @@ var app = (function(){
 	
 	var putAlert = function(message){
 		
+		/*
 		var markup = '<div class="alert alert-warning alert-dismissible fade show" role="alert">'+
 			'<strong>Atencion!</strong>'+message+'.'+
 			'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
@@ -46,6 +47,9 @@ var app = (function(){
 			'</div>';
 		
 		document.body.innerHTML(markup);
+		*/
+		console.log("jejej");
+		toastr.info(message);
 	}
 
 	return{	
