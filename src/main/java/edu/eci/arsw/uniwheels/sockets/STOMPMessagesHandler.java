@@ -1,11 +1,13 @@
 package edu.eci.arsw.uniwheels.sockets;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
 import edu.eci.arsw.uniwheels.model.*;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
 import edu.eci.arsw.uniwheels.services.UniWheelsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.data.geo.GeoModule;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -189,7 +191,7 @@ public class STOMPMessagesHandler extends BaseHandler{
     }
 
     @MessageMapping("/ofrecerPosicion.{name}")
-    public void ofrecerPosicionConductor(String posicion, @DestinationVariable String name){
+    public void ofrecerPosicionConductor(Ubicacion posicion, @DestinationVariable String name){
         msgt.convertAndSend("/uniwheels/conductorFinalizado."+name,posicion);
     }
 
