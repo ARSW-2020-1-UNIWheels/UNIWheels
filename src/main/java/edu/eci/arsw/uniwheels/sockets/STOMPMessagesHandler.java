@@ -43,7 +43,13 @@ public class STOMPMessagesHandler extends BaseHandler{
             ex.printStackTrace();
         }
         if(conductor!=null){
-            msgt.convertAndSend("/uniwheels/pasajero."+conductor.conductorName, conductor.pasajeros);
+            List<Pasajero> pasajerosAEnviar = new ArrayList<>();
+            for(Pasajero p:conductor.pasajeros){
+                if(p.nombreEstado.equals("Aceptado")){
+                    pasajerosAEnviar.add(p);
+                }
+            }
+            msgt.convertAndSend("/uniwheels/pasajero."+conductor.conductorName, pasajerosAEnviar);
             msgt.convertAndSend("/uniwheels/posiblesConductores."+conductor.conductorName, conductor.posiblesPasajeros);
         }
     }
@@ -78,14 +84,10 @@ public class STOMPMessagesHandler extends BaseHandler{
     @MessageMapping("/obtenerPasajeroEnViaje")
     public void obtenerPasajeroEnViaje(Principal principal){
         Usuario usuario = getLoggedUser(principal).usuario;
-        List<Pasajero> viajesRecibidos = uniWheelsServices.obtenerPasajerosPorNombre(usuario.username);
-        Conductor conductorActual = null;
-        for(Pasajero p: viajesRecibidos){
-            if(p.nombreEstado.equals("Aceptado")){
-                msgt.convertAndSend("/uniwheels/pasajeroAceptado."+usuario.username,p.conductor);
-                break;
-            }
-        }
+        Conductor conductor = uniWheelsServices.obtenerPasajerosPorNombreParaAceptar(usuario.username);
+        msgt.convertAndSend("/uniwheels/pasajeroAceptado."+usuario.username,conductor);
+
+
 
     }
 
@@ -146,7 +148,13 @@ public class STOMPMessagesHandler extends BaseHandler{
             conductor = uniWheelsServices.getConductor(conductorUsername);
             msgt.convertAndSend("/uniwheels/pasajeroAceptado."+pasajero.pasajeroName,conductor);
 
-            msgt.convertAndSend("/uniwheels/pasajero."+conductor.conductorName, conductor.pasajeros);
+            List<Pasajero> pasajerosAEnviar = new ArrayList<>();
+            for(Pasajero p:conductor.pasajeros){
+                if(p.nombreEstado.equals("Aceptado")){
+                    pasajerosAEnviar.add(p);
+                }
+            }
+            msgt.convertAndSend("/uniwheels/pasajero."+conductor.conductorName, pasajerosAEnviar);
         } else {
             uniWheelsServices.updateEstado("Rechazado",0,pasajero.id);
             uniWheelsServices.updateConductorinPassanger(conductor,pasajero.id);
@@ -179,5 +187,12 @@ public class STOMPMessagesHandler extends BaseHandler{
         msgt.convertAndSend("/uniwheels/conductorFinalizado."+conductor.conductorName,"Viaje Finalizado");
 
     }
+
+    @MessageMapping("/ofrecerPosicion.{name}")
+    public void ofrecerPosicionConductor(String posicion, @DestinationVariable String name){
+        msgt.convertAndSend("/uniwheels/conductorFinalizado."+name,posicion);
+    }
+
+
 
 }

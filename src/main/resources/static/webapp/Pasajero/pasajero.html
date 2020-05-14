@@ -10,10 +10,12 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-
+		<link rel="stylesheet" href="assets/css/mapa.css" />
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-					
+
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
 	</head>
 	<body>
 
@@ -82,6 +84,9 @@
 		<!-- Pasajeros -->
 
 		<section id="two1">
+			<div id="alertas">
+
+			</div>
 			<div id="div-table" class="content" style="text-align: center;margin-left:40px; margin-right:40px">
 				<br></br>
 				<header>
@@ -129,6 +134,7 @@
 			<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 			<script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 			<script src="assets/js/mapa.js"></script>
 			<script src="assets/js/apiclient.js"></script>
 			<script src="assets/js/app.js"></script>

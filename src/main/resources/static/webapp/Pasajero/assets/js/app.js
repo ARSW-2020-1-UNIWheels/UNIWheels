@@ -1,27 +1,24 @@
-document.addEventListener('DOMContentLoaded', function () {
-  if (document.querySelectorAll('#map').length > 0)
-  {
-	if (document.querySelector('html').lang)
-	  lang = document.querySelector('html').lang;
-	else
-	  lang = 'en';
-
-	var js_file = document.createElement('script');
-	js_file.type = 'text/javascript';
-	js_file.src = 'https://maps.googleapis.com/maps/api/js?callback=initMap&AIzaSyCuKZ_scrWAaiekIHPLWfXHuDhgZJKUpvM&language=' + lang;
-	document.getElementsByTagName('head')[0].appendChild(js_file);
-  }
-});
-
 
 
 var app = (function(){
 
 	var name;
 	var conduc;
+	var ubicaciones= new Array();
 	var socket = new SockJS('/stompendpoint');
 
+	function misCoordenadas(){
+		console.log("calculando coordenadas");
+		navigator.geolocation.watchPosition(mostrarPosicion);
+	};
 
+	function mostrarPosicion(position){
+		console.log(position.coords.latitude+" "+position.coords.longitude);
+		var datos = {"latitud":position.coords.latitude,"longitud":position.coords.longitude};
+		console.log(typeof(position.coords.longitude)+" "+typeof(position.coords.latitude));
+		ubicaciones.push(datos);
+		plotMarkers(ubicaciones);
+	}
 
 	var _getUser = function(info){
 		name = info.username;
@@ -87,7 +84,23 @@ var app = (function(){
 				conduc = conductorData;
 				stompClient.subscribe("/uniwheels/conductorFinalizado."+conduc.conductorName, function (){
 
+                    console.log("PROBANDO .... SI SIRVE");
+
+                    $(document).ready(function() {
+                         console.log("¡Tu vaije terminó");
+                         toastr.options = { "positionClass": "toast-bottom-right"};
+                         toastr.success('¡Tu vaije terminó. Por favor califica a tu conductor!');
+                    });
+
 				});
+
+                 $(document).ready(function() {
+                      console.log("¡Tu solicitud fue aceptada!");
+                      toastr.options = { "positionClass": "toast-bottom-right"};
+                      toastr.success('¡Tu solicitud fue aceptada!');
+                 });
+
+
 				var card = '<div class="card" style="width: 30rem; text-align: center; background-color: #333333">' +
 					'<div class="card-body">' +
 					'<h5 class="card-title">' + conductorData.conductorName + '</h5>' +
@@ -118,8 +131,7 @@ var app = (function(){
 								'</div>'+
 							'</div>'+
 							'<div class="col">'+
-								'<div id="map" class="image fit">'+
-									'<img src="/webapp/Pasajero/images/mapa.jpg" width="100%" height="80%" />'+
+								'<div id="map">'+
 								'</div>'+
 							'</div>'+
 						'</div>'+
@@ -148,7 +160,26 @@ var app = (function(){
 				misCoordenadas();
 			});
 			stompClient.subscribe("/obtenerPasajeroEnViaje");
-			stompClient.send("/app/obtenerPasajeroEnViaje")
+			stompClient.send("/app/obtenerPasajeroEnViaje");
+
+			stompClient.subscribe("/uniwheels/pasajeroRechazado." + name, function (conductor) {
+				/*
+				$("#alertas").empty();
+				var conductorData = JSON.parse(conductor.body);
+				var alerta = '<div class="alert alert-info" role="alert">'+
+					'Disculpa, tu solicitud fue rechazada por ' +conductorData.conductorName + '. Intenta nuevamente o con otro conductor' +
+					'</div>';
+				$("#alertas").append(alerta);
+
+				*/
+				var conductorData = JSON.parse(conductor.body);
+                 $(document).ready(function() {
+                      console.log("Viaje rechazado por "+conductorData.conductorName);
+                      toastr.options = { "positionClass": "toast-bottom-right"};
+                      toastr.info('Disculpa, '+conductorData.conductorName+" no puede aceptar tu solicitud. Intenta nuevamente con otro conductor!!");
+                 });
+
+			});
 		});
 	};
 	var agregarPuntuacion = function (punt) {
@@ -180,11 +211,10 @@ var app = (function(){
 					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">'+conductorData.carro.placa+'</li>'+
 					'</ul>'+
 					'<div class="card-body">'+
-					'<a href="#" class="card-link" onclick="alert("Metodo en construcción")">Cancelar viaje</a>'+
 					'</div>'+
 					'</div>';
 					
-				var markup2 = '<div id="div-table" class="inner">'
+				var markup2 = '<div id="div-table" class="inner">'+
 					'<br></br>'+
 					'<header>'+
 						'<h2>Mi Condutor</h2>'+
@@ -199,8 +229,6 @@ var app = (function(){
 							'</div>'+
 							'<div class="col">'+
 								'<div id="map">'+
-									'<h1>AQUI VA EL MAPA</h1>'+
-									card+
 								'</div>'+
 							'</div>'+
 						'</div'>+
@@ -223,6 +251,7 @@ var app = (function(){
 	};
 	
 	
+<<<<<<< HEAD
 	var map;
 
 	function initMap(){
@@ -279,6 +308,9 @@ var app = (function(){
 		var datos_arr = JSON.parse(datos.body);
 		plotMarkers(datos_arr);
 	}
+=======
+
+>>>>>>> 694493eb10353bdd347af73eef960fb509bc2c92
 
 	return{	
 	    getConductores: getConductores,

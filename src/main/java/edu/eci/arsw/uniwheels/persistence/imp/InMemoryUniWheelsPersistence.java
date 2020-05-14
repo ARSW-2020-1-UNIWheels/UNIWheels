@@ -227,6 +227,13 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
         return valoresAEnviar;
     }
 
+    @Override
+    public Conductor obtenerTodosLosPasajerosPorUsuarioAceptado(String pasajeroName){
+
+        Conductor valoresAEnviar = pasajeroRepository.traerIDConductor(pasajeroName);
+        return valoresAEnviar;
+    }
+
 
 
 }

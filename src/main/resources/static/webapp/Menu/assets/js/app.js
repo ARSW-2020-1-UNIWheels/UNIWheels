@@ -1,6 +1,9 @@
 var app = (function(){
 	
 	console.log("vamos en el app");
+
+
+	//toastr["success"]("Hola que tal?", "Prueba");
 	
 	class Conductor{
 		constructor(){
@@ -8,6 +11,7 @@ var app = (function(){
 	}
 
 	//window.onload() = getUser;
+
 
 	var stompClient = null;
 	
@@ -27,8 +31,17 @@ var app = (function(){
 	
 	var verificar = function(info){
 		if(info.length ==0){
+<<<<<<< HEAD
 			alert(" ¡Para Ofrecer un WHEELS debes registrar un carro!");
 			putAlert(" ¡Para Ofrecer un WHEELS debes registrar un carro!");
+=======
+			//alert(" ¡Para Ofrecer un WHEELS debes registrar un carro!");
+             $(document).ready(function() {
+                  console.log("¡Para Ofrecer un WHEELS debes registrar un carro!");
+                  toastr.options = { "positionClass": "toast-bottom-right"};
+                  toastr.info('¡Para Ofrecer un WHEELS debes registrar un carro!');
+             });
+>>>>>>> 694493eb10353bdd347af73eef960fb509bc2c92
 		}
 		else{
 			location.href ="../Conductor/conductor.html";
