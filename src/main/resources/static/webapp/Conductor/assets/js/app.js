@@ -34,8 +34,7 @@ var app = (function(){
 	};
 
 	function enviarPosicion(position){
-		alert("Si");
-		var datos = {"latitude":position.coords.latitude,"longitude":position.coords.longitude};
+		var datos = position.coords.latitude+','+position.coords.longitude;
 		stompClient.send("/app/ofrecerPosicion."+name,{},datos);
 	};
 
@@ -251,12 +250,9 @@ var app = (function(){
 		$("#pasajerosAceptados").empty();
 		$("#tableSolicitudes > tbody").empty();
 		stompClient.send("/app/terminarCarrera."+name);
-<<<<<<< HEAD
-		location.href = "../Menu/menu.html";
-=======
+		//location.href = "../Menu/menu.html";
 		//Verifcar que calificó a sus conductores y ahí si finalizar
 		//location.href = "../Menu/menu.html";
->>>>>>> 694493eb10353bdd347af73eef960fb509bc2c92
 	};
 
 	var agregarPuntuacion = function (punt,id) {

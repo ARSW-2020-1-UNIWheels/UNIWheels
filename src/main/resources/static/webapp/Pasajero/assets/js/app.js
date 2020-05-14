@@ -13,7 +13,6 @@ var app = (function(){
 	};
 
 	function mostrarPosicion(position){
-		alert(position);
 		console.log(position.coords.latitude+" "+position.coords.longitude);
 		var datos = {"latitud":position.coords.latitude,"longitud":position.coords.longitude};
 		console.log(typeof(position.coords.longitude)+" "+typeof(position.coords.latitude));
@@ -83,11 +82,11 @@ var app = (function(){
 				var conductorData = JSON.parse(conductor.body);
 				console.log(conductorData);
 				conduc = conductorData;
-				alert("aqui");
 				stompClient.subscribe("/uniwheels/recibirPosicion."+conduc.conductorName, function (datos){
 					console.log(datos.body);
-					var position = JSON.parse(datos.body);
-					mostrarPosicion(position);
+					var position = datos.body.split(",");
+					var aux = {"coords":{"latitude":Number(position[0]),"longitude":Number(position[1])}};
+					mostrarPosicion(aux);
 				});
 
 				stompClient.subscribe("/uniwheels/conductorFinalizado."+conduc.conductorName, function (){
@@ -252,67 +251,6 @@ var app = (function(){
 
 	};
 	
-	
-<<<<<<< HEAD
-	var map;
-
-	function initMap(){
-		map = new google.maps.Map(document.getElementById('map'), {
-		center: {lat: -34.397, lng: 150.644},
-		zoom: 8
-		});
-	};
-
-
-	var markers;
-	var bounds;
-
-	function plotMarkers(m){
-		initMap();	
-		markers = [];
-		bounds = new google.maps.LatLngBounds();
-		
-		console.log(m);
-		console.log(typeof(m));
-		m.map(function(info){
-			console.log(info);
-		});
-
-		m.forEach(function (marker) {
-		var position = new google.maps.LatLng(marker.lat, marker.lng);
-
-		console.log("estamos en el map");
-		markers.push(
-		  new google.maps.Marker({
-			position: position,
-			map: map,
-			animation: google.maps.Animation.DROP
-		  })
-		);
-
-
-
-		bounds.extend(position);
-		});
-
-		map.fitBounds(bounds);
-	};
-	
-	function misCoordenadas(){
-		console.log("calculando coordenadas");
-		navigator.geolocation.watchPosition(mostrarPosicion);
-	};
-	
-	function mostrarPosicion(position){
-		console.log(position.coords.latitude+" "+position.coords.longitude);
-		console.log(typeof(position.coords.latitude));
-		var datos = {"lat":position.coords.latitude,"lng":position.coords.longitude};
-		var datos_arr = JSON.parse(datos.body);
-		plotMarkers(datos_arr);
-	}
-=======
-
->>>>>>> 694493eb10353bdd347af73eef960fb509bc2c92
 
 	return{	
 	    getConductores: getConductores,
