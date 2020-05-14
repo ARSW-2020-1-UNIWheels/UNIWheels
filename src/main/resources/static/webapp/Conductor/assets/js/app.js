@@ -34,8 +34,10 @@ var app = (function(){
 	};
 
 	function enviarPosicion(position){
+
 		var datos = position.coords.latitude+','+position.coords.longitude;
 		stompClient.send("/app/ofrecerPosicion."+name,{},datos);
+		navigator.geolocation.watchPosition(enviarPosicion);
 	};
 
 	var _getUser = function(info){
