@@ -1,27 +1,24 @@
-document.addEventListener('DOMContentLoaded', function () {
-  if (document.querySelectorAll('#map').length > 0)
-  {
-	if (document.querySelector('html').lang)
-	  lang = document.querySelector('html').lang;
-	else
-	  lang = 'en';
-
-	var js_file = document.createElement('script');
-	js_file.type = 'text/javascript';
-	js_file.src = 'https://maps.googleapis.com/maps/api/js?callback=initMap&AIzaSyCuKZ_scrWAaiekIHPLWfXHuDhgZJKUpvM&language=' + lang;
-	document.getElementsByTagName('head')[0].appendChild(js_file);
-  }
-});
-
 
 
 var app = (function(){
 
 	var name;
 	var conduc;
+	var ubicaciones= new Array();
 	var socket = new SockJS('/stompendpoint');
 
+	function misCoordenadas(){
+		console.log("calculando coordenadas");
+		navigator.geolocation.watchPosition(mostrarPosicion);
+	};
 
+	function mostrarPosicion(position){
+		console.log(position.coords.latitude+" "+position.coords.longitude);
+		var datos = {"latitud":position.coords.latitude,"longitud":position.coords.longitude};
+		console.log(typeof(position.coords.longitude)+" "+typeof(position.coords.latitude));
+		ubicaciones.push(datos);
+		plotMarkers(ubicaciones);
+	}
 
 	var _getUser = function(info){
 		name = info.username;
@@ -134,8 +131,7 @@ var app = (function(){
 								'</div>'+
 							'</div>'+
 							'<div class="col">'+
-								'<div id="map" class="image fit">'+
-									'<img src="/webapp/Pasajero/images/mapa.jpg" width="100%" height="80%" />'+
+								'<div id="map">'+
 								'</div>'+
 							'</div>'+
 						'</div>'+
@@ -218,7 +214,7 @@ var app = (function(){
 					'</div>'+
 					'</div>';
 					
-				var markup2 = '<div id="div-table" class="inner">'
+				var markup2 = '<div id="div-table" class="inner">'+
 					'<br></br>'+
 					'<header>'+
 						'<h2>Mi Condutor</h2>'+
@@ -233,8 +229,6 @@ var app = (function(){
 							'</div>'+
 							'<div class="col">'+
 								'<div id="map">'+
-									'<h1>AQUI VA EL MAPA</h1>'+
-									card+
 								'</div>'+
 							'</div>'+
 						'</div'>+
@@ -257,56 +251,7 @@ var app = (function(){
 	};
 	
 	
-	var map;
 
-	function initMap(){
-		map = new google.maps.Map(document.getElementById('map'), {
-		center: {lat: -34.397, lng: 150.644},
-		zoom: 8
-		});
-	};
-
-
-	var markers;
-	var bounds;
-
-	function plotMarkers(m){
-		initMap();	
-		markers = [];
-		bounds = new google.maps.LatLngBounds();
-
-		m.forEach(function (marker) {
-		var position = new google.maps.LatLng(marker.lat, marker.lng);
-
-		console.log("estamos en el map");
-		markers.push(
-		  new google.maps.Marker({
-			position: position,
-			map: map,
-			animation: google.maps.Animation.DROP
-		  })
-		);
-
-		bounds.extend(position);
-		});
-
-		map.fitBounds(bounds);
-	};
-	
-	function misCoordenadas(){
-		console.log("calculando coordenadas");
-		navigator.geolocation.watchPosition(mostrarPosicion);
-	};
-	
-	function mostrarPosicion(position){
-		console.log(position.coords.latitude+" "+position.coords.longitude);
-		var lat = parseFloat(position.latitude);
-		var log = parseFloat(position.longitude);
-		var datos = {'latitude':lat,'longitude':log};
-
-        console.log(typeof(lat)+" "+typeof(log));
-		plotMarkers([datos]);
-	}
 
 	return{	
 	    getConductores: getConductores,
