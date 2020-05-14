@@ -66,7 +66,7 @@ Bienvenido a UNI-WHEELS, para que tengas una buena experiencia te recomendamos c
 + Correo (debe ser tu correo institucional de la Universidad)
 + Universidad
 + Dirección 
-+ Comtraseña
++ Contraseña
 
 Cuando ya estes adentro de la aplicación, tendrás la opción de elegir que servicio quieres tomar: PASAJERO o CONDUCTOR. 
 
@@ -78,6 +78,9 @@ Cuando inicie tu viaje, verás la información de Tus Solicitudes(PASAJEROS que 
 Siempre tendrás la opción de rechazar o aceptar una solicitud, solo ten en cuenta que máximo podrás llevar cuatro usuarios contigo.
 
 Cada vez que aceptes un PASAJERO, verás la información de su ubicación en un mapa, así podrás llegar facíl al punto de encuentro. Cuando termines tu recorrido, pulsa el botón de finalizar viaje y califica a tus PASAJEROS.
+
+Además de ofrecer un serivicio, como CONDUCTOR, tendrás la opción de revisar los carros que tienes inscritos en la aplicación. Solo tienes que ingresar en la opción que se encuentra en la parte superior derecha que dice "Mis Carros".
+
 
 
 ## Estado del proyecto
