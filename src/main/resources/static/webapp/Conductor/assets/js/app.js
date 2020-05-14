@@ -28,16 +28,21 @@ var app = (function(){
 	}
     var dic = {};
 
+	var ubicacionActual = {"latitude":0,"longitude":0};
+
 	function misCoordenadas(){
-		console.log("calculando coordenadas");
-		navigator.geolocation.watchPosition(enviarPosicion);
+		while(true) {
+			console.log("calculando coordenadas");
+			navigator.geolocation.watchPosition(app.enviarPosicion);
+		};
 	};
 
 	function enviarPosicion(position){
-
-		var datos = position.coords.latitude+','+position.coords.longitude;
-		stompClient.send("/app/ofrecerPosicion."+name,{},datos);
-		navigator.geolocation.watchPosition(enviarPosicion);
+		if(position.coords.latitude !== ubicacionActual.latitude || position.coords.longitude !== ubicacionActual.latitude){
+			let datos = position.coords.latitude+','+position.coords.longitude;
+			stompClient.send("/app/ofrecerPosicion."+name,{},datos);
+			ubicacionActual = {"latitude":position.coords.latitude,"longitude":position.coords.longitude};
+		}
 	};
 
 	var _getUser = function(info){
@@ -229,7 +234,7 @@ var app = (function(){
 					$("#calificaciones").append(a);
 				});
 				console.log("vamos a poner el mapa");
-				misCoordenadas();
+				Concurrent.Thread.create(app.misCoordenadas);
 			});
 			stompClient.send("/app/recibirPasajeros");
 
@@ -277,7 +282,8 @@ var app = (function(){
 		desabilitar:desabilitar,
 		terminarViaje:terminarViaje,
 		agregarPuntuacion:agregarPuntuacion,
-		misCoordenadas:misCoordenadas
+		misCoordenadas:misCoordenadas,
+		enviarPosicion,enviarPosicion
 	};
 	
 })();
