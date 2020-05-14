@@ -97,6 +97,9 @@ var app = (function(){
                   toastr.info('Tu punto de destino debe ser diferente a tu viaje!!');
              });
 		}
+		else if(destino==inicio){
+			alert("Debes elegir un lugar de destino diferente a tu lugar de origen!!");
+		}
 		else{
 			addConductor();
 		}
@@ -239,8 +242,12 @@ var app = (function(){
 		$("#pasajerosAceptados").empty();
 		$("#tableSolicitudes > tbody").empty();
 		stompClient.send("/app/terminarCarrera."+name);
+<<<<<<< HEAD
+		location.href = "../Menu/menu.html";
+=======
 		//Verifcar que calificó a sus conductores y ahí si finalizar
 		//location.href = "../Menu/menu.html";
+>>>>>>> 694493eb10353bdd347af73eef960fb509bc2c92
 	};
 
 	var agregarPuntuacion = function (punt,id) {
