@@ -24,7 +24,7 @@ Nuestra aplicación le dará una sensación de seguridad a los dos usuarios con 
  
 ## Modelo Entidad - Relación
 
-![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Diagrama%20Entidad_relacion.PNG)
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Diagrama%20%20Entidad_relacion.PNG)
 
 ## Diagrama de Clases
 
@@ -41,9 +41,6 @@ Nuestra aplicación le dará una sensación de seguridad a los dos usuarios con 
 
 ![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Casos%20de%20Uso-usuario.PNG)
 
-### Administrador
-
-![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Casos%20de%20Uso-administrador.PNG)
 
 ### Conductor
 
