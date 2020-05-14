@@ -27,7 +27,17 @@ var app = (function(){
 		}
 	}
     var dic = {};
-	
+
+	function misCoordenadas(){
+		console.log("calculando coordenadas");
+		navigator.geolocation.watchPosition(enviarPosicion);
+	};
+
+	function enviarPosicion(position){
+		alert("Si");
+		var datos = {"latitude":position.coords.latitude,"longitude":position.coords.longitude};
+		stompClient.send("/app/ofrecerPosicion."+name,{},datos);
+	};
 
 	var _getUser = function(info){
 		name = info.username;
@@ -53,7 +63,6 @@ var app = (function(){
             $("#carro").append(
 				"<option value= \""+ carro.placa+"\"> "+ carro.toString()+" </option>");
 	    });
-
 	};
 
 	var stompClient = null;
@@ -121,7 +130,8 @@ var app = (function(){
 					"</td>"
 
 				$("#pasajerosAceptados").append(markup);
-			})
+			});
+
 		});
 		stompClient.send("/app/recibirPasajeros");
 
@@ -137,8 +147,6 @@ var app = (function(){
 	};
 
 	var desabilitar = function (data) {
-
-
 		$("#ubicacionActual").attr("disabled",data);
 		$("#destino").attr("disabled",data);
 		$("#carro").attr("disabled",data);
@@ -216,6 +224,8 @@ var app = (function(){
 						"</tr>";
 					$("#calificaciones").append(a);
 				});
+				console.log("vamos a poner el mapa");
+				misCoordenadas();
 			});
 			stompClient.send("/app/recibirPasajeros");
 
@@ -228,7 +238,6 @@ var app = (function(){
 	var terminarViaje = function () {
 		desabilitar(false);
 		//alert("Termino su viaje exitosamente");
-
          $(document).ready(function() {
               console.log("Termino su viaje exitosamente");
               toastr.options = { "positionClass": "toast-bottom-right"};
@@ -262,7 +271,8 @@ var app = (function(){
 		aceptarPasajero:aceptarPasajero,
 		desabilitar:desabilitar,
 		terminarViaje:terminarViaje,
-		agregarPuntuacion:agregarPuntuacion
+		agregarPuntuacion:agregarPuntuacion,
+		misCoordenadas:misCoordenadas
 	};
 	
 })();

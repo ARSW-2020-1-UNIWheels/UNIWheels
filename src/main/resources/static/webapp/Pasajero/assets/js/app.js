@@ -13,6 +13,7 @@ var app = (function(){
 	};
 
 	function mostrarPosicion(position){
+		alert(position);
 		console.log(position.coords.latitude+" "+position.coords.longitude);
 		var datos = {"latitud":position.coords.latitude,"longitud":position.coords.longitude};
 		console.log(typeof(position.coords.longitude)+" "+typeof(position.coords.latitude));
@@ -82,25 +83,26 @@ var app = (function(){
 				var conductorData = JSON.parse(conductor.body);
 				console.log(conductorData);
 				conduc = conductorData;
+				alert("aqui");
+				stompClient.subscribe("/uniwheels/recibirPosicion."+conduc.conductorName, function (datos){
+					console.log(datos.body);
+					var position = JSON.parse(datos.body);
+					mostrarPosicion(position);
+				});
+
 				stompClient.subscribe("/uniwheels/conductorFinalizado."+conduc.conductorName, function (){
-
                     console.log("PROBANDO .... SI SIRVE");
-
                     $(document).ready(function() {
                          console.log("¡Tu vaije terminó");
                          toastr.options = { "positionClass": "toast-bottom-right"};
                          toastr.success('¡Tu vaije terminó. Por favor califica a tu conductor!');
                     });
-
 				});
-
                  $(document).ready(function() {
                       console.log("¡Tu solicitud fue aceptada!");
                       toastr.options = { "positionClass": "toast-bottom-right"};
                       toastr.success('¡Tu solicitud fue aceptada!');
                  });
-
-
 				var card = '<div class="card" style="width: 30rem; text-align: center; background-color: #333333">' +
 					'<div class="card-body">' +
 					'<h5 class="card-title">' + conductorData.conductorName + '</h5>' +

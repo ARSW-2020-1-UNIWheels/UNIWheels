@@ -190,7 +190,7 @@ public class STOMPMessagesHandler extends BaseHandler{
 
     @MessageMapping("/ofrecerPosicion.{name}")
     public void ofrecerPosicionConductor(String posicion, @DestinationVariable String name){
-        msgt.convertAndSend("/uniwheels/conductorFinalizado."+name,posicion);
+        msgt.convertAndSend("/uniwheels/recibirPosicion."+name,posicion);
     }
 
 
