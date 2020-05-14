@@ -60,13 +60,8 @@ Nuestra aplicación le dará una sensación de seguridad a los dos usuarios con 
 ## Historias de usuario
 + COMO usuario QUIERO poder logearme PARA PODER recibir los servicios que ofrece la aplicación web.  
 + COMO pasajero QUIERO solicitar un Wheels PARA PODER coger un servicio de transporte barato y de calidad hacia mi universidad.  
-+ COMO conductor QUIERO ofrecer mi carro como Wheels PARA PODER sustentar el alto costo del parqueadero de la universidad.  
-+ COMO administrador QUIERO ver el analisis de los viajes que se han realizado PARA PODER ver en tiempo real como la aplicación esta creciendo y poder realizar decisiones con estos datos.  
-+ COMO usuario QUIERO poder editar la información de mi perfil PARA PODER colocar la información más precisa y ser más confiable dentro la aplicació.  
-+ COMO administrador QUIERO poder ver las rutas de un usuario en especifico PARA PODER realizar un seguimiento más personalidado y lograr adelantarme ante posibles conductores maliciosos.  
-+ COMO pasajero QUIERO poder cancelar un viaje ya aceptado PARA PODER irme con un amigo que me comentó tarde que podía llevarme.  
++ COMO conductor QUIERO ofrecer mi carro como Wheels PARA PODER sustentar el alto costo del parqueadero de la universidad.   
 + COMO pasajero QUIERO poder ver el tiempo real donde esta mi wheels PARA PODER salir a tiempo de mi casa y llegar cerca de su ruta a tiempo.  
-
 
 
 ## Estado del proyecto
