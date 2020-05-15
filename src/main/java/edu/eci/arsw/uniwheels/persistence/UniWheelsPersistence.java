@@ -53,4 +53,6 @@ public interface UniWheelsPersistence {
     List<Pasajero> obtenerTodosLosPasajerosPorUsuario(String pasajeroName);
 
     Conductor obtenerTodosLosPasajerosPorUsuarioAceptado(String pasajeroName);
+
+    List<Calificacion> obtenerCalificacionesConductor(String name);
 }

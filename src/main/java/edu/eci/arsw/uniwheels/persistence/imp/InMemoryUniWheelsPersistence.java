@@ -234,6 +234,11 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
         return valoresAEnviar;
     }
 
+    @Override
+    public List<Calificacion> obtenerCalificacionesConductor(String name){
+        return calificacionRepository.traerCalificacionesDeConductor(name);
+    }
+
 
 
 }
