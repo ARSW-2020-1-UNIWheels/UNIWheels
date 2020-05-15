@@ -79,13 +79,24 @@ var apiclient = ( function () {
             .catch(error => console.log(error));
     });
 
+    var getPuntuacion = (function (name,tipo,callback) {
+        axios({
+            method: 'GET',
+            url: '/uniwheels/getValoracion/'+name+"/"+tipo,
+
+        })
+            .then(response => callback(response.data))
+            .catch(error => console.log(error));
+    });
+
     return{
         getPasajeros: getPasajeros,
         getSolicitudesPasajeros: getSolicitudesPasajeros,
         getCarros: getCarros,
         getUser:getUser,
         getExisteConductor:getExisteConductor,
-        agregarPuntuacion:agregarPuntuacion
+        agregarPuntuacion:agregarPuntuacion,
+        getPuntuacion:getPuntuacion
 		/* agregarPasajero: agregarPasajero*/
 		
     }

@@ -2,6 +2,7 @@ var app = (function(){
 
 	var placa;
 	var name;
+	var calificaciones= new Array();
 	var socket=new SockJS('/stompendpoint');
 	class Conductor{
 		constructor(){
@@ -125,9 +126,12 @@ var app = (function(){
 		stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
 			//console.log(pasajeros);
 			var pasajerosData = JSON.parse(pasajeros.body);
+
 			console.log(pasajeros);
 			$("#pasajerosAceptados").empty();
 			pasajerosData.map(function(element){
+				getCali(element.usuario.username,"pasajero");
+				//alert(calificacion);
 				var markup = "<tr> <td>" +
 					element.usuario.username +
 					"</td>" +
@@ -135,10 +139,11 @@ var app = (function(){
 					element.usuario.universidad +
 					"</td>" +
 					"<td>" +
-					element.calificacion +
+					calificaciones[calificaciones.length-1] +
 					"</td>"
 
 				$("#pasajerosAceptados").append(markup);
+				console.log(calificaciones[calificaciones.length-1]);
 			});
 
 		});
@@ -176,6 +181,8 @@ var app = (function(){
 				$("#tableSolicitudes > tbody").empty();
 				conductoresData.map(function(element){
 					console.log(element);
+					getCali(element.usuario.username,"conductor");
+					console.log(calificaciones);
 					var markup = "<tr> <td>" +
 						element.usuario.username +
 						"</td>" +
@@ -183,7 +190,7 @@ var app = (function(){
 						element.usuario.universidad +
 						"</td>"+
 						"<td>" +
-						element.calificacion +
+						calificaciones[calificaciones.length-1] +
 						"</td>"+
 						"<td><form><button type='button' onclick='app.aceptarPasajero("+JSON.stringify(element)+",\"true\")' >Aceptar</button></form></td>" +
 						"<td><form><button type='button' onclick='app.aceptarPasajero("+JSON.stringify(element)+",\"false\")' >Rechazar</button></form></td>" +
@@ -197,6 +204,8 @@ var app = (function(){
 				$("#pasajerosAceptados").empty();
 				$("#calificaciones").empty();
 				pasajerosData.map(function(element){
+					getCali(element.usuario.username,"pasajero");
+					console.log(calificaciones);
 					var markup = "<tr> <td>" +
 						element.usuario.username +
 						"</td>" +
@@ -204,7 +213,7 @@ var app = (function(){
 						element.usuario.universidad +
 						"</td>" +
 						"<td>" +
-						element.calificacion +
+						calificaciones[calificaciones.length-1] +
 						"</td>"+
 						"</tr>";
 
@@ -214,7 +223,7 @@ var app = (function(){
 						element.usuario.username +
 						"</td>" +
 						"<td>" +
-						element.calificacion +
+						calificaciones[calificaciones.length-1] +
 						"</td>" +
 						"<td>" +
 						"<select id='numeros' name='numeros'>"+
@@ -268,6 +277,14 @@ var app = (function(){
 		$(a).attr("disabled",true);
 	};
 
+	var _getCalificacion = function(info){
+		calificaciones.push(info);
+		alert(calificaciones);
+	};
+
+	function getCali(name,tipo){
+		apiclient.getPuntuacion(name,tipo,_getCalificacion)
+	}
 
 	return{	
 	    getPasajeros: getPasajeros,
@@ -283,7 +300,9 @@ var app = (function(){
 		terminarViaje:terminarViaje,
 		agregarPuntuacion:agregarPuntuacion,
 		misCoordenadas:misCoordenadas,
-		enviarPosicion,enviarPosicion
+		enviarPosicion:enviarPosicion,
+		_getCalificacion:_getCalificacion,
+		getCali:getCali
 	};
 	
 })();
