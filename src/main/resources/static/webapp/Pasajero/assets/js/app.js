@@ -14,12 +14,13 @@ var app = (function(){
 	};
 
 	function mostrarPosicion(position){
+		alert("Ey entré a Mostrar Posicion");
 		console.log(position.coords.latitude+" "+position.coords.longitude);
 		var datos = {"latitud":position.coords.latitude,"longitud":position.coords.longitude};
 		console.log(typeof(position.coords.longitude)+" "+typeof(position.coords.latitude));
 		ubicaciones.push(datos);
 		plotMarkers(ubicaciones);
-	}
+	};
 
 	var _getUser = function(info){
 		name = info.username;
@@ -27,7 +28,7 @@ var app = (function(){
 
 	function get(){
 		apiclient.getUser(_getUser)
-	}
+	};
     var infoViaje = function(){
         var inicio = $("#ubicacionActual").val();
         var destino = $("#destino").val();
@@ -95,7 +96,7 @@ var app = (function(){
 				stompClient.subscribe("/uniwheels/recibirPosicion."+conduc.conductorName, function (datos){
 					console.log(datos.body);
 					var position = datos.body.split(",");
-					var aux = {"coords":{"latitude":Number(position[0]),"longitude":Number(position[1])}};
+					let aux = {"coords":{"latitude":Number(position[0]),"longitude":Number(position[1])}};
 					mostrarPosicion(aux);
 				});
 
