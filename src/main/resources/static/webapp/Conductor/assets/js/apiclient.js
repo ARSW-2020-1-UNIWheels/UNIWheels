@@ -79,13 +79,13 @@ var apiclient = ( function () {
             .catch(error => console.log(error));
     });
 
-    var getPuntuacion = (function (name,tipo,callback) {
+    var getPuntuacion = (function (name,tipo) {
         axios({
             method: 'GET',
             url: '/uniwheels/getValoracion/'+name+"/"+tipo,
 
         })
-            .then(response => callback(response.data))
+            .then(response => app.calificaciones.push(response.data))
             .catch(error => console.log(error));
     });
 

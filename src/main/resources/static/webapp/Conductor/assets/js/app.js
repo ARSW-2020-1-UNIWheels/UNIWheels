@@ -203,8 +203,14 @@ var app = (function(){
 				console.log(pasajeros);
 				$("#pasajerosAceptados").empty();
 				$("#calificaciones").empty();
-				pasajerosData.map(function(element){
-					getCali(element.usuario.username,"pasajero");
+				calificaciones = new Array();
+
+
+				toastr.options = { "positionClass": "toast-bottom-right"};
+				toastr.info('Danos un minuto mientras cargamos la información');
+				pasajerosData.map(async function(element){
+					let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
+					let calificacion = await data.json();
 					console.log(calificaciones);
 					var markup = "<tr> <td>" +
 						element.usuario.username +
@@ -213,17 +219,16 @@ var app = (function(){
 						element.usuario.universidad +
 						"</td>" +
 						"<td>" +
-						calificaciones[calificaciones.length-1] +
+						calificacion +
 						"</td>"+
 						"</tr>";
-
 					$("#pasajerosAceptados").append(markup);
 					var aiuda = $("#numeros:selected").val();
 					var a = "<tr> <td>" +
 						element.usuario.username +
 						"</td>" +
 						"<td>" +
-						calificaciones[calificaciones.length-1] +
+						calificacion +
 						"</td>" +
 						"<td>" +
 						"<select id='numeros' name='numeros'>"+
@@ -243,7 +248,7 @@ var app = (function(){
 					$("#calificaciones").append(a);
 				});
 				console.log("vamos a poner el mapa");
-				Concurrent.Thread.create(app.misCoordenadas);
+				//Concurrent.Thread.create(app.misCoordenadas);
 			});
 			stompClient.send("/app/recibirPasajeros");
 
@@ -277,13 +282,10 @@ var app = (function(){
 		$(a).attr("disabled",true);
 	};
 
-	var _getCalificacion = function(info){
-		calificaciones.push(info);
-		alert(calificaciones);
-	};
 
-	function getCali(name,tipo){
-		apiclient.getPuntuacion(name,tipo,_getCalificacion)
+
+	var getCali = function(name,tipo){
+		 apiclient.getPuntuacion(name,tipo);
 	}
 
 	return{	
@@ -301,8 +303,8 @@ var app = (function(){
 		agregarPuntuacion:agregarPuntuacion,
 		misCoordenadas:misCoordenadas,
 		enviarPosicion:enviarPosicion,
-		_getCalificacion:_getCalificacion,
-		getCali:getCali
+		getCali:getCali,
+		calificaciones:calificaciones
 	};
 	
 })();
