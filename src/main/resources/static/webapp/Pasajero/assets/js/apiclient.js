@@ -42,10 +42,22 @@ var apiclient = ( function () {
             .catch(error => console.log(error));
     });
 
+
+    var getPuntuacion = (function (name,tipo) {
+        axios({
+            method: 'GET',
+            url: '/uniwheels/getValoracion/'+name+"/"+tipo,
+
+        })
+            .then(response => app.calificaciones.push(response.data))
+            .catch(error => console.log(error));
+    });
+
     return{
         getConductoresDisponibles: getConductoresDisponibles,
         agregarPosibleConductor:agregarPosibleConductor,
         getUser:getUser,
-        agregarPuntuacion:agregarPuntuacion
+        agregarPuntuacion:agregarPuntuacion,
+        getPuntuacion:getPuntuacion
     }
 })();

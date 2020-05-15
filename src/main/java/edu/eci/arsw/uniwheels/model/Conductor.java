@@ -17,7 +17,6 @@ import java.util.Set;
 @Entity
 @Table(name="conductor")
 @DynamicUpdate
-@DynamicInsert
 @Transactional
 public class Conductor {
     @Id

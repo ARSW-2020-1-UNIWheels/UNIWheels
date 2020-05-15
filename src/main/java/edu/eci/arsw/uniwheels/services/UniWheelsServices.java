@@ -109,11 +109,14 @@ public class UniWheelsServices {
         int sumaCalificaciones = 0;
         if(tipo.equals("conductor")){
             for(Conductor c:usuario.viajesRealizados){
+                System.out.println("Entre aqui");
                 for(Calificacion cal:c.calificacion){
+                    System.out.println("tambien");
                     valoracionCompleta+=cal.valor;
                     sumaCalificaciones++;
                 }
             }
+            System.out.println(sumaCalificaciones);
             if(sumaCalificaciones!=0) {
                 valoracionCompleta = valoracionCompleta / sumaCalificaciones;
             }

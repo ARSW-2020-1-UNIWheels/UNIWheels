@@ -87,8 +87,9 @@ public class STOMPMessagesHandler extends BaseHandler{
     public void obtenerPasajeroEnViaje(Principal principal){
         Usuario usuario = getLoggedUser(principal).usuario;
         Conductor conductor = uniWheelsServices.obtenerPasajerosPorNombreParaAceptar(usuario.username);
-        msgt.convertAndSend("/uniwheels/pasajeroAceptado."+usuario.username,conductor);
-
+        if(usuario!=null && conductor!=null) {
+            msgt.convertAndSend("/uniwheels/pasajeroAceptado." + usuario.username, conductor);
+        }
 
 
     }

@@ -6,6 +6,7 @@ var app = (function(){
 	var conduc;
 	var ubicaciones= new Array();
 	var socket = new SockJS('/stompendpoint');
+	var calificaciones= new Array();
 
 	function misCoordenadas(){
 		console.log("calculando coordenadas");
@@ -48,11 +49,20 @@ var app = (function(){
 				var conductoresData = JSON.parse(conductores.body);
 				console.log(conductoresData);
 				$("#conductoresDisponibles").empty();
-				conductoresData.map(function(element){
+				calificaciones = new Array();
+
+				toastr.options = { "positionClass": "toast-bottom-right"};
+				toastr.info('Danos un minuto mientras cargamos la información');
+				conductoresData.map(async function(element){
+					let data = await fetch('/uniwheels/getValoracion/'+element.conductorName+"/conductor");
+					let calificacion = await data.json();
+					//getCali(element.conductorName,"conductor");
 					console.log(element);
 					console.log(element.carro);
 					var markup = '<tr><td>' + element.conductorName +
 						"</td><td>" +
+						calificacion +
+						"</td><td>"+
 						element.carro.marca+" "+element.carro.modelo +
 						"</td><td>"+
 						element.ruta.direccionOrigen +
@@ -102,6 +112,7 @@ var app = (function(){
                       toastr.options = { "positionClass": "toast-bottom-right"};
                       toastr.success('¡Tu solicitud fue aceptada!');
                  });
+				getCali(conductorData.conductorName ,"conductor");
 				var card = '<div class="card" style="width: 30rem; text-align: center; background-color: #333333">' +
 					'<div class="card-body">' +
 					'<h5 class="card-title">' + conductorData.conductorName + '</h5>' +
@@ -112,6 +123,7 @@ var app = (function(){
 					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">' + conductorData.carro.marca + '</li>' +
 					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">' + conductorData.carro.modelo + '</li>' +
 					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">' + conductorData.carro.placa + '</li>' +
+					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">' + calificaciones[calificaciones.length-1] + '</li>' +
 					'</ul>' +
 					'<div class="card-body">' +
 					'</div>' +
@@ -250,7 +262,9 @@ var app = (function(){
 		stompClient.send("/app/agregarPosiblePasajero",{},conductorName);
 
 	};
-	
+	var getCali = function(name,tipo){
+		apiclient.getPuntuacion(name,tipo);
+	}
 
 	return{	
 	    getConductores: getConductores,
@@ -258,7 +272,8 @@ var app = (function(){
 		get:get,
 		infoViaje: infoViaje,
 		pasajeroAceptado:pasajeroAceptado,
-		agregarPuntuacion:agregarPuntuacion
+		agregarPuntuacion:agregarPuntuacion,
+		getCali:getCali
 	};
 	
 })();
