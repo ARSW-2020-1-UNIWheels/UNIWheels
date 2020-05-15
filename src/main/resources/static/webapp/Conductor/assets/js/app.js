@@ -27,23 +27,25 @@ var app = (function(){
 			return t;
 		}
 	}
-    var dic = {};
+    var posiciones = new Array;
 
-	var ubicacionActual = {"latitude":0,"longitude":0};
+	let options = {
+		enableHighAccuracy: true,
+		timeout: 5000,
+		maximumAge: 0
+	};
 
 	function misCoordenadas(){
-		while(true) {
 			console.log("calculando coordenadas");
-			navigator.geolocation.watchPosition(app.enviarPosicion);
-		};
+			navigator.geolocation.watchPosition(app.enviarPosicion,null,options);
 	};
 
 	function enviarPosicion(position){
-		if(position.coords.latitude !== ubicacionActual.latitude || position.coords.longitude !== ubicacionActual.latitude){
-			let datos = position.coords.latitude+','+position.coords.longitude;
-			stompClient.send("/app/ofrecerPosicion."+name,{},datos);
-			ubicacionActual = {"latitude":position.coords.latitude,"longitude":position.coords.longitude};
-		}
+		posiciones[0] = {"latitud":position.coords.latitude,"longitud":position.coords.longitude,"title":"Conductor"};
+		plotMarkers(posiciones);
+		let datos = position.coords.latitude+','+position.coords.longitude;
+		stompClient.send("/app/ofrecerPosicion."+name,{},datos);
+
 	};
 
 	var _getUser = function(info){
@@ -179,7 +181,9 @@ var app = (function(){
 			stompClient.subscribe("/uniwheels/posiblesConductores."+name, function (conductores) {
 				var conductoresData = JSON.parse(conductores.body);
 				$("#tableSolicitudes > tbody").empty();
-				conductoresData.map(function(element){
+				conductoresData.map(async function(element){
+					let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
+					let calificacion = await data.json();
 					console.log(element);
 					getCali(element.usuario.username,"conductor");
 					console.log(calificaciones);
@@ -190,7 +194,7 @@ var app = (function(){
 						element.usuario.universidad +
 						"</td>"+
 						"<td>" +
-						calificaciones[calificaciones.length-1] +
+						calificacion +
 						"</td>"+
 						"<td><form><button type='button' onclick='app.aceptarPasajero("+JSON.stringify(element)+",\"true\")' >Aceptar</button></form></td>" +
 						"<td><form><button type='button' onclick='app.aceptarPasajero("+JSON.stringify(element)+",\"false\")' >Rechazar</button></form></td>" +
@@ -248,7 +252,7 @@ var app = (function(){
 					$("#calificaciones").append(a);
 				});
 				console.log("vamos a poner el mapa");
-				//Concurrent.Thread.create(app.misCoordenadas);
+				setInterval(misCoordenadas,15000);
 			});
 			stompClient.send("/app/recibirPasajeros");
 
