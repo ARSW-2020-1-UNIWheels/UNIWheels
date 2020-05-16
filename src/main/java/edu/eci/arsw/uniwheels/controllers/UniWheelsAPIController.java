@@ -10,6 +10,7 @@ import edu.eci.arsw.uniwheels.services.UniWheelsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,27 @@ public class UniWheelsAPIController extends BaseController {
     @Autowired
     AuthServices authServices;
 
+    @RequestMapping(value="/putLocalization/{username}/{localization}",method = RequestMethod.PATCH)
+    public ResponseEntity<?> putLocalizacion(@PathVariable String username,@PathVariable String localization){
+        try{
+            uws.agregarUbicacionPersona(username,localization);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch(Exception e){
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value = "/getLocalization/{username}")
+    public ResponseEntity<?> getLocalizacion(@PathVariable String username){
+        try {
+            String ubicacion = uws.getUbicacionConductor(username);
+            return new ResponseEntity<>(ubicacion,HttpStatus.OK);
+        } catch (UniWheelsPersistenceException e) {
+            Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @RequestMapping(value="/getConducDispo", method =  RequestMethod.GET)
     public ResponseEntity<?> getConductoresDisponibles(){

@@ -190,7 +190,7 @@ var app = (function(){
                  $(document).ready(function() {
                       console.log("Viaje rechazado por "+conductorData.conductorName);
                       toastr.options = { "positionClass": "toast-bottom-right"};
-                      toastr.info('Disculpa, '+conductorData.conductorName+" no puede aceptar tu solicitud. Intenta nuevamente con otro conductor!!");
+                      toastr.info('Disculpa, '+conductorData.conductorName+" no puede aceptar tu solicitud. Intenta nuevamente con otro conductor!");
                  });
 
 			});

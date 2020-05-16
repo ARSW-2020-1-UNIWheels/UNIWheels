@@ -55,4 +55,6 @@ public interface UniWheelsPersistence {
     Conductor obtenerTodosLosPasajerosPorUsuarioAceptado(String pasajeroName);
 
     List<Calificacion> obtenerCalificacionesConductor(String name);
+
+    void agregarUbicacionPersona(String username, String ubicacion);
 }

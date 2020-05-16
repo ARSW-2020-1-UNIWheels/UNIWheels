@@ -14,6 +14,7 @@ public class Universidad {
     @UniqueElements
     private String nombre;
 
+
     public int getId() {
         return id;
     }

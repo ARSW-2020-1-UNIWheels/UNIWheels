@@ -23,6 +23,8 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
     public int userId;
+    @Column(name="ubicacion")
+    public String ubicacion;
     @Column(name="username",unique=true)
     public String username;
     @Column(name="password")
@@ -150,4 +152,11 @@ public class Usuario {
         this.rutas = rutas;
     }
 
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
 }

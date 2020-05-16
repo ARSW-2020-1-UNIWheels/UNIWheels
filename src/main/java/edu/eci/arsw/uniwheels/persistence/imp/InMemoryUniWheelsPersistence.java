@@ -239,6 +239,11 @@ public class InMemoryUniWheelsPersistence implements UniWheelsPersistence {
         return calificacionRepository.traerCalificacionesDeConductor(name);
     }
 
+    @Override
+    public void agregarUbicacionPersona(String username,String ubicacion){
+        userRepository.agregarUbicacionUsuario(username,ubicacion);
+    }
+
 
 
 }

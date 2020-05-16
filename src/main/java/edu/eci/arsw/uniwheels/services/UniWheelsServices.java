@@ -138,6 +138,14 @@ public class UniWheelsServices {
     public Conductor obtenerPasajerosPorNombreParaAceptar(String username){
         return uwp.obtenerTodosLosPasajerosPorUsuarioAceptado(username);
     }
+    public void agregarUbicacionPersona(String username,String ubicacion){
+        uwp.agregarUbicacionPersona(username,ubicacion);
+    }
+
+    public String getUbicacionConductor(String username) throws UniWheelsPersistenceException {
+        Usuario usuario = uwp.getUser(username);
+        return usuario.ubicacion;
+    }
 
 
 }
