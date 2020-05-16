@@ -32,7 +32,7 @@ Nuestra aplicación le dará una sensación de seguridad a los dos usuarios con 
 
 ## Diagrama de Componentes
 
-![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/ImagenDiagrama.PNG)
+![](https://github.com/ARSW-2020-1-UNIWheels/UNIWheels/blob/master/resources/Diagrama%20de%20Componentes.PNG)
 
 
 ## Caso de uso
