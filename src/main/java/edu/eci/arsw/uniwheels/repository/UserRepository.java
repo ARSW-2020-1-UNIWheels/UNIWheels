@@ -16,5 +16,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserRepository extends JpaRepository<Usuario,Integer> {
     @Modifying
     @Query("update Usuario u set u.ubicacion = :ubicacion where u.username = :username")
-    void agregarUbicacionUsuario(@Param("nombreEstado") String username, @Param("id") String ubicacion);
+    void agregarUbicacionUsuario(@Param("username") String username, @Param("ubicacion") String ubicacion);
 }
