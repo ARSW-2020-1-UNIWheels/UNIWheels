@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +43,7 @@ public class UniWheelsAPIController extends BaseController {
     @RequestMapping(value = "/getLocalization/{username}")
     public ResponseEntity<?> getLocalizacion(@PathVariable String username){
         try {
-            JSONObject posicion = new JSONObject();
+            HashMap<String,Object> posicion = new HashMap();
             String ubicacion = uws.getUbicacionConductor(username);
             String[] tmp = ubicacion.split(" ");
             posicion.put("latitud",Float.valueOf(tmp[0]));
