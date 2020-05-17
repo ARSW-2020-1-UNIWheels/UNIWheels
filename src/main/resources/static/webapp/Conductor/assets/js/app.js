@@ -132,7 +132,6 @@ var app = (function(){
 			//console.log(pasajeros);
 			var pasajerosData = JSON.parse(pasajeros.body);
 
-
 			console.log(pasajeros);
 			$("#pasajerosAceptados").empty();
 			pasajerosData.map(async function(element){
@@ -160,6 +159,7 @@ var app = (function(){
 	
 	var aceptarPasajero = function (pasajero,estado) {
 		console.log("vamos a enviar el nombre "+pasajero+" "+estado);
+		$("#solicitudesPasajeros").empty();
 		addPasajeros();
 
 		stompClient = Stomp.over(socket);
