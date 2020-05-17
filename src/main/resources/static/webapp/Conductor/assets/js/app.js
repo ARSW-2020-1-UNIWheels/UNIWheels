@@ -212,9 +212,9 @@ var app = (function(){
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
-			stompClient.subscribe("/uniwheels/posiblesConductores."+name, function (conductores) {
+			stompClient.subscribe("/uniwheels/posiblesConductores."+name, async function (conductores) {
 				let conductoresData = JSON.parse(conductores.body);
-				$("#tableSolicitudes > tbody").empty();
+				await $("#tableSolicitudes > tbody").empty();
 				conductoresData.map(async function(element){
 					let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 					let calificacion = await data.json();
@@ -236,10 +236,10 @@ var app = (function(){
 					$("#tableSolicitudes > tbody").append(markup);
 				});
 			});
-			stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
+			stompClient.subscribe("/uniwheels/pasajero."+name, async function (pasajeros){
 				var pasajerosData = JSON.parse(pasajeros.body);
 				console.log(pasajeros);
-				$("#pasajerosAceptados").empty();
+				await $("#pasajerosAceptados").empty();
 				$("#calificaciones").empty();
 				calificaciones = new Array();
                 pasaj = new Array()
