@@ -125,9 +125,11 @@ var app = (function(){
 	};
 
 	var addPasajeros = function(){
-		stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
+		stompClient.subscribe("/uniwheels/pasajero."+name, async function (pasajeros){
 			//console.log(pasajeros);
 			var pasajerosData = JSON.parse(pasajeros.body);
+			let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
+			let calificacion = await data.json();
 
 			console.log(pasajeros);
 			$("#pasajerosAceptados").empty();
@@ -141,11 +143,11 @@ var app = (function(){
 					element.usuario.universidad +
 					"</td>" +
 					"<td>" +
-					calificaciones[calificaciones.length-1] +
+					calificacion +
 					"</td>"
 
 				$("#pasajerosAceptados").append(markup);
-				console.log(calificaciones[calificaciones.length-1]);
+
 			});
 
 		});
