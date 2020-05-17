@@ -20,7 +20,7 @@ var app = (function(){
 	};
 
 	function mostrarPosicion(position){
-		localizacion = String(position.coords.latitude)+","+String(position.coords.longitude);
+		localizacion = String(position.coords.latitude)+" "+String(position.coords.longitude);
 		apiclient.agregarPosicion(localizacion,name);
 
 	};
