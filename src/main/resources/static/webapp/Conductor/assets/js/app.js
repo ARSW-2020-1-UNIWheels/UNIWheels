@@ -184,9 +184,9 @@ var app = (function(){
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
-			stompClient.subscribe("/uniwheels/posiblesConductores."+name, function (conductores) {
+			stompClient.subscribe("/uniwheels/posiblesConductores."+name, async function (conductores) {
 				var conductoresData = JSON.parse(conductores.body);
-				$("#tableSolicitudes > tbody").empty();
+				await $("#tableSolicitudes > tbody").empty();
 				conductoresData.map(async function(element){
 					let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 					let calificacion = await data.json();
