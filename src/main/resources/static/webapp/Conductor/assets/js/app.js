@@ -160,6 +160,7 @@ var app = (function(){
 	var aceptarPasajero = function (pasajero,estado) {
 		console.log("vamos a enviar el nombre "+pasajero+" "+estado);
 		$("#solicitudesPasajeros").empty();
+		$("#pasajerosAceptados").empty();
 		addPasajeros();
 
 		stompClient = Stomp.over(socket);
