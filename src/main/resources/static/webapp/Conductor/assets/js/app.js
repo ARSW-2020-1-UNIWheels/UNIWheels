@@ -1,9 +1,11 @@
 var app = (function(){
 
-	var placa;
 	var name;
 	var calificaciones= new Array();
 	var socket=new SockJS('/stompendpoint');
+	var ubicaciones = new Array();
+	var pasaj = new Array();
+
 	class Conductor{
 		constructor(){
 		}
@@ -45,7 +47,18 @@ var app = (function(){
 	function enviarPosicion(position){
 		posiciones[0] = {"latitud":position.coords.latitude,"longitud":position.coords.longitude,"title":"Conductor"};
 		plotMarkers(posiciones);
+        ubicaciones = new Array();
 		let datos = position.coords.latitude+','+position.coords.longitude;
+		console.log(pasaj);
+        pasaj.map( async function(element) {
+            console.log(element);
+            let datos = await fetch('/uniwheels/getLocalization/'+element);
+
+            ubicaciones.push(datos);
+            console.log(datos)
+        });
+        console.log(ubicaciones);
+        ubicaciones = new Array();
 		stompClient.send("/app/ofrecerPosicion."+name,{},datos);
 
 	};
@@ -130,13 +143,15 @@ var app = (function(){
 	};
 
 	var addPasajeros = function(){
-		stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
+		stompClient.subscribe("/uniwheels/pasajero."+name, async function (pasajeros){
 			//console.log(pasajeros);
 			var pasajerosData = JSON.parse(pasajeros.body);
 
 			console.log(pasajeros);
 
 			$("#solicitudesPasajeros").empty();
+
+			-$("#pasajerosAceptados").empty();
 			pasajerosData.map(async function(element){
 				let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 				let calificacion = await data.json();
@@ -187,14 +202,14 @@ var app = (function(){
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
-			stompClient.subscribe("/uniwheels/posiblesConductores."+name, function (conductores) {
-				var conductoresData = JSON.parse(conductores.body);
-				$("#tableSolicitudes > tbody").empty();
+			stompClient.subscribe("/uniwheels/posiblesConductores."+name, async function (conductores) {
+				let conductoresData = JSON.parse(conductores.body);
+				await $("#tableSolicitudes > tbody").empty();
 				conductoresData.map(async function(element){
 					let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 					let calificacion = await data.json();
+					console("Entre en posible conductor");
 					console.log(element);
-					getCali(element.usuario.username,"conductor");
 					console.log(calificaciones);
 					var markup = "<tr> <td>" +
 						element.usuario.username +
@@ -217,14 +232,15 @@ var app = (function(){
 				$("#pasajerosAceptados").empty();
 				$("#calificaciones").empty();
 				calificaciones = new Array();
-
-
+                pasaj = new Array()
 				toastr.options = { "positionClass": "toast-bottom-right"};
 				toastr.info('Danos un minuto mientras cargamos la información');
 				pasajerosData.map(async function(element){
 					let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 					let calificacion = await data.json();
 					console.log(calificaciones);
+                    pasaj.push(element.usuario.username);
+                    //alert(pasaj);
 					var markup = "<tr> <td>" +
 						element.usuario.username +
 						"</td>" +
@@ -261,6 +277,7 @@ var app = (function(){
 					$("#calificaciones").append(a);
 				});
 				console.log("vamos a poner el mapa");
+
 				setInterval(misCoordenadas,15000);
 			});
 			stompClient.send("/app/recibirPasajeros");

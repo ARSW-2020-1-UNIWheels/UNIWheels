@@ -7,6 +7,7 @@ var app = (function(){
 	var ubicaciones= new Array();
 	var socket = new SockJS('/stompendpoint');
 	var calificaciones= new Array();
+	var localizacion;
 
 	function misCoordenadas(){
 		console.log("calculando coordenadas");
@@ -14,8 +15,9 @@ var app = (function(){
 	};
 
 	function mostrarPosicion(position){
-		alert("Ey entré a Mostrar Posicion");
 		console.log(position.coords.latitude+" "+position.coords.longitude);
+		localizacion = String(position.coords.latitude)+","+String(position.coords.longitude);
+		apiclient.agregarPosicion(localizacion,name);
 		var datos = {"latitud":position.coords.latitude,"longitud":position.coords.longitude};
 		console.log(typeof(position.coords.longitude)+" "+typeof(position.coords.latitude));
 		ubicaciones.push(datos);
@@ -173,6 +175,7 @@ var app = (function(){
 
 				console.log("vamos a poner el mapa");
 				misCoordenadas();
+
 			});
 			stompClient.subscribe("/obtenerPasajeroEnViaje");
 			stompClient.send("/app/obtenerPasajeroEnViaje");
