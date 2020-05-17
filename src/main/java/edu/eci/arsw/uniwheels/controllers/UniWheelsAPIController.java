@@ -3,10 +3,12 @@ package edu.eci.arsw.uniwheels.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import edu.eci.arsw.uniwheels.model.*;
 import edu.eci.arsw.uniwheels.persistence.UniWheelsPersistenceException;
 import edu.eci.arsw.uniwheels.services.AuthServices;
 import edu.eci.arsw.uniwheels.services.UniWheelsServices;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +42,14 @@ public class UniWheelsAPIController extends BaseController {
     @RequestMapping(value = "/getLocalization/{username}")
     public ResponseEntity<?> getLocalizacion(@PathVariable String username){
         try {
+            JSONObject posicion = new JSONObject();
             String ubicacion = uws.getUbicacionConductor(username);
-            return new ResponseEntity<>(ubicacion,HttpStatus.OK);
+            String[] tmp = ubicacion.split(" ");
+            posicion.put("latitud",Float.valueOf(tmp[0]));
+            posicion.put("longitud",Float.valueOf(tmp[1]));
+
+
+            return new ResponseEntity<>(posicion,HttpStatus.OK);
         } catch (UniWheelsPersistenceException e) {
             Logger.getLogger(UniWheelsAPIController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -99,6 +107,7 @@ public class UniWheelsAPIController extends BaseController {
     @RequestMapping(value="/deleteCarro/{id}",method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCarroAlUsuario(@PathVariable String id){
         try{
+
             uws.deleteCarro(Integer.parseInt(id));
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (Exception ex){
