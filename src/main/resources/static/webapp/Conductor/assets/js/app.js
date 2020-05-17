@@ -102,6 +102,11 @@ var app = (function(){
               toastr.success('¡Tu viaje a iniciado!');
          });
 
+        /*
+         var boton = '<button class="login100-form-btn" onclick="app.terminarViaje()" id="finalizar">Finalizar</button>'
+         $("#boton-fin").append(boton);
+         */
+
 	};
 
 	var infoViaje = function(){
@@ -128,24 +133,23 @@ var app = (function(){
                   toastr.info('Tu punto de destino debe ser diferente a tu viaje!!');
              });
 		}
-		else if(destino==inicio){
-			alert("Debes elegir un lugar de destino diferente a tu lugar de origen!!");
-		}
 		else{
 			addConductor();
 		}
 		desabilitar(true);
+
 	};
 
 	var addPasajeros = function(){
-		stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
+		stompClient.subscribe("/uniwheels/pasajero."+name, async function (pasajeros){
 			//console.log(pasajeros);
 			var pasajerosData = JSON.parse(pasajeros.body);
 
 			console.log(pasajeros);
-			$("#pasajerosAceptados").empty();
-			pasajerosData.map(function(element){
-				getCali(element.usuario.username,"pasajero");
+			await $("#pasajerosAceptados").empty();
+			pasajerosData.map(async function(element){
+				let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
+				let calificacion = await data.json();
 				//alert(calificacion);
 				var markup = "<tr> <td>" +
 					element.usuario.username +
@@ -154,11 +158,11 @@ var app = (function(){
 					element.usuario.universidad +
 					"</td>" +
 					"<td>" +
-					calificaciones[calificaciones.length-1] +
+					calificacion +
 					"</td>"
 
 				$("#pasajerosAceptados").append(markup);
-				console.log(calificaciones[calificaciones.length-1]);
+
 			});
 
 		});
@@ -168,6 +172,8 @@ var app = (function(){
 	
 	var aceptarPasajero = function (pasajero,estado) {
 		console.log("vamos a enviar el nombre "+pasajero+" "+estado);
+		$("#solicitudesPasajeros").empty();
+		$("#pasajerosAceptados").empty();
 		addPasajeros();
 
 		stompClient = Stomp.over(socket);
@@ -191,14 +197,14 @@ var app = (function(){
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
-			stompClient.subscribe("/uniwheels/posiblesConductores."+name, function (conductores) {
-				var conductoresData = JSON.parse(conductores.body);
-				$("#tableSolicitudes > tbody").empty();
+			stompClient.subscribe("/uniwheels/posiblesConductores."+name, async function (conductores) {
+				let conductoresData = JSON.parse(conductores.body);
+				await $("#tableSolicitudes > tbody").empty();
 				conductoresData.map(async function(element){
 					let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 					let calificacion = await data.json();
+					console("Entre en posible conductor");
 					console.log(element);
-					getCali(element.usuario.username,"conductor");
 					console.log(calificaciones);
 					var markup = "<tr> <td>" +
 						element.usuario.username +
