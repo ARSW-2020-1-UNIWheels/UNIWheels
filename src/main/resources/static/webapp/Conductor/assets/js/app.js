@@ -120,7 +120,7 @@ var app = (function(){
 	    console.log(inicio+" "+destino+" "+carro+" "+precio);
 		console.log(typeof(inicio)+" "+typeof(precio));
 
-		if(inicio==="Donde otás?" || destino==="Para donde vas?" || carro==="Que carro vas a usar?" || precio===""){
+		if(inicio==="Donde estás?" || destino==="Para donde vas?" || carro==="Que carro vas a usar?" || precio===""){
 			//alert("Debes ingresar todos los datos para iniciar tu viaje!!");
 			$(document).ready(function() {
                   console.log("Debes ingresar todos los datos para iniciar tu viaje!!");
