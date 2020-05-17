@@ -58,8 +58,8 @@ var app = (function(){
 	}
 
 	function enviarPosicion(position){
-		ubicaciones[0] = {"latitud":position.coords.latitude,"longitud":position.coords.longitude,"title":"Conductor"};
-
+	    ubicaciones = new Array;
+		ubicaciones.push({"latitud":position.coords.latitude,"longitud":position.coords.longitude,"title":"Conductor"});
 		let datosConductor = position.coords.latitude+','+position.coords.longitude;
         pasaj.map( async function(element) {
             let datos = await fetch('/uniwheels/getLocalization/'+element);
@@ -253,7 +253,7 @@ var app = (function(){
 				});
 				console.log("vamos a poner el mapa");
 
-				setInterval(misCoordenadas,15000);
+				setInterval(misCoordenadas,60000);
 			});
 			stompClient.send("/app/recibirPasajeros");
 

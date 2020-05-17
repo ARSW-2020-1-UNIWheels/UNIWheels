@@ -90,6 +90,7 @@ var app = (function(){
 
 			console.log('Connected: ');
 			stompClient.subscribe("/uniwheels/pasajeroAceptado." + name, async function (conductor) {
+				await stompClient.unsubscribe("/uniwheels/conductoresDisponibles",null);
 				console.log("vamos a eliminar");
 				$("#div-table").empty();
 				console.log(conductor);
@@ -182,7 +183,7 @@ var app = (function(){
 				$("#div-table").append(puntuacion);
 
 				console.log("vamos a poner el mapa");
-				setInterval(misCoordenadas,15000);
+				setInterval(misCoordenadas,30000);
 
 			});
 			stompClient.subscribe("/obtenerPasajeroEnViaje");
