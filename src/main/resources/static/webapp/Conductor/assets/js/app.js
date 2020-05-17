@@ -185,11 +185,12 @@ var app = (function(){
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
 			stompClient.subscribe("/uniwheels/posiblesConductores."+name, async function (conductores) {
-				var conductoresData = JSON.parse(conductores.body);
+				let conductoresData = await JSON.parse(conductores.body);
 				await $("#tableSolicitudes > tbody").empty();
 				conductoresData.map(async function(element){
 					let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 					let calificacion = await data.json();
+					console("Entre en posible conductor");
 					console.log(element);
 					console.log(calificaciones);
 					var markup = "<tr> <td>" +
