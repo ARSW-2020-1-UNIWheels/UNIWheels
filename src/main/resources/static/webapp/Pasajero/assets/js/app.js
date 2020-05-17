@@ -86,7 +86,7 @@ var app = (function(){
 
 
 			console.log('Connected: ');
-			stompClient.subscribe("/uniwheels/pasajeroAceptado." + name, function (conductor) {
+			stompClient.subscribe("/uniwheels/pasajeroAceptado." + name, async function (conductor) {
 				console.log("vamos a eliminar");
 				$("#div-table").empty();
 				console.log(conductor);
@@ -113,7 +113,8 @@ var app = (function(){
                       toastr.options = { "positionClass": "toast-bottom-right"};
                       toastr.success('¡Tu solicitud fue aceptada!');
                  });
-				getCali(conductorData.conductorName ,"conductor");
+				let data = await fetch('/uniwheels/getValoracion/'+conductorData.conductorName+"/conductor");
+				let calificacion = await data.json();
 				var card = '<div class="card" style="width: 30rem; text-align: center; background-color: #333333">' +
 					'<div class="card-body">' +
 					'<h5 class="card-title">' + conductorData.conductorName + '</h5>' +
@@ -124,7 +125,7 @@ var app = (function(){
 					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">' + conductorData.carro.marca + '</li>' +
 					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">' + conductorData.carro.modelo + '</li>' +
 					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">' + conductorData.carro.placa + '</li>' +
-					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">' + calificaciones[calificaciones.length-1] + '</li>' +
+					'<li class="list-group-item" style="color:#FFFFFF; background-color: #333333">' + calificacion + '</li>' +
 					'</ul>' +
 					'<div class="card-body">' +
 					'</div>' +
