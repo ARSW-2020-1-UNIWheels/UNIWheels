@@ -49,7 +49,7 @@ var app = (function(){
 		let arrayTMP = new Array;
 		let i = 0;
 		coordenadas.map(function(element){
-			let cadenaTMP = element.latitud+","+element.longitud+","+pasaj.get(i);
+			let cadenaTMP = element.latitud+","+element.longitud+","+app.pasaj.get(i);
 			arrayTMP.push(cadenaTMP);
 			i++;
 		})
@@ -308,7 +308,8 @@ var app = (function(){
 		misCoordenadas:misCoordenadas,
 		enviarPosicion:enviarPosicion,
 		getCali:getCali,
-		calificaciones:calificaciones
+		calificaciones:calificaciones,
+		pasaj,pasaj
 	};
 	
 })();
