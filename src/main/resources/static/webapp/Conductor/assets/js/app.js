@@ -49,7 +49,7 @@ var app = (function(){
 		let arrayTMP = new Array;
 		let i = 0;
 		coordenadas.map(function(element){
-			let cadenaTMP = element.latitud+","+element.longitud+","+app.pasaj.get(i);
+			let cadenaTMP = element.latitud+","+element.longitud+","+element.title;
 			arrayTMP.push(cadenaTMP);
 			i++;
 		})
