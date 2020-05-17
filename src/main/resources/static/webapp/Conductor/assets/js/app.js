@@ -63,7 +63,7 @@ var app = (function(){
         pasaj.map( async function(element) {
             console.log(element);
             let datos = await fetch('/uniwheels/getLocalization/'+element);
-            let datosJSON = datos.json();
+            let datosJSON = datos.json().toString();
             let arrayTMP = datosJSON.split(",");
 			let dataTMP = {"latitud":Number(arrayTMP[0]),"longitud":Number(arrayTMP[1]),"title":"Pasajero"}
             ubicaciones.push(dataTMP);
