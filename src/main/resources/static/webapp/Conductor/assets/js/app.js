@@ -7,6 +7,8 @@ var app = (function(){
 	class Conductor{
 		constructor(){
 		}
+
+
 	}
 	class Ruta{
 		constructor(direccionOrigen, direccionDestino,precio){
@@ -133,7 +135,8 @@ var app = (function(){
 			var pasajerosData = JSON.parse(pasajeros.body);
 
 			console.log(pasajeros);
-			$("#pasajerosAceptados").empty();
+
+			$("#solicitudesPasajeros").empty();
 			pasajerosData.map(async function(element){
 				let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 				let calificacion = await data.json();
@@ -146,7 +149,7 @@ var app = (function(){
 					"</td>" +
 					"<td>" +
 					calificacion +
-					"</td>"
+					"</td> </tr>";
 
 				$("#pasajerosAceptados").append(markup);
 
