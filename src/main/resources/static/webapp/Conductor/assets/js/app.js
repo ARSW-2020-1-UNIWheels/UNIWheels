@@ -89,9 +89,10 @@ var app = (function(){
               toastr.success('¡Tu viaje a iniciado!');
          });
 
-
+        /*
          var boton = '<button class="login100-form-btn" onclick="app.terminarViaje()" id="finalizar">Finalizar</button>'
          $("#boton-fin").append(boton);
+         */
 
 	};
 
@@ -121,8 +122,8 @@ var app = (function(){
 		}
 		else{
 			addConductor();
-			desabilitar(true);
 		}
+		desabilitar(true);
 
 	};
 
