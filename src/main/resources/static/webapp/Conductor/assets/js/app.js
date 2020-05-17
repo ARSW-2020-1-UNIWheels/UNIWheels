@@ -155,41 +155,9 @@ var app = (function(){
 
 	};
 
-	var addPasajeros = function(){
-		stompClient.subscribe("/uniwheels/pasajero."+name,function (pasajeros){
-			//console.log(pasajeros);
-			var pasajerosData = JSON.parse(pasajeros.body);
-
-			console.log(pasajeros);
-			$("#solicitudesPasajeros").empty();
-
-			$("#pasajerosAceptados").empty();
-			pasajerosData.map(async function(element){
-				let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
-				let calificacion = await data.json();
-				//alert(calificacion);
-				var markup = "<tr> <td>" +
-					element.usuario.username +
-					"</td>" +
-					"<td>" +
-					element.usuario.universidad +
-					"</td>" +
-					"<td>" +
-					calificacion +
-					"</td> </tr>";
-
-				$("#pasajerosAceptados").append(markup);
-
-			});
-
-		});
-		stompClient.send("/app/recibirPasajeros");
-
-	};
 	
 	var aceptarPasajero = function (pasajero,estado) {
 		console.log("vamos a enviar el nombre "+pasajero+" "+estado);
-		addPasajeros();
 
 		stompClient = Stomp.over(socket);
 		stompClient.send("/app/agregarPasajero." + name, {}, pasajero.id +","+ estado);
