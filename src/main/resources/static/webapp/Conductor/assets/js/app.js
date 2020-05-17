@@ -298,7 +298,6 @@ var app = (function(){
 
 	return{	
 	    getPasajeros: getPasajeros,
-		addPasajeros: addPasajeros,
 		addSolicitudes: addSolicitudes,
 		getCarros: getCarros,
 		addCarros: addCarros,
