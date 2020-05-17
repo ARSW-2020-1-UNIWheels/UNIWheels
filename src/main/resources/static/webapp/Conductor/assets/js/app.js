@@ -42,22 +42,35 @@ var app = (function(){
 			navigator.geolocation.watchPosition(app.enviarPosicion,null,options);
 	};
 
+	function devolverString(coordenadas) {
+		let cadenaDevolver = "";
+		let arrayTMP = new Array;
+		coordenadas.map(function(element){
+			let cadenaTMP = element.latitud+","+element.longitud;
+			arrayTMP.push(cadenaTMP);
+		})
+		let cadenaTMP = arrayTMP.join("|");
+		return cadenaTMP;
+	}
+
 	function enviarPosicion(position){
-		posiciones[0] = {"latitud":position.coords.latitude,"longitud":position.coords.longitude,"title":"Conductor"};
-		plotMarkers(posiciones);
-        ubicaciones = new Array();
-		let datos = position.coords.latitude+','+position.coords.longitude;
+		ubicaciones[0] = {"latitud":position.coords.latitude,"longitud":position.coords.longitude,"title":"Conductor"};
+
+		let datosConductor = position.coords.latitude+','+position.coords.longitude;
 		console.log(pasaj);
         pasaj.map( async function(element) {
             console.log(element);
             let datos = await fetch('/uniwheels/getLocalization/'+element);
-
-            ubicaciones.push(datos);
+            let datosJSON = datos.json();
+            let arrayTMP = datosJSON.split(",");
+			let dataTMP = {"latitud":Number(arrayTMP[0]),"longitud":Number(arrayTMP[1]),"title":"Pasajero"}
+            ubicaciones.push(dataTMP);
             console.log(datos)
         });
         console.log(ubicaciones);
-        ubicaciones = new Array();
-		stompClient.send("/app/ofrecerPosicion."+name,{},datos);
+        plotMarkers(ubicaciones);
+        let cadenaTMP = devolverString(ubicaciones);
+		stompClient.send("/app/ofrecerPosicion."+name,{},cadenaTMP);
 
 	};
 
