@@ -148,10 +148,9 @@ var app = (function(){
 			var pasajerosData = JSON.parse(pasajeros.body);
 
 			console.log(pasajeros);
-
 			$("#solicitudesPasajeros").empty();
 
-			-$("#pasajerosAceptados").empty();
+			await $("#pasajerosAceptados").empty();
 			pasajerosData.map(async function(element){
 				let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 				let calificacion = await data.json();
@@ -208,7 +207,7 @@ var app = (function(){
 				conductoresData.map(async function(element){
 					let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 					let calificacion = await data.json();
-					console("Entre en posible conductor");
+					console.log("Entre en posible conductor");
 					console.log(element);
 					console.log(calificaciones);
 					var markup = "<tr> <td>" +
