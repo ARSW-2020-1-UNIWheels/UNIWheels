@@ -8,20 +8,21 @@ var app = (function(){
 	var socket = new SockJS('/stompendpoint');
 	var calificaciones= new Array();
 	var localizacion;
+	let options = {
+		enableHighAccuracy: true,
+		timeout: 5000,
+		maximumAge: 0
+	};
 
 	function misCoordenadas(){
 		console.log("calculando coordenadas");
-		navigator.geolocation.watchPosition(mostrarPosicion);
+		navigator.geolocation.watchPosition(app.mostrarPosicion, null, options);
 	};
 
 	function mostrarPosicion(position){
-		console.log(position.coords.latitude+" "+position.coords.longitude);
 		localizacion = String(position.coords.latitude)+","+String(position.coords.longitude);
 		apiclient.agregarPosicion(localizacion,name);
-		var datos = {"latitud":position.coords.latitude,"longitud":position.coords.longitude};
-		console.log(typeof(position.coords.longitude)+" "+typeof(position.coords.latitude));
-		ubicaciones.push(datos);
-		plotMarkers(ubicaciones);
+
 	};
 
 	var _getUser = function(info){
@@ -97,9 +98,16 @@ var app = (function(){
 				conduc = conductorData;
 				stompClient.subscribe("/uniwheels/recibirPosicion."+conduc.conductorName, function (datos){
 					console.log(datos.body);
-					var position = datos.body.split(",");
-					let aux = {"coords":{"latitude":Number(position[0]),"longitude":Number(position[1])}};
-					mostrarPosicion(aux);
+					ubicaciones = new Array;
+					let positions = datos.body.split("|");
+					positions.map(function(element){
+						let tmp = element.split(",");
+						let data = {"latitud":Number(tmp[0]),"longitud":Number(tmp[1]),"title":tmp[2]};
+						ubicaciones.push(data);
+
+					})
+					plotMarkers(ubicaciones);
+
 				});
 
 				stompClient.subscribe("/uniwheels/conductorFinalizado."+conduc.conductorName, function (){
@@ -174,7 +182,7 @@ var app = (function(){
 				$("#div-table").append(puntuacion);
 
 				console.log("vamos a poner el mapa");
-				misCoordenadas();
+				setInterval(misCoordenadas,15000);
 
 			});
 			stompClient.subscribe("/obtenerPasajeroEnViaje");
@@ -278,7 +286,8 @@ var app = (function(){
 		infoViaje: infoViaje,
 		pasajeroAceptado:pasajeroAceptado,
 		agregarPuntuacion:agregarPuntuacion,
-		getCali:getCali
+		getCali:getCali,
+		mostrarPosicion:mostrarPosicion
 	};
 	
 })();

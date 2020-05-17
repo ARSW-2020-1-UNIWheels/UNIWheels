@@ -47,9 +47,11 @@ var app = (function(){
 	function devolverString(coordenadas) {
 		let cadenaDevolver = "";
 		let arrayTMP = new Array;
+		let i = 0;
 		coordenadas.map(function(element){
-			let cadenaTMP = element.latitud+","+element.longitud;
+			let cadenaTMP = element.latitud+","+element.longitud+","+pasaj.get(i);
 			arrayTMP.push(cadenaTMP);
+			i++;
 		})
 		let cadenaTMP = arrayTMP.join("|");
 		return cadenaTMP;
@@ -59,16 +61,12 @@ var app = (function(){
 		ubicaciones[0] = {"latitud":position.coords.latitude,"longitud":position.coords.longitude,"title":"Conductor"};
 
 		let datosConductor = position.coords.latitude+','+position.coords.longitude;
-		console.log(pasaj);
         pasaj.map( async function(element) {
-            console.log(element);
             let datos = await fetch('/uniwheels/getLocalization/'+element);
             let datosJSON = JSON.parse(JSON.stringify(await datos.json()));
-			let dataTMP = {"latitud":datosJSON.latitud,"longitud":datosJSON.longitud,"title":"Pasajero"}
+			let dataTMP = {"latitud":datosJSON.latitud,"longitud":datosJSON.longitud,"title":element}
             ubicaciones.push(dataTMP);
-            console.log(datos)
         });
-        console.log(ubicaciones);
         plotMarkers(ubicaciones);
         let cadenaTMP = devolverString(ubicaciones);
 		stompClient.send("/app/ofrecerPosicion."+name,{},cadenaTMP);
