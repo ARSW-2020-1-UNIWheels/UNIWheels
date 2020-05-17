@@ -128,12 +128,12 @@ var app = (function(){
 	};
 
 	var addPasajeros = function(){
-		stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
+		stompClient.subscribe("/uniwheels/pasajero."+name, async function (pasajeros){
 			//console.log(pasajeros);
 			var pasajerosData = JSON.parse(pasajeros.body);
 
 			console.log(pasajeros);
-			$("#pasajerosAceptados").empty();
+			await $("#pasajerosAceptados").empty();
 			pasajerosData.map(async function(element){
 				let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 				let calificacion = await data.json();
