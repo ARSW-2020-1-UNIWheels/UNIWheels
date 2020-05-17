@@ -156,14 +156,14 @@ var app = (function(){
 	};
 
 	var addPasajeros = function(){
-		stompClient.subscribe("/uniwheels/pasajero."+name, async function (pasajeros){
+		stompClient.subscribe("/uniwheels/pasajero."+name,function (pasajeros){
 			//console.log(pasajeros);
 			var pasajerosData = JSON.parse(pasajeros.body);
 
 			console.log(pasajeros);
 			$("#solicitudesPasajeros").empty();
 
-			await $("#pasajerosAceptados").empty();
+			$("#pasajerosAceptados").empty();
 			pasajerosData.map(async function(element){
 				let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 				let calificacion = await data.json();
@@ -189,8 +189,6 @@ var app = (function(){
 	
 	var aceptarPasajero = function (pasajero,estado) {
 		console.log("vamos a enviar el nombre "+pasajero+" "+estado);
-		$("#solicitudesPasajeros").empty();
-		$("#pasajerosAceptados").empty();
 		addPasajeros();
 
 		stompClient = Stomp.over(socket);
@@ -214,9 +212,9 @@ var app = (function(){
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function () {
 			console.log('Connected: ');
-			stompClient.subscribe("/uniwheels/posiblesConductores."+name, async function (conductores) {
+			stompClient.subscribe("/uniwheels/posiblesConductores."+name, function (conductores) {
 				let conductoresData = JSON.parse(conductores.body);
-				await $("#tableSolicitudes > tbody").empty();
+				$("#tableSolicitudes > tbody").empty();
 				conductoresData.map(async function(element){
 					let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 					let calificacion = await data.json();
