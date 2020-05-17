@@ -29,7 +29,7 @@ public class UniWheelsAPIController extends BaseController {
     @Autowired
     AuthServices authServices;
 
-    @RequestMapping(value="/putLocalization/{username}/{localization}",method = RequestMethod.PATCH)
+    @RequestMapping(value="/putLocalization/{username}/{localization}",method = {RequestMethod.PATCH,RequestMethod.PUT})
     public ResponseEntity<?> putLocalizacion(@PathVariable String username,@PathVariable String localization){
         try{
             uws.agregarUbicacionPersona(username,localization);
