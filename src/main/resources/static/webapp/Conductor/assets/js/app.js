@@ -63,8 +63,9 @@ var app = (function(){
         pasaj.map( async function(element) {
             console.log(element);
             let datos = await fetch('/uniwheels/getLocalization/'+element);
-            let datosJSON = JSON.stringify(datos.json());
-            console.log(datosJSON);
+            let datosJSON = await JSON.stringify(datos.json());
+            console.log((await datos.json()+"Probando"));
+            console.log(datosJSON+" Si el bobo ese aparece");
             let arrayTMP = datosJSON.split(",");
 			let dataTMP = {"latitud":arrayTMP[0],"longitud":arrayTMP[1],"title":"Pasajero"}
             ubicaciones.push(dataTMP);
