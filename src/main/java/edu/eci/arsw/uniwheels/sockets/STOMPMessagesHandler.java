@@ -141,7 +141,7 @@ public class STOMPMessagesHandler extends BaseHandler{
             }
             List<Conductor> otrosConductores = uniWheelsServices.getConductoresDisponibles();
             for(Conductor otroConductor:otrosConductores){
-                if(otroConductor.posiblesPasajeros.contains(pasajero) && otroConductor.id == conductor.id){
+                if(otroConductor.posiblesPasajeros.contains(pasajero) && otroConductor.id != conductor.id){
 
                     uniWheelsServices.deletePosiblePasajero(pasajero.id,otroConductor.id);
                     Conductor otroConductorPrueba = uniWheelsServices.getConductor(otroConductor.conductorName);
@@ -164,7 +164,6 @@ public class STOMPMessagesHandler extends BaseHandler{
             uniWheelsServices.deletePosiblePasajero(pasajero.id,conductor.id);
             msgt.convertAndSend("/uniwheels/pasajeroRechazado."+pasajero.pasajeroName,conductor);
         }
-        uniWheelsServices.actualizarDB();
         conductor = uniWheelsServices.getConductor(conductorUsername);
         List<Conductor> todosLosConductores = uniWheelsServices.getConductoresDisponibles();
         msgt.convertAndSend("/uniwheels/conductoresDisponibles", todosLosConductores);
