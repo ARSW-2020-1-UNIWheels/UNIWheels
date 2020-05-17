@@ -89,6 +89,16 @@ var apiclient = ( function () {
             .catch(error => console.log(error));
     });
 
+    var getLocalization = (function (name) {
+        axios({
+            method: 'GET',
+            url: '/uniwheels/getLocalization/'+name,
+
+        })
+            .then(response => app.ubicaciones.push(response.data))
+            .catch(error => console.log(error));
+    });
+
     return{
         getPasajeros: getPasajeros,
         getSolicitudesPasajeros: getSolicitudesPasajeros,
@@ -96,7 +106,8 @@ var apiclient = ( function () {
         getUser:getUser,
         getExisteConductor:getExisteConductor,
         agregarPuntuacion:agregarPuntuacion,
-        getPuntuacion:getPuntuacion
+        getPuntuacion:getPuntuacion,
+        getLocalization:getLocalization
 		/* agregarPasajero: agregarPasajero*/
 		
     }

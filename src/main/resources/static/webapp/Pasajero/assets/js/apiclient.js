@@ -53,11 +53,21 @@ var apiclient = ( function () {
             .catch(error => console.log(error));
     });
 
+    var agregarPosicion = (function (coordenadas,name) {
+        axios({
+            method: 'PATCH',
+            url: '/uniwheels/putLocalization/'+name+"/"+coordenadas,
+
+        })
+            .catch(error => console.log(error));
+    });
+
     return{
         getConductoresDisponibles: getConductoresDisponibles,
         agregarPosibleConductor:agregarPosibleConductor,
         getUser:getUser,
         agregarPuntuacion:agregarPuntuacion,
-        getPuntuacion:getPuntuacion
+        getPuntuacion:getPuntuacion,
+        agregarPosicion:agregarPosicion
     }
 })();
