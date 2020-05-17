@@ -89,6 +89,11 @@ var app = (function(){
               toastr.success('¡Tu viaje a iniciado!');
          });
 
+        /*
+         var boton = '<button class="login100-form-btn" onclick="app.terminarViaje()" id="finalizar">Finalizar</button>'
+         $("#boton-fin").append(boton);
+         */
+
 	};
 
 	var infoViaje = function(){
@@ -115,13 +120,11 @@ var app = (function(){
                   toastr.info('Tu punto de destino debe ser diferente a tu viaje!!');
              });
 		}
-		else if(destino==inicio){
-			alert("Debes elegir un lugar de destino diferente a tu lugar de origen!!");
-		}
 		else{
 			addConductor();
 		}
 		desabilitar(true);
+
 	};
 
 	var addPasajeros = function(){
