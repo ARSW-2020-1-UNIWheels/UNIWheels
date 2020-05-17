@@ -128,16 +128,16 @@ var app = (function(){
 	};
 
 	var addPasajeros = function(){
-		stompClient.subscribe("/uniwheels/pasajero."+name, async function (pasajeros){
+		stompClient.subscribe("/uniwheels/pasajero."+name, function (pasajeros){
 			//console.log(pasajeros);
 			var pasajerosData = JSON.parse(pasajeros.body);
-			let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
-			let calificacion = await data.json();
+
 
 			console.log(pasajeros);
 			$("#pasajerosAceptados").empty();
-			pasajerosData.map(function(element){
-				getCali(element.usuario.username,"pasajero");
+			pasajerosData.map(async function(element){
+				let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
+				let calificacion = await data.json();
 				//alert(calificacion);
 				var markup = "<tr> <td>" +
 					element.usuario.username +
