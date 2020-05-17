@@ -191,7 +191,6 @@ var app = (function(){
 					let data = await fetch('/uniwheels/getValoracion/'+element.usuario.username+"/pasajero");
 					let calificacion = await data.json();
 					console.log(element);
-					getCali(element.usuario.username,"conductor");
 					console.log(calificaciones);
 					var markup = "<tr> <td>" +
 						element.usuario.username +
