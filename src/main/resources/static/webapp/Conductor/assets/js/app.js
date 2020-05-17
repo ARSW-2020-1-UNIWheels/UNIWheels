@@ -64,8 +64,9 @@ var app = (function(){
             console.log(element);
             let datos = await fetch('/uniwheels/getLocalization/'+element);
             let datosJSON = datos.json().toString();
+            console.log(datosJSON);
             let arrayTMP = datosJSON.split(",");
-			let dataTMP = {"latitud":Number(arrayTMP[0]),"longitud":Number(arrayTMP[1]),"title":"Pasajero"}
+			let dataTMP = {"latitud":arrayTMP[0],"longitud":arrayTMP[1],"title":"Pasajero"}
             ubicaciones.push(dataTMP);
             console.log(datos)
         });
