@@ -262,6 +262,7 @@ var app = (function(){
 						"\")' >Calificar</button></form></td>" +
 						"</tr>";
 					$("#calificaciones").append(a);
+					misCoordenadas();
 				});
 				console.log("vamos a poner el mapa");
 
