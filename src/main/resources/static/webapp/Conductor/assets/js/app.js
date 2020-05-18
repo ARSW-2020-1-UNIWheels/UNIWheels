@@ -67,12 +67,7 @@ var app = (function(){
             let datosJSON = JSON.parse(JSON.stringify(await datos.json()));
 			let dataTMP = {"latitud":datosJSON.latitud,"longitud":datosJSON.longitud,"title":element}
 			let flag = true;
-			for(let i =0;i<ubicaciones.length;i++){
-			    if(ubicaciones.get(i).title === element){
-			        flag = false;
-                }
-            }
-			if(flag) {
+			if(ubicaciones.find(iterator => iterator.title === element) ===undefined) {
                 ubicaciones.push(dataTMP);
             }
         });
