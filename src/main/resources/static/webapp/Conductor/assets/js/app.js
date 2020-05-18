@@ -4,6 +4,7 @@ var app = (function(){
 	var calificaciones= new Array();
 	var socket=new SockJS('/stompendpoint');
 	var pasaj = new Array();
+    var ubicaciones = new Array();
 
 
 	class Conductor{
@@ -57,17 +58,27 @@ var app = (function(){
 		return cadenaTMP;
 	}
 
+
 	function enviarPosicion(position){
-        var ubicaciones = new Array();
 		ubicaciones.push({"latitud":position.coords.latitude,"longitud":position.coords.longitude,"title":"Conductor"});
 		let datosConductor = position.coords.latitude+','+position.coords.longitude;
         pasaj.map( async function(element) {
             let datos = await fetch('/uniwheels/getLocalization/'+element);
             let datosJSON = JSON.parse(JSON.stringify(await datos.json()));
 			let dataTMP = {"latitud":datosJSON.latitud,"longitud":datosJSON.longitud,"title":element}
-            ubicaciones.push(dataTMP);
+			let flag = true;
+			for(let i =0;i<ubicaciones.length;i++){
+			    if(ubicaciones.get(i).title === element){
+			        flag = false;
+                }
+            }
+			if(flag) {
+                ubicaciones.push(dataTMP);
+            }
         });
+
         plotMarkers(ubicaciones);
+
         let cadenaTMP = devolverString(ubicaciones);
 		stompClient.send("/app/ofrecerPosicion."+name,{},cadenaTMP);
 
