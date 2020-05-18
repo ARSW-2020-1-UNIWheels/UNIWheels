@@ -4,7 +4,7 @@ var app = (function(){
 	var calificaciones= new Array();
 	var socket=new SockJS('/stompendpoint');
 	var pasaj = new Array();
-	var ubicaciones = new Array();
+
 
 	class Conductor{
 		constructor(){
@@ -58,6 +58,7 @@ var app = (function(){
 	}
 
 	function enviarPosicion(position){
+        var ubicaciones = new Array();
 		ubicaciones.push({"latitud":position.coords.latitude,"longitud":position.coords.longitude,"title":"Conductor"});
 		let datosConductor = position.coords.latitude+','+position.coords.longitude;
         pasaj.map( async function(element) {
