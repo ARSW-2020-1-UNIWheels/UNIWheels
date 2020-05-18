@@ -321,7 +321,7 @@ var app = (function(){
 		enviarPosicion:enviarPosicion,
 		getCali:getCali,
 		calificaciones:calificaciones,
-		pasaj,pasaj
+		pasaj:pasaj
 	};
 	
 })();
