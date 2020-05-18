@@ -119,6 +119,7 @@ var app = (function(){
                          toastr.success('¡Tu vaije terminó. Por favor califica a tu conductor!');
                     });
 				});
+				
                  $(document).ready(function() {
                       console.log("¡Tu solicitud fue aceptada!");
                       toastr.options = { "positionClass": "toast-bottom-right"};
@@ -270,6 +271,9 @@ var app = (function(){
 	
 	var agregarPosiblePasajero = function(conductorName){
 		console.info('Connecting to WS...');
+
+		toastr.options = { "positionClass": "toast-bottom-right"};
+        toastr.success('¡Tu solicitud fue enviada. Espera la respuesta de tu conductor!');
 
 		stompClient = Stomp.over(socket);
 
