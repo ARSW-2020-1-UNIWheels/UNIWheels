@@ -146,8 +146,8 @@ var app = (function(){
 		}
 		else{
 			addConductor();
+			desabilitar(true);
 		}
-		desabilitar(true);
 
 	};
 
