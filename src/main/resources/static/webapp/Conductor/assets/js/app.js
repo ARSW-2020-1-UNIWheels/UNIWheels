@@ -5,6 +5,7 @@ var app = (function(){
 	var socket=new SockJS('/stompendpoint');
 	var pasaj = new Array();
     var ubicaciones = new Array();
+    var yaSeAgregoConductor = true;
 
 
 	class Conductor{
@@ -58,16 +59,21 @@ var app = (function(){
 		return cadenaTMP;
 	}
 
-
 	function enviarPosicion(position){
-		ubicaciones.push({"latitud":position.coords.latitude,"longitud":position.coords.longitude,"title":"Conductor"});
+	    if(yaSeAgregoConductor) {
+            ubicaciones.push({
+                "latitud": position.coords.latitude,
+                "longitud": position.coords.longitude,
+                "title": "Conductor"
+            });
+            yaSeAgregoConductor = false;
+        }
 		let datosConductor = position.coords.latitude+','+position.coords.longitude;
         pasaj.map( async function(element) {
-            let datos = await fetch('/uniwheels/getLocalization/'+element);
-            let datosJSON = JSON.parse(JSON.stringify(await datos.json()));
-			let dataTMP = {"latitud":datosJSON.latitud,"longitud":datosJSON.longitud,"title":element}
-			let flag = true;
-			if(ubicaciones.find(iterator => iterator.title === element) ===undefined) {
+            if(ubicaciones.find(iterator => iterator.title === element) ===undefined) {
+                let datos = await fetch('/uniwheels/getLocalization/'+element);
+                let datosJSON = JSON.parse(JSON.stringify(await datos.json()));
+                let dataTMP = {"latitud":datosJSON.latitud,"longitud":datosJSON.longitud,"title":element}
                 ubicaciones.push(dataTMP);
             }
         });
