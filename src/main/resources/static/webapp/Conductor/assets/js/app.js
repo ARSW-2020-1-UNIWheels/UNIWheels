@@ -3,7 +3,6 @@ var app = (function(){
 	var name;
 	var calificaciones= new Array();
 	var socket=new SockJS('/stompendpoint');
-	var ubicaciones = new Array();
 	var pasaj = new Array();
 
 	class Conductor{
@@ -58,7 +57,7 @@ var app = (function(){
 	}
 
 	function enviarPosicion(position){
-	    ubicaciones = new Array;
+	    let ubicaciones = new Array;
 		ubicaciones.push({"latitud":position.coords.latitude,"longitud":position.coords.longitude,"title":"Conductor"});
 		let datosConductor = position.coords.latitude+','+position.coords.longitude;
         pasaj.map( async function(element) {
@@ -253,7 +252,7 @@ var app = (function(){
 				});
 				console.log("vamos a poner el mapa");
 
-				setInterval(misCoordenadas,60000);
+				setInterval(misCoordenadas,30000);
 			});
 			stompClient.send("/app/recibirPasajeros");
 
